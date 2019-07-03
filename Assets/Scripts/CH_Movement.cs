@@ -85,8 +85,8 @@ public class CH_Movement : MonoBehaviour {
 
     private Vector3 ClampMovement(Vector3 moveVal)
     {
-        //Mathf.Clamp(moveVal.y, col.backColPoint, col.frontColPoint);
-        //Mathf.Clamp(moveVal.x, col.leftColPoint, col.rightColPoint);
+        Mathf.Clamp(moveVal.y, col.backColPoint, col.frontColPoint);
+        Mathf.Clamp(moveVal.x, col.leftColPoint, col.rightColPoint);
         return moveVal;
     }
 
@@ -100,7 +100,7 @@ public class CH_Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ResetMoveVector3();
-        //Movement(Input.GetAxis("horizontal"), Input.GetAxis("vertical"));
-        gameObject.transform.position = new Vector3(Mathf.Clamp(transform.position.x, col.leftColPoint, col.rightColPoint), transform.position.y, Mathf.Clamp(transform.position.z, col.backColPoint, col.frontColPoint));
+        Movement(Input.GetAxis("horizontal"), Input.GetAxis("vertical"));
+        //gameObject.transform.position = new Vector3(Mathf.Clamp(transform.position.x, col.leftColPoint, col.rightColPoint), transform.position.y, Mathf.Clamp(transform.position.z, col.backColPoint, col.frontColPoint));
     }
 }

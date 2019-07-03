@@ -38,6 +38,10 @@ public class CH_Collisions : MonoBehaviour {
     public float backColPoint;
     public float leftColPoint;
     public float rightColPoint;
+    public GameObject fColGo;
+    public GameObject bColGo;
+    public GameObject lColGo;
+    public GameObject rColGo;
 
     private float characterRadius = 0.43f;
 
@@ -66,7 +70,7 @@ public class CH_Collisions : MonoBehaviour {
         yFloatList.Clear();
         xFloatRaw.Clear();
         
-        if (Physics.Raycast(tFront01.position, tFront01.forward, out front01Hit, maxDistance))
+        if (Physics.Raycast(tFront01.position, tFront01.forward, out front01Hit, Mathf.Infinity))
         {
             if (front01Hit.distance <= skinDepth)
             {
@@ -81,7 +85,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tFront01.position, tFront01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tFront02.position, tFront02.forward, out front02Hit, maxDistance))
+        if (Physics.Raycast(tFront02.position, tFront02.forward, out front02Hit, Mathf.Infinity))
         {
             if (front02Hit.distance <= skinDepth)
             {
@@ -96,7 +100,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tFront02.position, tFront02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tBack01.position, tBack01.forward, out back01Hit, maxDistance))
+        if (Physics.Raycast(tBack01.position, tBack01.forward, out back01Hit, Mathf.Infinity))
         {
             if (back01Hit.distance <= skinDepth)
             {
@@ -111,7 +115,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tBack01.position, tBack01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tBack02.position, tBack02.forward, out back02Hit, maxDistance))
+        if (Physics.Raycast(tBack02.position, tBack02.forward, out back02Hit, Mathf.Infinity))
         {
             if (back02Hit.distance <= skinDepth)
             {
@@ -126,7 +130,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tBack02.position, tBack02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tLeft01.position, tLeft01.forward, out left01Hit, maxDistance))
+        if (Physics.Raycast(tLeft01.position, tLeft01.forward, out left01Hit, Mathf.Infinity))
         {
             if (left01Hit.distance <= skinDepth)
             {
@@ -142,7 +146,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tLeft01.position, tLeft01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tLeft02.position, tLeft02.forward, out left02Hit, maxDistance))
+        if (Physics.Raycast(tLeft02.position, tLeft02.forward, out left02Hit, Mathf.Infinity))
         {
             if (left02Hit.distance <= skinDepth)
             {
@@ -157,7 +161,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tLeft02.position, tLeft02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tRight01.position, tRight01.forward, out right01Hit, maxDistance))
+        if (Physics.Raycast(tRight01.position, tRight01.forward, out right01Hit, Mathf.Infinity))
         {
             if (right01Hit.distance <= skinDepth)
             {
@@ -172,7 +176,7 @@ public class CH_Collisions : MonoBehaviour {
                 Debug.DrawRay(tRight01.position, tRight01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
         }
-        if (Physics.Raycast(tRight02.position, tRight02.forward, out right02Hit, maxDistance))
+        if (Physics.Raycast(tRight02.position, tRight02.forward, out right02Hit, Mathf.Infinity))
         {
             if (right02Hit.distance <= skinDepth)
             {
@@ -189,52 +193,66 @@ public class CH_Collisions : MonoBehaviour {
             }
         }
 
-        yFloatList.Add(front01Hit.point.z -skinDepth - characterRadius - 0.15f);
-        yFloatList.Add(front02Hit.point.z -skinDepth - characterRadius - 0.15f);
-        yFloatList.Add(back01Hit.point.z +skinDepth + characterRadius + 0.15f);
-        yFloatList.Add(back02Hit.point.z +skinDepth + characterRadius + 0.15f);
-        xFloatList.Add(left01Hit.point.x +skinDepth + characterRadius + 0.15f);
-        xFloatList.Add(left02Hit.point.x +skinDepth + characterRadius + 0.15f);
-        xFloatList.Add(right01Hit.point.x -skinDepth - characterRadius - 0.15f);
-        xFloatList.Add(right02Hit.point.x -skinDepth - characterRadius - 0.15f);  
+        yFloatList.Add(front01Hit.point.z);
+        yFloatList.Add(front02Hit.point.z);
+        yFloatList.Add(back01Hit.point.z);
+        yFloatList.Add(back02Hit.point.z);
+        xFloatList.Add(left01Hit.point.x);
+        xFloatList.Add(left02Hit.point.x);
+        xFloatList.Add(right01Hit.point.x);
+        xFloatList.Add(right02Hit.point.x);
     }
 
     private void Update()
     {
-        if (xFloatList[0] <= xFloatList[1])
+        if (xFloatList[0] > xFloatList[1])
         {
             leftColPoint = xFloatList[0];
         }
         else { leftColPoint = xFloatList[1]; }
 
-        if (xFloatList[2] <= xFloatList[3])
+
+        if (xFloatList[2] < xFloatList[3])
         {
             rightColPoint = xFloatList[2];
         }
         else { rightColPoint = xFloatList[3]; }
 
-        if (yFloatList[0] <= yFloatList[1])
-        {
-            frontColPoint = xFloatList[0];
-        }
-        else { frontColPoint = xFloatList[1]; }
 
-        if (yFloatList[0] <= yFloatList[1])
+        if (yFloatList[0] < yFloatList[1])
         {
-            backColPoint = xFloatList[0];
+            frontColPoint = yFloatList[0];
         }
-        else { backColPoint = xFloatList[1]; }
+        else { frontColPoint = yFloatList[1]; }
+
+
+        if (yFloatList[2] > yFloatList[3])
+        {
+            backColPoint = yFloatList[2];
+        }
+        else { backColPoint = yFloatList[3]; }
+
+        leftColPoint += skinDepth;
+        rightColPoint -= skinDepth;
+        frontColPoint -= skinDepth;
+        backColPoint += skinDepth;
+
 
         if (debug)
         {
-            Front01Debug.transform.position = new Vector3(front01Hit.point.x, 0.5f, front01Hit.point.z - skinDepth - characterRadius - 0.15f);
-            Front02Debug.transform.position = new Vector3(front02Hit.point.x, 0.5f, front02Hit.point.z - skinDepth - characterRadius - 0.15f);
-            Back01Debug.transform.position = new Vector3(back01Hit.point.x, 0.5f, back01Hit.point.z - skinDepth - characterRadius - 0.15f);
-            Back02Debug.transform.position = new Vector3(back02Hit.point.x, 0.5f, back02Hit.point.z - skinDepth - characterRadius - 0.15f);
-            Left01Debug.transform.position = new Vector3(left01Hit.point.x - skinDepth - characterRadius - 0.15f, 0.5f, left01Hit.point.z);
-            Left02Debug.transform.position = new Vector3(left02Hit.point.x - skinDepth - characterRadius - 0.15f, 0.5f, left02Hit.point.z);
-            Right01Debug.transform.position = new Vector3(right01Hit.point.x - skinDepth - characterRadius - 0.15f, 0.5f, right01Hit.point.z);
-            Right02Debug.transform.position = new Vector3(right02Hit.point.x - skinDepth - characterRadius - 0.15f, 0.5f, right02Hit.point.z);
+            Front01Debug.transform.position = new Vector3(front01Hit.point.x, 0.5f, front01Hit.point.z);
+            Front02Debug.transform.position = new Vector3(front02Hit.point.x, 0.5f, front02Hit.point.z);
+            Back01Debug.transform.position = new Vector3(back01Hit.point.x, 0.5f, back01Hit.point.z);
+            Back02Debug.transform.position = new Vector3(back02Hit.point.x, 0.5f, back02Hit.point.z);
+            Left01Debug.transform.position = new Vector3(left01Hit.point.x, 0.5f, left01Hit.point.z);
+            Left02Debug.transform.position = new Vector3(left02Hit.point.x, 0.5f, left02Hit.point.z);
+            Right01Debug.transform.position = new Vector3(right01Hit.point.x, 0.5f, right01Hit.point.z);
+            Right02Debug.transform.position = new Vector3(right02Hit.point.x, 0.5f, right02Hit.point.z);
+
+            fColGo.transform.position = new Vector3(transform.position.x, transform.position.y, frontColPoint);
+            bColGo.transform.position = new Vector3(transform.position.x, transform.position.y, backColPoint);
+            lColGo.transform.position = new Vector3(leftColPoint, transform.position.y, transform.position.z);
+            rColGo.transform.position = new Vector3(rightColPoint, transform.position.y, transform.position.z);
         }
     }
 }
