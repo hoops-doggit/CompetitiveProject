@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ShipBehaviour : MonoBehaviour
+public class ShipLeadBehaviour : MonoBehaviour
 {
 
     public Vector3 goal;

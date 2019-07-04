@@ -41,7 +41,7 @@ public class ShipTrajectoryAdjust : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        startPos = transform.position;
+        startPos = transform.localPosition;
         x = new Vector2(startPos.x - distanceVariability, startPos.x + distanceVariability);
         y = new Vector2(startPos.y - distanceVariability, startPos.y + distanceVariability);
         z = new Vector2(startPos.z - distanceVariability, startPos.z + distanceVariability);
@@ -64,31 +64,31 @@ public class ShipTrajectoryAdjust : MonoBehaviour
     {
        
         //move closer to the position
-        if(gameObject.transform.position.x < goalPos.x)
+        if(gameObject.transform.localPosition.x < goalPos.x)
         {
-            gameObject.transform.position += new Vector3(adjustmentSpeed,0,0);
+            gameObject.transform.localPosition += new Vector3(adjustmentSpeed,0,0) * Time.deltaTime;
         }
         else
         {
-            gameObject.transform.position -= new Vector3(adjustmentSpeed, 0, 0);
+            gameObject.transform.localPosition -= new Vector3(adjustmentSpeed, 0, 0) * Time.deltaTime;
         }
 
-        if (gameObject.transform.position.y < goalPos.y)
+        if (gameObject.transform.localPosition.y < goalPos.y)
         {
-            gameObject.transform.position += new Vector3(0, adjustmentSpeed, 0);
+            gameObject.transform.localPosition += new Vector3(0, adjustmentSpeed, 0) * Time.deltaTime;
         }
         else
         {
-            gameObject.transform.position -= new Vector3(0, adjustmentSpeed, 0);
+            gameObject.transform.localPosition -= new Vector3(0, adjustmentSpeed, 0) * Time.deltaTime;
         }
 
-        if (gameObject.transform.position.z < goalPos.z)
+        if (gameObject.transform.localPosition.z < goalPos.z)
         {
-            gameObject.transform.position += new Vector3(0, 0,adjustmentSpeed);
+            gameObject.transform.localPosition += new Vector3(0, 0,adjustmentSpeed) * Time.deltaTime;
         }
         else
         {
-            gameObject.transform.position -= new Vector3(0, 0, adjustmentSpeed);
+            gameObject.transform.localPosition -= new Vector3(0, 0, adjustmentSpeed) * Time.deltaTime;
         }
 
         currentTime++;

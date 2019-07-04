@@ -195,7 +195,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -204,7 +204,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.23494062
+        value: 0.076211065
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -263,5 +263,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goal: {x: 0, y: 0, z: 0}
-  acc: 10
+  acc: 40
+  maxMagnitude: 40
   parent: {fileID: 0}
