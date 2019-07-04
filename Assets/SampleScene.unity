@@ -556,6 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b29b92ac2003f149b834eeb9cd46768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   front01: 0
   front02: 0
   back01: 0
@@ -585,7 +586,6 @@ MonoBehaviour:
   bColGo: {fileID: 169225259}
   lColGo: {fileID: 210822078}
   rColGo: {fileID: 1481735527}
-  debug: 1
   Front01Debug: {fileID: 850175470}
   Front02Debug: {fileID: 604767585}
   Back01Debug: {fileID: 1326872792}
@@ -607,6 +607,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   acc: 1
+  autoCorrectDistance: 0.1
+  autoCorrectAmount: 1.01
+  magnitude: 0
 --- !u!1001 &129583364
 Prefab:
   m_ObjectHideFlags: 0

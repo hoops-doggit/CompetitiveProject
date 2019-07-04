@@ -92,15 +92,12 @@ public class CH_Movement : MonoBehaviour {
 
     private void ResetMoveVector3()
     {
-        move.x = 0;
-        move.y = 0;
-        move.z = 0;
+        move = Vector3.zero;
     }
 	
-	// Update is called once per frame
+
 	void Update () {
         ResetMoveVector3();
         Movement(Input.GetAxis("horizontal"), Input.GetAxis("vertical"));
-        //gameObject.transform.position = new Vector3(Mathf.Clamp(transform.position.x, col.leftColPoint, col.rightColPoint), transform.position.y, Mathf.Clamp(transform.position.z, col.backColPoint, col.frontColPoint));
     }
 }

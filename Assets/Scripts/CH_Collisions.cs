@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CH_Collisions : MonoBehaviour {
 
+    public bool debug = false;
     public bool front01;
     public bool front02;
     public bool back01;
@@ -45,8 +46,6 @@ public class CH_Collisions : MonoBehaviour {
 
     private float characterRadius = 0.43f;
 
-    public bool debug = false;
-
     public GameObject Front01Debug;
     public GameObject Front02Debug;
     public GameObject Back01Debug;
@@ -60,7 +59,21 @@ public class CH_Collisions : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //maxDistance = skinDepth + 0.2f;
+        if (!debug)
+        {
+            fColGo.SetActive(false);
+            bColGo.SetActive(false);
+            lColGo.SetActive(false);
+            rColGo.SetActive(false);
+            Front01Debug.SetActive(false);
+            Front02Debug.SetActive(false);
+            Back01Debug.SetActive(false);
+            Back02Debug.SetActive(false);
+            Left01Debug.SetActive(false);
+            Left02Debug.SetActive(false);
+            Right01Debug.SetActive(false);
+            Right02Debug.SetActive(false);
+        }
     }
 
     // Update is called once per frame
