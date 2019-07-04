@@ -14,6 +14,14 @@ public class CH_Collisions : MonoBehaviour {
     public bool right01;
     public bool right02;
 
+    public bool front = false;
+    public bool back = false;
+    public bool left = false;
+    public bool right= false;
+
+    public float leftDistance;
+    public float collisionDistance;
+
     public Transform tFront01;
     public Transform tFront02;
     public Transform tBack01;
@@ -82,6 +90,10 @@ public class CH_Collisions : MonoBehaviour {
         xFloatList.Clear();
         yFloatList.Clear();
         xFloatRaw.Clear();
+        front = false;
+        back = false;
+        left = false;
+        right = false;
         
         if (Physics.Raycast(tFront01.position, tFront01.forward, out front01Hit, Mathf.Infinity))
         {
@@ -97,6 +109,7 @@ public class CH_Collisions : MonoBehaviour {
                 if (front01Hit.distance < maxDistance) { distance = front01Hit.distance; }
                 Debug.DrawRay(tFront01.position, tFront01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
         if (Physics.Raycast(tFront02.position, tFront02.forward, out front02Hit, Mathf.Infinity))
         {
@@ -112,6 +125,7 @@ public class CH_Collisions : MonoBehaviour {
                 if (front02Hit.distance < maxDistance) { distance = front02Hit.distance; }
                 Debug.DrawRay(tFront02.position, tFront02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
         if (Physics.Raycast(tBack01.position, tBack01.forward, out back01Hit, Mathf.Infinity))
         {
@@ -127,6 +141,7 @@ public class CH_Collisions : MonoBehaviour {
                 if (back01Hit.distance < maxDistance) { distance = back01Hit.distance; }
                 Debug.DrawRay(tBack01.position, tBack01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+  
         }
         if (Physics.Raycast(tBack02.position, tBack02.forward, out back02Hit, Mathf.Infinity))
         {
@@ -142,9 +157,11 @@ public class CH_Collisions : MonoBehaviour {
                 if (back02Hit.distance < maxDistance) { distance = back02Hit.distance; }
                 Debug.DrawRay(tBack02.position, tBack02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
         if (Physics.Raycast(tLeft01.position, tLeft01.forward, out left01Hit, Mathf.Infinity))
         {
+            leftDistance = left01Hit.distance;
             if (left01Hit.distance <= skinDepth)
             {
                 left01 = true;
@@ -158,6 +175,7 @@ public class CH_Collisions : MonoBehaviour {
 
                 Debug.DrawRay(tLeft01.position, tLeft01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
         if (Physics.Raycast(tLeft02.position, tLeft02.forward, out left02Hit, Mathf.Infinity))
         {
@@ -173,6 +191,7 @@ public class CH_Collisions : MonoBehaviour {
                 if (left02Hit.distance < maxDistance) { distance = left02Hit.distance; }
                 Debug.DrawRay(tLeft02.position, tLeft02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
         if (Physics.Raycast(tRight01.position, tRight01.forward, out right01Hit, Mathf.Infinity))
         {
@@ -188,6 +207,7 @@ public class CH_Collisions : MonoBehaviour {
                 if (right01Hit.distance < maxDistance) { distance = right01Hit.distance; }
                 Debug.DrawRay(tRight01.position, tRight01.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
         if (Physics.Raycast(tRight02.position, tRight02.forward, out right02Hit, Mathf.Infinity))
         {
@@ -204,7 +224,30 @@ public class CH_Collisions : MonoBehaviour {
                 if (right02Hit.distance < maxDistance) {distance = right02Hit.distance;}
                 Debug.DrawRay(tRight02.position, tRight02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
+
         }
+
+        if(front01 || front02)
+        {
+            front = true;
+        }
+        else { front = false; }
+        if (back01 || back02)
+        {
+            back = true;
+        }
+        else { back = false; }
+        if (left01 || left02)
+        {
+            left = true;
+        }
+        else { left = false; }
+        if (right01 || right02)
+        {
+            right = true;
+        }
+
+        else { right = false; }
 
         yFloatList.Add(front01Hit.point.z);
         yFloatList.Add(front02Hit.point.z);

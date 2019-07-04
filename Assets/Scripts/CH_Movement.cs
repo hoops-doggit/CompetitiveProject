@@ -20,7 +20,7 @@ public class CH_Movement : MonoBehaviour {
     public void Movement(float x, float y)
     {
         //Debug.Log("x= " + x + "  y= "+ y);
-        if(col.front01 || col.front02)
+        if(col.front || col.front02)
         {
             if (y > 0)
             {
