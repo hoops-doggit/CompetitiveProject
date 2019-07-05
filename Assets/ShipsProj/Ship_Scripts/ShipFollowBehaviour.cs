@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class ShipFollowBehaviour : MonoBehaviour
 {
     public GameObject leadGameObject;
+    public List<GameObject> ships = new List<GameObject>();
+
+
  
 
     // Update is called once per frame

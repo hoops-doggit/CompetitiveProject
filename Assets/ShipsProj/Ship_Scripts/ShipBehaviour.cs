@@ -40,11 +40,7 @@ public class ShipBehaviour : MonoBehaviour
         me.speed = Random.Range(minSpeed, maxSpeed);
         transform.position = goal;
     }
-    void Start()
-    {
 
-        
-    }
 
     private void GenerateRandomDestination()
     {

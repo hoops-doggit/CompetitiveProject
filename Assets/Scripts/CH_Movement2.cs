@@ -6,10 +6,11 @@ public class CH_Movement2 : MonoBehaviour {
 
     public float speed;
     public float acc;
+    public float skinDepth;
     public float autoCorrectDistance = 0.5f;
     public float autoCorrectAmount= 0.01f;
 
-    private Rigidbody rb;
+
     private Vector3 currentPos;
     private Vector3 newPos;
 
@@ -18,6 +19,8 @@ public class CH_Movement2 : MonoBehaviour {
     private Vector2 inputVector;
     private CH_Collisions chCol;
     public float magnitude;
+    [SerializeField]
+    private List<float> clampValues = new List<float>(4);
 
 
     //handle horisontal and vertical input axes separately
@@ -26,37 +29,39 @@ public class CH_Movement2 : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        rb = GetComponent<Rigidbody>();
         chCol = GetComponent<CH_Collisions>();
 	}
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move(Input.GetAxisRaw("horizontal"), Input.GetAxisRaw("vertical"), transform.position, chCol.front, chCol.back, chCol.left, chCol.right);
-        
+        Move(Input.GetAxisRaw("horizontal"), Input.GetAxisRaw("vertical"), transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);        
     }
 
-    public void Move(float x, float y, Vector3 currentPosition, bool front, bool back, bool left, bool right)
+    public void Move(float x, float y, Vector3 currentPosition, bool front, bool back, bool left, bool right, List<float> collisionPoints)
     {
         inputVector = new Vector2(x, y);
         Vector2 rawInputVector = inputVector;
         Vector2 sides = new Vector2(Mathf.Sign(x), Mathf.Sign(y));
         magnitude = inputVector.magnitude;
 
-        if (inputVector.y > 0 && front)
+
+        //these are clamping my character!!! NO!
+        //if player is pushing against wall and a collision is being registered, stop registering input
+
+        if (inputVector.y > 0 && transform.position.z >= collisionPoints[0])
         {
             inputVector.y = 0;
         }
-        if (inputVector.y < 0 && back)
+        if (inputVector.y < 0 && transform.position.z <= collisionPoints[1])
         {
             inputVector.y = 0;
         }
-        if (inputVector.x > 0 && right)
+        if (inputVector.x < 0 && transform.position.x <= collisionPoints[2])
         {
             inputVector.x = 0;
         }
-        if (inputVector.x < 0 && left)
+        if (inputVector.x > 0 && transform.position.x >= collisionPoints[3])
         {
             inputVector.x = 0;
         }
@@ -68,12 +73,15 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         newPos = currentPosition;
-        float dt = Time.deltaTime;
-        newPos.x += inputVector.x * dt * speed;
+        float dt = 1;
         newPos.z += inputVector.y * dt * speed;
+        newPos.x += inputVector.x * dt * speed;        
 
-        newPos.x = Mathf.Clamp(newPos.x, chCol.leftColPoint, chCol.rightColPoint);
-        newPos.z = Mathf.Clamp(newPos.z, chCol.backColPoint, chCol.frontColPoint);
+
+        newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
+        newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
+        clampValues = collisionPoints;
+        
 
         gameObject.transform.position = newPos;
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);
@@ -87,19 +95,22 @@ public class CH_Movement2 : MonoBehaviour {
         float l = left + transform.position.x ;
         float r = right - transform.position.x ;
 
-        if (f < autoCorrectDistance && rawinputVector.y == 0)
+        //front
+        if (f <= autoCorrectDistance && rawinputVector.y == 0)
         {
             transform.position -= new Vector3(0, 0, autoCorrectAmount) * Time.deltaTime;
         }
+        //back
         if (transform.position.z <= (back + autoCorrectDistance) && rawinputVector.y == 0)
         {
             transform.position += new Vector3(0, 0, autoCorrectAmount) * Time.deltaTime;
         }
+        //left
         if (transform.position.x <= (left + autoCorrectDistance) && rawinputVector.x == 0)
         {
             transform.position += new Vector3(autoCorrectAmount, 0, 0) * Time.deltaTime;
         }
-        if (r < autoCorrectDistance && rawinputVector.x == 0)
+        if (r <= autoCorrectDistance && rawinputVector.x == 0)
         {
             transform.position -= new Vector3(autoCorrectAmount, 0, 0) * Time.deltaTime;
         }

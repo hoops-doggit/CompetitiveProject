@@ -18,6 +18,7 @@ public class CH_Collisions : MonoBehaviour {
     public bool back = false;
     public bool left = false;
     public bool right= false;
+    public List<float> collisionPoints = new List<float>(4);
 
     public float leftDistance;
     public float collisionDistance;
@@ -30,7 +31,8 @@ public class CH_Collisions : MonoBehaviour {
     public Transform tLeft02;
     public Transform tRight01;
     public Transform tRight02;
-    public float skinDepth;
+    [SerializeField]
+    private float skinDepth;
     public float maxDistance;
     private RaycastHit front01Hit;
     private RaycastHit front02Hit;
@@ -67,6 +69,7 @@ public class CH_Collisions : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        
         if (!debug)
         {
             fColGo.SetActive(false);
@@ -87,6 +90,7 @@ public class CH_Collisions : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate ()
     {
+        skinDepth = GetComponent<CH_Movement2>().skinDepth;
         xFloatList.Clear();
         yFloatList.Clear();
         xFloatRaw.Clear();
@@ -257,10 +261,7 @@ public class CH_Collisions : MonoBehaviour {
         xFloatList.Add(left02Hit.point.x);
         xFloatList.Add(right01Hit.point.x);
         xFloatList.Add(right02Hit.point.x);
-    }
 
-    private void Update()
-    {
         if (xFloatList[0] > xFloatList[1])
         {
             leftColPoint = xFloatList[0];
@@ -293,6 +294,10 @@ public class CH_Collisions : MonoBehaviour {
         frontColPoint -= skinDepth;
         backColPoint += skinDepth;
 
+        collisionPoints[0] = frontColPoint;
+        collisionPoints[1] = backColPoint;
+        collisionPoints[2] = leftColPoint;
+        collisionPoints[3] = rightColPoint;        
 
         if (debug)
         {
