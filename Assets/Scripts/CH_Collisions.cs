@@ -228,7 +228,6 @@ public class CH_Collisions : MonoBehaviour {
                 if (right02Hit.distance < maxDistance) {distance = right02Hit.distance;}
                 Debug.DrawRay(tRight02.position, tRight02.TransformDirection(Vector3.forward) * distance, Color.green);
             }
-
         }
 
         if(front01 || front02)

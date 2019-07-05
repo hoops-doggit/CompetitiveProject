@@ -1,14 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {
 
+    public float lastx, lasty, lastAngle;
     public float speed;
     public float acc;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
     public float autoCorrectAmount= 0.01f;
+    public float headTurnTolerance;
+    public Transform head;
+    public Vector2 tempHeadRotation = new Vector2 (0,0);
+    public float headAngle;
+
+
+    public Transform gunEnd;
+    public GameObject bullet;
+    public float bulletSpeed;
 
 
     private Vector3 currentPos;
@@ -23,19 +34,35 @@ public class CH_Movement2 : MonoBehaviour {
     private List<float> clampValues = new List<float>(4);
 
 
+
+
     //handle horisontal and vertical input axes separately
     //take input as raw and use an acceleration model to speed up over time
 
 
 	// Use this for initialization
 	void Awake () {
+        lastx = 0;
+        lasty = 0;
+        lastAngle = 0;
         chCol = GetComponent<CH_Collisions>();
 	}
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Move(Input.GetAxisRaw("horizontal"), Input.GetAxisRaw("vertical"), transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);        
+        
+        Move(Input.GetAxisRaw("horizontal"), Input.GetAxisRaw("vertical"), transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);
+        Shoot(Input.GetKey(KeyCode.Space));
+    }
+
+    private void Shoot(bool v)
+    {
+        GameObject bullety = Instantiate(bullet, gunEnd.position, Quaternion.identity, transform);
+        bullety.transform.parent = null;
+        bullety.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
+
+
     }
 
     public void Move(float x, float y, Vector3 currentPosition, bool front, bool back, bool left, bool right, List<float> collisionPoints)
@@ -85,6 +112,7 @@ public class CH_Movement2 : MonoBehaviour {
 
         gameObject.transform.position = newPos;
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);
+        HeadDirection(inputVector);
     }
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)
@@ -114,6 +142,72 @@ public class CH_Movement2 : MonoBehaviour {
         {
             transform.position -= new Vector3(autoCorrectAmount, 0, 0) * Time.deltaTime;
         }
+    }
+
+    void HeadDirection(Vector2 rawInput)
+    {
+        //if no input
+
+        float angleCutoff = 20;
+
+        float x = rawInput.x;
+        float y = rawInput.y;
+        float angle = 0;
+
+        if (lastx == x && lasty == y)
+        {
+            
+        }
+        else
+        {
+            if (x < 0)
+            {
+                angle = 360 + Vector2.SignedAngle(new Vector2(x, y), Vector2.up);
+                if (angle>lastAngle-360)
+                {
+
+                }
+                else if (angle > lastAngle + angleCutoff)
+                {
+                    angle = lastAngle + angleCutoff;
+                }
+                else if( angle < lastAngle - angleCutoff)
+                {
+                    angle = lastAngle - angleCutoff;
+                }
+                
+                head.eulerAngles = new Vector3(0, angle, 0);
+                lastAngle = angle;
+            }
+            else
+            {
+
+                angle = Vector2.Angle(new Vector2(x, y), Vector2.up);
+                if (angle > lastAngle - 360)
+                {
+
+                }
+                else if (angle > lastAngle + angleCutoff)
+                {
+                    angle = lastAngle + angleCutoff;
+                }
+                else if (angle < lastAngle - angleCutoff)
+                {
+                    angle = lastAngle - angleCutoff;
+                }
+                head.eulerAngles = new Vector3(0, angle, 0);
+                lastAngle = angle;
+            }
+        }
+        
+
+        
+        
+
+ 
+
+        //head.eulerAngles = new Vector3(0,Vector2.Angle(new Vector2(rawInput.x , rawInput.y), Vector2.up), 0);
+        
     }
 	
 	
