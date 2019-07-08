@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b6c6cabd31ab042bdbc5f355afb837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAge: 2000
+  maxAge: 6000
 --- !u!135 &135867751168944046
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {
 
-    public float lastx, lasty, lastAngle;
+    private float lastx, lasty, lastAngle;
     public float speed;
     public float acc;
     public float skinDepth;
@@ -33,37 +33,39 @@ public class CH_Movement2 : MonoBehaviour {
     [SerializeField]
     private List<float> clampValues = new List<float>(4);
 
+    private string xAxis;
+    private string yAxis;
+    private int joystickInvert;
 
 
-
-    //handle horisontal and vertical input axes separately
-    //take input as raw and use an acceleration model to speed up over time
 
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
         lastx = 0;
         lasty = 0;
         lastAngle = 0;
         chCol = GetComponent<CH_Collisions>();
+        CH_Input chi = GetComponent<CH_Input>();
+        xAxis = chi.xAxis;
+        yAxis = chi.yAxis;
+        if (chi.joystick)
+        {
+            joystickInvert = -1;
+        }
+        else
+        {
+            joystickInvert = 1;
+        }
+        
 	}
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        
-        Move(Input.GetAxisRaw("horizontal"), Input.GetAxisRaw("vertical"), transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);
-        Shoot(Input.GetKey(KeyCode.Space));
+    {        
+        Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis) * joystickInvert, transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);
     }
 
-    private void Shoot(bool v)
-    {
-        GameObject bullety = Instantiate(bullet, gunEnd.position, Quaternion.identity, transform);
-        bullety.transform.parent = null;
-        bullety.GetComponent<Rigidbody>().AddForce(transform.forward * bulletSpeed);
-
-
-    }
 
     public void Move(float x, float y, Vector3 currentPosition, bool front, bool back, bool left, bool right, List<float> collisionPoints)
     {
@@ -146,10 +148,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     void HeadDirection(Vector2 rawInput)
     {
-        //if no input
-
         float angleCutoff = 20;
-
         float x = rawInput.x;
         float y = rawInput.y;
         float angle = 0;
