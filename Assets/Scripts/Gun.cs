@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour {
     public Transform chargeShotBulletSpawnPos;
     [SerializeField]
     private Transform bulletHolder;
+    private CH_Input chi;
 
     [Header("Charge Shot Variables")]
     public float timeTillFire;
@@ -29,12 +30,17 @@ public class Gun : MonoBehaviour {
 
     private void Awake()
     {
-        CH_Input chi = GetComponent<CH_Input>();
-        fireButtonName = chi.shootButton;
-        bulletHolder = GameObject.Find("BulletHolder").transform;
+        chi = GetComponent<CH_Input>();
+        
+        bulletHolder = GameObject.Find("_BulletHolder").transform;
         bulb01.material = off;
         bulb02.material = off;
         bulb03.material = off;
+    }
+
+    private void Start()
+    {
+        fireButtonName = chi.shootButton;
     }
 
     void Update()
