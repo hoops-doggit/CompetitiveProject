@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 114412149405729196}
   - component: {fileID: 114746917423204440}
   - component: {fileID: 114001551946983430}
-  - component: {fileID: 114456028514004012}
+  - component: {fileID: 114978605307332324}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4858516443479052}
   m_Layer: 0
-  m_Name: ChargeShotBulletSpawnPos
+  m_Name: ArtillaryShotBulletSpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,6 +198,36 @@ GameObject:
   - component: {fileID: 23356695621879278}
   m_Layer: 0
   m_Name: Body_GEO
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1674920654909552
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4110281213889620}
+  m_Layer: 0
+  m_Name: ArtillaryAngle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1675312252498312
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4789697194395470}
+  m_Layer: 0
+  m_Name: ChargeShotBulletSpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,7 +354,7 @@ Transform:
   m_Children:
   - {fileID: 4002032953697666}
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4105578355365548
 Transform:
@@ -340,8 +370,22 @@ Transform:
   - {fileID: 4813635358224052}
   - {fileID: 4565905765085628}
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 95.716, y: -2.79599, z: 0}
+--- !u!4 &4110281213889620
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1674920654909552}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.214, y: -0.047, z: -0.275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4858516443479052}
+  m_Father: {fileID: 4543207619290032}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4175803057364890
 Transform:
   m_ObjectHideFlags: 1
@@ -404,7 +448,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4858516443479052}
+  - {fileID: 4110281213889620}
+  - {fileID: 4789697194395470}
   - {fileID: 4573432742080386}
   - {fileID: 4105578355365548}
   - {fileID: 4103064968963276}
@@ -435,7 +480,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.5, z: 0.7}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4677362990432102
 Transform:
@@ -476,6 +521,19 @@ Transform:
   m_Father: {fileID: 4878228158558918}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!4 &4789697194395470
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1675312252498312}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.166, y: -0.104, z: 0.771}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4543207619290032}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4804561885707022
 Transform:
   m_ObjectHideFlags: 1
@@ -522,10 +580,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251223163828374}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.166, y: -0.104, z: 0.712}
+  m_LocalPosition: {x: -0.048000008, y: -0.057000004, z: 1.046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4543207619290032}
+  m_Father: {fileID: 4110281213889620}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4878228158558918
@@ -893,31 +951,6 @@ MonoBehaviour:
   Left02Debug: {fileID: 0}
   Right01Debug: {fileID: 0}
   Right02Debug: {fileID: 0}
---- !u!114 &114456028514004012
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1052164874464912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e101c67c788bb45aec4c387ea24983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunType: 0
-  fireButtonName: 
-  chargeShotBulletSpawnPos: {fileID: 4858516443479052}
-  bulletHolder: {fileID: 0}
-  timeTillFire: 20
-  timeButtonHeld: 0
-  chargeShotBullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16,
-    type: 2}
-  bulb01: {fileID: 23840083049968674}
-  bulb02: {fileID: 23834985527889638}
-  bulb03: {fileID: 23506678274439742}
-  off: {fileID: 2100000, guid: 831d503a394c9394daa8f73e7cff7e88, type: 2}
-  on: {fileID: 2100000, guid: cd1964df9eaf5864aadf07475ff9f502, type: 2}
-  timeTillFireArtillary: 0
 --- !u!114 &114746917423204440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -938,11 +971,30 @@ MonoBehaviour:
   head: {fileID: 4543207619290032}
   tempHeadRotation: {x: 1.41, y: 1.02}
   headAngle: 0
-  gunEnd: {fileID: 4858516443479052}
+  gunEnd: {fileID: 4789697194395470}
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 2}
   bulletSpeed: 200
   magnitude: 0
   clampValues: []
+--- !u!114 &114978605307332324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1052164874464912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f616974241cadaf4db736c71c8eb063e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 2}
+  bulletSpawnPos: {fileID: 4789697194395470}
+  timeTillFire: 20
+  aBullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 2}
+  aBulletSpawnPos: {fileID: 4858516443479052}
+  armPos: {fileID: 4110281213889620}
+  angle: -45
+  coolDownLength: 2
 --- !u!136 &136959188194288028
 CapsuleCollider:
   m_ObjectHideFlags: 1

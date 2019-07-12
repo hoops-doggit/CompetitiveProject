@@ -12,7 +12,6 @@ public class Gun_Bullet : MonoBehaviour {
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * initialSpeed, ForceMode.Acceleration);
-        //transform.parent = GameObject.Find("BulletHolder").transform;
     }
     void FixedUpdate () {
         age++;
