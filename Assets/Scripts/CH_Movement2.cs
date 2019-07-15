@@ -38,10 +38,8 @@ public class CH_Movement2 : MonoBehaviour {
     private int joystickInvert;
 
 
-
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         lastx = 0;
         lasty = 0;
         lastAngle = 0;
