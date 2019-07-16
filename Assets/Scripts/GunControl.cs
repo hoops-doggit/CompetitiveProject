@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class GunControl : MonoBehaviour {
     private Gun gun;
-    [Header("Charged Shot Parameters")]    
-    public GameObject bullet;
-    public Transform bulletSpawnPos;
-    public float timeTillFire;
+    [Header("Charged Shot Parameters")]
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private GameObject chargeIndicator;
+    [SerializeField]
+    private Transform bulletSpawnPos;
+    [SerializeField]
+    private float timeTillFire;
 
     [Header("Artillary Shot Parameters")]
     public GameObject aBullet;
@@ -30,7 +35,7 @@ public class GunControl : MonoBehaviour {
 
     public void ChangeToChargedShot()
     {
-        gun = new GunType_ChargedShotBehaviour(bullet, bulletSpawnPos, timeTillFire);
+        gun = new GunType_ChargedShotBehaviour(bullet, chargeIndicator, bulletSpawnPos, timeTillFire);
     }
 
     public void ChangeToArtillary()

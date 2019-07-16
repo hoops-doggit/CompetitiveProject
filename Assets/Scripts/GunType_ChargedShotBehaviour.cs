@@ -7,16 +7,42 @@ using UnityEngine;
 public class GunType_ChargedShotBehaviour : Gun {
 
     private GameObject bullet;
+    private GameObject chargeIndicatorBullet;
+    private GameObject cloneBullet;
     private Transform bulletSpawnPos;
-    private float timeTillFire = 20;
-    //public float timeButtonHeld;
+    private float timeTillFire;
+    private float scaleFactor = 0.001f;
 
-    public GunType_ChargedShotBehaviour(GameObject bullet, Transform bulletSpawnPos, float timeTillFire)
+
+    //Constructor
+    public GunType_ChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, float timeTillFire)
     {
         this.bullet = bullet;
+        this.chargeIndicatorBullet = chargeIndicatorBullet;
         this.bulletSpawnPos = bulletSpawnPos;
         this.timeTillFire = timeTillFire;
     }
+
+
+    public override void Gupdate()
+    {
+        if(timeHeld < timeTillFire)
+        {
+            if (cloneBullet == null)
+            {
+                cloneBullet = GameObject.Instantiate(chargeIndicatorBullet);
+                cloneBullet.transform.position = bulletSpawnPos.position;
+                cloneBullet.transform.SetParent(bulletSpawnPos);
+                cloneBullet.transform.localScale = Vector3.zero;
+            }
+            else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x)
+            {
+                cloneBullet.transform.localScale += bullet.transform.localScale / timeTillFire;
+            }
+        }
+        base.Gupdate();
+    }
+    
 
     public override void TriggerRelease()
     {       
@@ -25,6 +51,8 @@ public class GunType_ChargedShotBehaviour : Gun {
         {
             Shoot(bullet, bulletSpawnPos);
         }
+        GameObject.Destroy(cloneBullet);
+
         base.TriggerRelease();
     }
 }

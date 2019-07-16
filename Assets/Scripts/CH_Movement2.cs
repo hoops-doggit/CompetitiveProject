@@ -40,8 +40,6 @@ public class CH_Movement2 : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        currentPos = transform.position;
-        newPos = transform.position;
 
         lastx = 0;
         lasty = 0;
@@ -75,8 +73,6 @@ public class CH_Movement2 : MonoBehaviour {
         Vector2 sides = new Vector2(Mathf.Sign(x), Mathf.Sign(y));
         magnitude = inputVector.magnitude;
 
-
-        //these are clamping my character!!! NO!
         //if player is pushing against wall and a collision is being registered, stop registering input
 
         if (inputVector.y > 0 && transform.position.z >= collisionPoints[0])
@@ -198,15 +194,6 @@ public class CH_Movement2 : MonoBehaviour {
                 lastAngle = angle;
             }
         }
-        
-
-        
-        
-
- 
-
-        //head.eulerAngles = new Vector3(0,Vector2.Angle(new Vector2(rawInput.x , rawInput.y), Vector2.up), 0);
-        
     }
 	
 	

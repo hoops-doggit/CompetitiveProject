@@ -528,7 +528,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1675312252498312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.166, y: -0.104, z: 0.771}
+  m_LocalPosition: {x: 0.166, y: 0, z: 0.771}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
@@ -580,7 +580,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1251223163828374}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.048000008, y: -0.057000004, z: 1.046}
+  m_LocalPosition: {x: -0.048000008, y: 0, z: 1.046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4110281213889620}
@@ -592,8 +592,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052164874464912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.16, y: 0, z: 0.04}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4543207619290032}
@@ -965,7 +965,7 @@ MonoBehaviour:
   speed: 0.1
   acc: 1
   skinDepth: 0.251
-  autoCorrectDistance: 0.15
+  autoCorrectDistance: 0.23
   autoCorrectAmount: 1.01
   headTurnTolerance: 0
   head: {fileID: 4543207619290032}
@@ -975,7 +975,11 @@ MonoBehaviour:
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 2}
   bulletSpeed: 200
   magnitude: 0
-  clampValues: []
+  clampValues:
+  - 20
+  - -20
+  - -20
+  - 20
 --- !u!114 &114978605307332324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -988,13 +992,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 2}
+  chargeIndicator: {fileID: 1237491444415750, guid: b51fb301b2a36df4fb73838480258646,
+    type: 2}
   bulletSpawnPos: {fileID: 4789697194395470}
-  timeTillFire: 20
+  timeTillFire: 30
   aBullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 2}
   aBulletSpawnPos: {fileID: 4858516443479052}
   armPos: {fileID: 4110281213889620}
   angle: -45
   coolDownLength: 2
+  machineGunBullet: {fileID: 1865312066927414, guid: ad7015fb0806c8642b966c9cb492e2ad,
+    type: 2}
+  machineGunSpawnPos: {fileID: 4789697194395470}
+  intervalTime: 3
 --- !u!136 &136959188194288028
 CapsuleCollider:
   m_ObjectHideFlags: 1
