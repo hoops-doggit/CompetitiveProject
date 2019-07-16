@@ -34,9 +34,17 @@ public abstract class Gun {
 
     public void Shoot(GameObject bullet, Transform bulletSpawnPos)
     {
+        int layerMask = 1 << 11;
+        layerMask = ~layerMask;
+        RaycastHit hit = new RaycastHit();
+        Vector3 target = new Vector3();
+        if (Physics.Raycast(bulletSpawnPos.position, bulletSpawnPos.forward, out hit, Mathf.Infinity, layerMask))
+        {
+            target = hit.collider.gameObject.GetComponent<BoxCollider>().bounds.center;
+        }
         GameObject b = GameObject.Instantiate(bullet);
         b.transform.position = bulletSpawnPos.position;
-        b.transform.forward = bulletSpawnPos.forward;
+        b.transform.LookAt(target);
     }
 
     public virtual void Gupdate() {}

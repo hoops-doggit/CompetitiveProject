@@ -40,11 +40,14 @@ public class CH_Movement2 : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        currentPos = transform.position;
+        newPos = transform.position;
+
         lastx = 0;
         lasty = 0;
         lastAngle = 0;
         chCol = GetComponent<CH_Collisions>();
-        CH_Input chi = GetComponent<CH_Input>();
+        CH_Input chi = GetComponent<CH_Input>();    
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
         if (chi.joystick)
@@ -54,13 +57,13 @@ public class CH_Movement2 : MonoBehaviour {
         else
         {
             joystickInvert = 1;
-        }
-        
+        }        
 	}
 
     // Update is called once per frame
     void FixedUpdate()
-    {        
+    {
+        chCol.CalculateRays();
         Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis) * joystickInvert, transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);
     }
 
@@ -103,8 +106,7 @@ public class CH_Movement2 : MonoBehaviour {
         float dt = 1;
         newPos.z += inputVector.y * dt * speed;
         newPos.x += inputVector.x * dt * speed;        
-
-
+        
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
         clampValues = collisionPoints;

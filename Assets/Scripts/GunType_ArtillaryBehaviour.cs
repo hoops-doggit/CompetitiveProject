@@ -6,6 +6,7 @@ public class GunType_ArtillaryBehaviour : Gun {
 
     private GameObject bullet;
     private Transform bulletSpawnPos;
+    private Vector3 target;
     private Transform armPos;
     private float angle;
     private int coolDownTimer;
@@ -22,7 +23,7 @@ public class GunType_ArtillaryBehaviour : Gun {
 
     public override void TriggerStart()
     {
-        if(coolDownTimer == 0)
+        if (coolDownTimer == 0)
         {
             armPos.localEulerAngles = new Vector3(angle, 0, 0);
             Shoot(bullet, bulletSpawnPos);

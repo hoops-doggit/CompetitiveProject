@@ -19,8 +19,9 @@ public class GunType_ChargedShotBehaviour : Gun {
     }
 
     public override void TriggerRelease()
-    {
-        if(timeHeld > timeTillFire)
+    {       
+
+        if (timeHeld > timeTillFire)
         {
             Shoot(bullet, bulletSpawnPos);
         }

@@ -68,8 +68,7 @@ public class CH_Collisions : MonoBehaviour {
 
     // Use this for initialization
     void Start()
-    {
-        
+    {        
         if (!debug)
         {
             fColGo.SetActive(false);
@@ -88,7 +87,7 @@ public class CH_Collisions : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate ()
+    public void CalculateRays()
     {
         skinDepth = GetComponent<CH_Movement2>().skinDepth;
         xFloatList.Clear();

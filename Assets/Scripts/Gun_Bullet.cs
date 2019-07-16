@@ -17,7 +17,17 @@ public class Gun_Bullet : MonoBehaviour {
         age++;
         if (age > maxAge)
         {
-            Destroy(gameObject);
+            Death();
         }
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Death();
+    }
+
+    private void Death()
+    {
+        Destroy(gameObject);
+    }
 }
