@@ -40,7 +40,7 @@ public abstract class Gun {
         Vector3 target = new Vector3();
         if (Physics.Raycast(bulletSpawnPos.position, bulletSpawnPos.forward, out hit, Mathf.Infinity, layerMask))
         {
-            target = hit.collider.gameObject.GetComponent<BoxCollider>().bounds.center;
+            target = hit.collider.gameObject.GetComponent<Collider>().bounds.center;
         }
         GameObject b = GameObject.Instantiate(bullet);
         b.transform.position = bulletSpawnPos.position;
