@@ -35,6 +35,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     private string xAxis;
     private string yAxis;
+    private string throwButton;
     private int joystickInvert;
 
 
@@ -73,24 +74,27 @@ public class CH_Movement2 : MonoBehaviour {
         Vector2 sides = new Vector2(Mathf.Sign(x), Mathf.Sign(y));
         magnitude = inputVector.magnitude;
 
+        #region Tunnel Facing Direction Assist
         //if player is pushing against wall and a collision is being registered, stop registering input
+        //This code foces the player to look adjacent to the wall they're walking towards
 
-        if (inputVector.y > 0 && transform.position.z >= collisionPoints[0])
-        {
-            inputVector.y = 0;
-        }
-        if (inputVector.y < 0 && transform.position.z <= collisionPoints[1])
-        {
-            inputVector.y = 0;
-        }
-        if (inputVector.x < 0 && transform.position.x <= collisionPoints[2])
-        {
-            inputVector.x = 0;
-        }
-        if (inputVector.x > 0 && transform.position.x >= collisionPoints[3])
-        {
-            inputVector.x = 0;
-        }
+        //if (inputVector.y > 0 && transform.position.z >= collisionPoints[0])
+        //{
+        //    inputVector.y = 0;
+        //}
+        //if (inputVector.y < 0 && transform.position.z <= collisionPoints[1])
+        //{
+        //    inputVector.y = 0;
+        //}
+        //if (inputVector.x < 0 && transform.position.x <= collisionPoints[2])
+        //{
+        //    inputVector.x = 0;
+        //}
+        //if (inputVector.x > 0 && transform.position.x >= collisionPoints[3])
+        //{
+        //    inputVector.x = 0;
+        //}
+        #endregion
 
 
         if (inputVector.magnitude > 1)
@@ -99,9 +103,8 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         newPos = currentPosition;
-        float dt = 1;
-        newPos.z += inputVector.y * dt * speed;
-        newPos.x += inputVector.x * dt * speed;        
+        newPos.z += inputVector.y  * speed;
+        newPos.x += inputVector.x  * speed;        
         
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);

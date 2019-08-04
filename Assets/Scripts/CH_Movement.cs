@@ -54,8 +54,6 @@ public class CH_Movement : MonoBehaviour {
         m.x = x;
         m.y = y;
 
-
-
         float mLength = m.magnitude;
         if (mLength > 1)
         {
