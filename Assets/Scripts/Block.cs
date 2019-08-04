@@ -25,18 +25,18 @@ public abstract class Block : MonoBehaviour{
 
         if(col.gameObject.tag == "bullet" && destructible)
         {
-            GoodBye();
-        }        
+            GoodBye(col.gameObject);
+        }
     }
 
-    public void GoodBye()
+    public void GoodBye(GameObject collidedWith)
     {
+        collidedWith.GetComponent<Collider>().enabled = false;
         if (particles != null)
         {
             ParticleSystem p = Instantiate(particles);
             p.transform.position = particleSpawnPos.position;
         }
-
         Destroy(gameObject);
     }
 

@@ -15,3 +15,10 @@ public enum PlayerNumber
     player3,
     player4
 }
+
+public enum BallStates
+{
+    sitting,
+    held,
+    thrown
+}
