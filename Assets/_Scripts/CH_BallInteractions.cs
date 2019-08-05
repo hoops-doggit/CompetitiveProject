@@ -10,14 +10,14 @@ public class CH_BallInteractions : MonoBehaviour
     private B_Behaviour ballScript;
     private GameObject ball;
     private bool holdingBall;
-
     private string throwAxis;
+    private Rigidbody my_rb;
     
 
     private void Start()
     {
         CH_Input chi = GetComponent<CH_Input>();
-        throwAxis = chi.throwAxis;
+        throwAxis = chi.throwButton;
     }
 
     private void FixedUpdate()
@@ -29,7 +29,7 @@ public class CH_BallInteractions : MonoBehaviour
                 ThrowBall();
             }
         }
-    }
+    }    
 
     public void PickUpBall(GameObject ball, B_Behaviour ballScript)
     {
@@ -49,5 +49,7 @@ public class CH_BallInteractions : MonoBehaviour
         ball.transform.parent = null;
         ballScript.BallThrown();
         ball.GetComponent<Rigidbody>().AddForce(ballHeldPos.transform.forward * ballThrowSpeed, ForceMode.Acceleration);
-    }
+    }    
+
+    
 }

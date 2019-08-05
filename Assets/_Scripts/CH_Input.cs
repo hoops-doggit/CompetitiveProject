@@ -8,7 +8,8 @@ public class CH_Input : MonoBehaviour {
     public string xAxis;
     public string yAxis;
     public string shootButton;
-    public string throwAxis;
+    public string throwButton;
+    public string swingButton;
 
     // Use this for initialization
     void Awake () {
@@ -23,7 +24,8 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal1";
                 yAxis = "vertical1";
                 shootButton = "fire1";
-                throwAxis = "throw1";
+                throwButton = "throw1";
+                swingButton = "swing1";
 
                 break;
             case PlayerNumber.player2:

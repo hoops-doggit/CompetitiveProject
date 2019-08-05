@@ -69,21 +69,21 @@ public class CH_Collisions : MonoBehaviour {
     // Use this for initialization
     void Start()
     {        
-        if (!debug)
-        {
-            fColGo.SetActive(false);
-            bColGo.SetActive(false);
-            lColGo.SetActive(false);
-            rColGo.SetActive(false);
-            Front01Debug.SetActive(false);
-            Front02Debug.SetActive(false);
-            Back01Debug.SetActive(false);
-            Back02Debug.SetActive(false);
-            Left01Debug.SetActive(false);
-            Left02Debug.SetActive(false);
-            Right01Debug.SetActive(false);
-            Right02Debug.SetActive(false);
-        }
+        //if (!debug)
+        //{
+        //    fColGo.SetActive(false);
+        //    bColGo.SetActive(false);
+        //    lColGo.SetActive(false);
+        //    rColGo.SetActive(false);
+        //    Front01Debug.SetActive(false);
+        //    Front02Debug.SetActive(false);
+        //    Back01Debug.SetActive(false);
+        //    Back02Debug.SetActive(false);
+        //    Left01Debug.SetActive(false);
+        //    Left02Debug.SetActive(false);
+        //    Right01Debug.SetActive(false);
+        //    Right02Debug.SetActive(false);
+        //}
     }
 
     // Update is called once per frame

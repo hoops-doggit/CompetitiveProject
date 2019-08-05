@@ -3,14 +3,10 @@
 public class GunControl : MonoBehaviour {
     private Gun gun;
     [Header("Charged Shot Parameters")]
-    [SerializeField]
-    private GameObject bullet;
-    [SerializeField]
-    private GameObject chargeIndicator;
-    [SerializeField]
-    private Transform bulletSpawnPos;
-    [SerializeField]
-    private float timeTillFire;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject chargeIndicator;
+    [SerializeField] private Transform bulletSpawnPos;
+    [SerializeField] private float timeTillFire;
 
     [Header("Artillary Shot Parameters")]
     public GameObject aBullet;

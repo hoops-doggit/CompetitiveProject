@@ -6,6 +6,8 @@ TagManager:
   tags:
   - bullet
   - player
+  - ball
+  - swingZone
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Character
   - Boxes
   - bullet
-  - 
-  - 
+  - swingZone
+  - ball
   - 
   - 
   - 

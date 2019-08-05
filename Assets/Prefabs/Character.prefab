@@ -121,7 +121,8 @@ MonoBehaviour:
   xAxis: 
   yAxis: 
   shootButton: 
-  throwAxis: 
+  throwButton: 
+  hitButton: 
 --- !u!114 &114412149405729196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,8 +253,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballHeldPos: {fileID: 2136872537}
-  ballGroundPos: {fileID: 0}
-  ballThrowSpeed: 0
+  ballGroundPos: {fileID: 1939925927651520558}
+  ballThrowSpeed: 900
 --- !u!1 &1110376990157868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1135,7 @@ GameObject:
   - component: {fileID: 3215843421544661788}
   - component: {fileID: 8373397425483384429}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: BaseballBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1237,7 +1238,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5204447870660520680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.282, z: 1.017}
+  m_LocalPosition: {x: 0, y: 0.282, z: 0.647}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
