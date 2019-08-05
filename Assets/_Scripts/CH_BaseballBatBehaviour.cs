@@ -6,7 +6,7 @@ public class CH_BaseballBatBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject bathitZone;
     [SerializeField] private Material[] mats = new Material[2];
-    [SerializeField] private float lengthOfWindUp;
+    [SerializeField] private float lengthOfSwingPersistance;
     public float hitStrength;
     public bool buttonHeld;
 
@@ -27,12 +27,7 @@ public class CH_BaseballBatBehaviour : MonoBehaviour
 
         if (Input.GetButtonUp(swingButton))
         {
-            Swing();
-            buttonHeld = true;
-        }
-        else
-        {
-            buttonHeld = false;
+            StartCoroutine("SwingEnumerator");
         }
 
         if (Input.GetButton(swingButton))
@@ -54,7 +49,6 @@ public class CH_BaseballBatBehaviour : MonoBehaviour
         bathitZone.GetComponent<Collider>().enabled = true;
         MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
         batMeshRend.material = mats[1];
-        StopSwing();
     }
 
     public void StopSwing()
@@ -67,9 +61,11 @@ public class CH_BaseballBatBehaviour : MonoBehaviour
 
     private IEnumerator SwingEnumerator()
     {
+        Debug.Log("started swing");
         Swing();
-        yield return new WaitForSeconds(lengthOfWindUp);
+        yield return new WaitForSeconds(lengthOfSwingPersistance);
         StopSwing();
+        Debug.Log("stopped swing");
         StopCoroutine("SwingEnumerator");
     }
 }

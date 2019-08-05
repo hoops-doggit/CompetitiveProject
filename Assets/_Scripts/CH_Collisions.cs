@@ -65,10 +65,12 @@ public class CH_Collisions : MonoBehaviour {
     public GameObject Right01Debug;
     public GameObject Right02Debug;
 
+    public LayerMask layerMask;
 
     // Use this for initialization
     void Start()
-    {        
+    {
+        layerMask = ~layerMask;
         //if (!debug)
         //{
         //    fColGo.SetActive(false);
@@ -97,8 +99,10 @@ public class CH_Collisions : MonoBehaviour {
         back = false;
         left = false;
         right = false;
+
+
         
-        if (Physics.Raycast(tFront01.position, tFront01.forward, out front01Hit, Mathf.Infinity))
+        if (Physics.Raycast(tFront01.position, tFront01.forward, out front01Hit, Mathf.Infinity, layerMask))
         {
             if (front01Hit.distance <= skinDepth)
             {
@@ -114,7 +118,7 @@ public class CH_Collisions : MonoBehaviour {
             }
 
         }
-        if (Physics.Raycast(tFront02.position, tFront02.forward, out front02Hit, Mathf.Infinity))
+        if (Physics.Raycast(tFront02.position, tFront02.forward, out front02Hit, Mathf.Infinity, layerMask))
         {
             if (front02Hit.distance <= skinDepth)
             {
@@ -130,7 +134,7 @@ public class CH_Collisions : MonoBehaviour {
             }
 
         }
-        if (Physics.Raycast(tBack01.position, tBack01.forward, out back01Hit, Mathf.Infinity))
+        if (Physics.Raycast(tBack01.position, tBack01.forward, out back01Hit, Mathf.Infinity, layerMask))
         {
             if (back01Hit.distance <= skinDepth)
             {
@@ -146,7 +150,7 @@ public class CH_Collisions : MonoBehaviour {
             }
   
         }
-        if (Physics.Raycast(tBack02.position, tBack02.forward, out back02Hit, Mathf.Infinity))
+        if (Physics.Raycast(tBack02.position, tBack02.forward, out back02Hit, Mathf.Infinity, layerMask))
         {
             if (back02Hit.distance <= skinDepth)
             {
@@ -162,7 +166,7 @@ public class CH_Collisions : MonoBehaviour {
             }
 
         }
-        if (Physics.Raycast(tLeft01.position, tLeft01.forward, out left01Hit, Mathf.Infinity))
+        if (Physics.Raycast(tLeft01.position, tLeft01.forward, out left01Hit, Mathf.Infinity, layerMask))
         {
             leftDistance = left01Hit.distance;
             if (left01Hit.distance <= skinDepth)
@@ -180,7 +184,7 @@ public class CH_Collisions : MonoBehaviour {
             }
 
         }
-        if (Physics.Raycast(tLeft02.position, tLeft02.forward, out left02Hit, Mathf.Infinity))
+        if (Physics.Raycast(tLeft02.position, tLeft02.forward, out left02Hit, Mathf.Infinity, layerMask))
         {
             if (left02Hit.distance <= skinDepth)
             {
@@ -196,7 +200,7 @@ public class CH_Collisions : MonoBehaviour {
             }
 
         }
-        if (Physics.Raycast(tRight01.position, tRight01.forward, out right01Hit, Mathf.Infinity))
+        if (Physics.Raycast(tRight01.position, tRight01.forward, out right01Hit, Mathf.Infinity, layerMask))
         {
             if (right01Hit.distance <= skinDepth)
             {
@@ -212,7 +216,7 @@ public class CH_Collisions : MonoBehaviour {
             }
 
         }
-        if (Physics.Raycast(tRight02.position, tRight02.forward, out right02Hit, Mathf.Infinity))
+        if (Physics.Raycast(tRight02.position, tRight02.forward, out right02Hit, Mathf.Infinity, layerMask))
         {
             if (right02Hit.distance <= skinDepth)
             {
