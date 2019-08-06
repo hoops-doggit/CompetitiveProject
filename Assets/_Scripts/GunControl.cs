@@ -20,6 +20,10 @@ public class GunControl : MonoBehaviour {
     public Transform machineGunSpawnPos;
     public int intervalTime;
 
+    public GameObject cooldownChargedBullet;
+    public Transform cooldownSpawnPos;
+    public float timeTillCharge;
+
 
     // Use this for initialization
     void Start () {
@@ -39,6 +43,11 @@ public class GunControl : MonoBehaviour {
     public void ChangeToMachineGun()
     {
         gun = new GunType_MachineGun(machineGunBullet, machineGunSpawnPos, intervalTime);
+    }
+
+    public void ChangeToCooldownChargedShot()
+    {
+        gun = new GunType_CooldownChargedShotBehaviour(bullet, bulletSpawnPos, timeTillCharge);
     }
 
 
