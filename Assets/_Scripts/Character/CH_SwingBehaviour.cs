@@ -9,9 +9,11 @@ public class CH_SwingBehaviour : MonoBehaviour
     public bool currentlySwinging;
     public string swingButton;
     [SerializeField] private GameObject bathitZone;
-    [SerializeField] private Material[] mats = new Material[2];
+    [SerializeField] private Material[] mats = new Material[3];
     [SerializeField] private float lengthOfSwingPersistance;
     public List<GameObject> objectsInSwingZone = new List<GameObject>();
+    private int swingChargeTimer;
+    private int swingChargeMax = 30;
 
     private void Start()
     {
@@ -19,20 +21,23 @@ public class CH_SwingBehaviour : MonoBehaviour
         swingButton = chi.swingButton;
         StopSwing();
         bathitZone = gameObject;
-
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetButtonUp(swingButton))
-        {
-            StartCoroutine("SwingEnumerator");
-        }
 
         if (Input.GetButton(swingButton))
         {
             PrepareSwing();
+        }
+        else if (!Input.GetButton(swingButton) && swingChargeTimer >= swingChargeMax)
+        {
+            StartCoroutine("SwingEnumerator");
+        }
+        else
+        {
+            StopSwing();
         }
 
         if (currentlySwinging)
@@ -66,20 +71,29 @@ public class CH_SwingBehaviour : MonoBehaviour
 
     private void PrepareSwing()
     {
+        swingChargeTimer++;
         MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
         batMeshRend.enabled = true;
-        batMeshRend.material = mats[0];
+        if (swingChargeTimer < swingChargeMax)
+        {
+            batMeshRend.material = mats[0];
+        }
+        else
+        {
+            batMeshRend.material = mats[1];
+        }
     }
 
     private void Swing()
     {
         currentlySwinging = true;
         MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
-        batMeshRend.material = mats[1];
+        batMeshRend.material = mats[2];
     }
 
     public void StopSwing()
     {
+        swingChargeTimer = 0;
         currentlySwinging = false;
         MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
         batMeshRend.material = mats[0];        
