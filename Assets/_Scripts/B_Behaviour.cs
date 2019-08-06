@@ -5,6 +5,7 @@ public class B_Behaviour : MonoBehaviour
     private Collider col;
     private Rigidbody rb;
     private bool ballHeld;
+    private bool free;
     [SerializeField] private CH_BaseballBatBehaviour bbbb;
 
     private void Start()
@@ -13,44 +14,48 @@ public class B_Behaviour : MonoBehaviour
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
         FreezeAllRigidbodyConstraints();
+        free = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && free)
         {
             collision.gameObject.GetComponentInParent<CH_BallInteractions>().PickUpBall(gameObject, this);
-            BallPickedUp();
-        }
-
-        
+        }        
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "swingZone")
+        if (collision.gameObject.tag == "Player")
         {
-            bbbb.StopSwing();
-            HitBall(collision.gameObject.transform.parent.transform, bbbb.hitStrength);
+            //free = true;
         }
     }
 
     public void HitBall(Transform playerT, float hitStrength)
     {
-        Debug.Log("got hit");
-        UnfreezeAllRigidbodyConstraints();
-        rb.AddForce(playerT.forward * hitStrength, ForceMode.Acceleration);
+        if (!ballHeld)
+        {
+            Debug.Log("got hit");
+            UnfreezeAllRigidbodyConstraints();
+            rb.AddForce(playerT.forward * hitStrength, ForceMode.Acceleration);
+        }        
     }
 
     public void BallPickedUp()
     {
+        ballHeld = true;
         FreezeAllRigidbodyConstraints();
+        free = false;
         col.enabled = false;
     }
 
     public void BallThrown()
     {
+        ballHeld = false;
         UnfreezeAllRigidbodyConstraints();
+        free = true;
         col.enabled = true;
     }
 
