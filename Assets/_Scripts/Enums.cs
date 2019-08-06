@@ -22,3 +22,9 @@ public enum BallStates
     held,
     thrown
 }
+
+public enum GoalBoxes
+{
+    team1,
+    team2
+}

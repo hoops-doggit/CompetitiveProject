@@ -13,7 +13,7 @@ public class CH_SwingBehaviour : MonoBehaviour
     [SerializeField] private float lengthOfSwingPersistance;
     public List<GameObject> objectsInSwingZone = new List<GameObject>();
     private int swingChargeTimer;
-    private int swingChargeMax = 30;
+    private int swingChargeMax = 7;
 
     private void Start()
     {
@@ -55,13 +55,17 @@ public class CH_SwingBehaviour : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        objectsInSwingZone.Add(other.gameObject);        
+        if (other.tag == "ball" && other.GetComponent<B_Behaviour>().free)
+        {
+            if (!objectsInSwingZone.Contains(other.gameObject))
+            {
+                objectsInSwingZone.Add(other.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)

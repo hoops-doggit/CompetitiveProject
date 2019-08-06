@@ -20,7 +20,7 @@ public class CH_BallInteractions : MonoBehaviour
         throwAxis = chi.throwButton;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (holdingBall)
         {
