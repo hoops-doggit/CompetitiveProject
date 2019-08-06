@@ -7,7 +7,6 @@ public class Block_Destructible : Block {
 
     public override void Bumped()
     {
-        Debug.Log("i got bumped");
         base.Bumped();
     }
     public override void GotBumpedBy(Tags tag)

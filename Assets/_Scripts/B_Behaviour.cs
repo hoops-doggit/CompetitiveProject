@@ -6,7 +6,6 @@ public class B_Behaviour : MonoBehaviour
     private Rigidbody rb;
     private bool ballHeld;
     public bool free;
-    [SerializeField] private CH_BaseballBatBehaviour bbbb;
 
     private void Start()
     {
@@ -59,7 +58,7 @@ public class B_Behaviour : MonoBehaviour
         col.enabled = true;
     }
 
-    private void FreezeAllRigidbodyConstraints()
+    public void FreezeAllRigidbodyConstraints()
     {
         rb.constraints = RigidbodyConstraints.FreezeAll;
     }
