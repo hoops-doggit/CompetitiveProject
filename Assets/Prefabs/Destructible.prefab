@@ -45,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.95, y: 1, z: 0.95}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &114710323406882952
 MonoBehaviour:
@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Block : MonoBehaviour{
 
-    [SerializeField]
-    public int health { get; private set; }
+    public int health;
     [SerializeField]
     private bool destructible;
     [SerializeField]
@@ -25,7 +24,11 @@ public abstract class Block : MonoBehaviour{
 
         if(col.gameObject.tag == "bullet" && destructible)
         {
-            GoodBye(col.gameObject);
+            health--;
+            if (health < 1)
+            {
+                GoodBye(col.gameObject);
+            }
         }
     }
 

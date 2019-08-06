@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block_Destructible : Block {    
+public class Block_Destructible : Block {
 
 
     public override void Bumped()
