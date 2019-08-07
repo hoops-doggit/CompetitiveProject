@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1755916, g: 0.21971515, b: 0.30203873, a: 1}
+  m_IndirectSpecularColor: {r: 0.17559192, g: 0.21971561, b: 0.30203938, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12717,7 +12717,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}
@@ -13764,6 +13763,7 @@ Transform:
   - {fileID: 1229608148}
   - {fileID: 618380444}
   - {fileID: 1726869653}
+  - {fileID: 1105833315}
   m_Father: {fileID: 939204923}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17432,6 +17432,57 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1101686357}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1105833314
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 866311582}
+    m_Modifications:
+    - target: {fileID: 1206869430697594, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_Name
+      value: Destructible (593)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+      propertyPath: m_RootOrder
+      value: 405
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54760fc178e95f24199f3ff4f305a09c, type: 3}
+--- !u!4 &1105833315 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4568495570416286, guid: 54760fc178e95f24199f3ff4f305a09c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1105833314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1106967269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17558,7 +17609,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}
@@ -18930,7 +18980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}
@@ -19375,7 +19424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}
@@ -20582,7 +20630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}
@@ -21922,7 +21969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}
@@ -30047,7 +30093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   destructible: 1
   particles: {fileID: 0}
   particleSpawnPos: {fileID: 0}

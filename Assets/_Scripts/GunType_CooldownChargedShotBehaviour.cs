@@ -10,23 +10,30 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
     private GameObject chargeIndicatorBullet;
     private GameObject cloneBullet;
     private Transform bulletSpawnPos;
-    private float timeTillCharge;
+    private float cooldownTime;
+    private float currentTime;
     private float scaleFactor = 0.001f;
 
 
     //Constructor
-    public GunType_CooldownChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, float timeTillCharge)
+    public GunType_CooldownChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, int cooldownTime)
     {
         this.bullet = bullet;
         this.chargeIndicatorBullet = chargeIndicatorBullet;
         this.bulletSpawnPos = bulletSpawnPos;
-        this.timeTillCharge = timeTillCharge;
+        this.cooldownTime = cooldownTime;
     }
 
 
     public override void Gupdate()
     {
-        if(timeHeld < timeTillFire)
+        if(currentTime > 0)
+        {
+            currentTime--;
+        }
+        
+
+        if(currentTime > 0)
         {
             if (cloneBullet == null)
             {
@@ -37,22 +44,20 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
             }
             else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x)
             {
-                cloneBullet.transform.localScale += bullet.transform.localScale / timeTillFire;
+                cloneBullet.transform.localScale += bullet.transform.localScale / cooldownTime;
             }
         }
         base.Gupdate();
     }
-    
 
-    public override void TriggerRelease()
-    {       
-
-        if (timeHeld > timeTillFire)
+    public override void TriggerStart()
+    {
+        base.TriggerStart();
+        if(currentTime <= 0)
         {
             Shoot(bullet, bulletSpawnPos);
+            GameObject.Destroy(cloneBullet);
+            currentTime = cooldownTime;
         }
-        GameObject.Destroy(cloneBullet);
-
-        base.TriggerRelease();
     }
 }
