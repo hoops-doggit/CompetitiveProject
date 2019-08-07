@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class CH_SwingBehaviour : MonoBehaviour
 {
-    public float hitStrength;
+    public float hiBallStrength;
+    public float forceToAddToBall;
+
+
+
+
     public bool buttonHeld;
     public bool currentlySwinging;
     public string swingButton;
@@ -48,7 +53,14 @@ public class CH_SwingBehaviour : MonoBehaviour
                 {
                     if(objectsInSwingZone[i].tag == "ball")
                     {
-                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitStrength);
+                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hiBallStrength);
+                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
+                        //could error the for loop because it's altering the count as it's looping through
+                    }
+
+                    if (objectsInSwingZone[i].tag == "bullet")
+                    {
+                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hiBallStrength);
                         objectsInSwingZone.Remove(objectsInSwingZone[i]);
                         //could error the for loop because it's altering the count as it's looping through
                     }
@@ -66,11 +78,22 @@ public class CH_SwingBehaviour : MonoBehaviour
                 objectsInSwingZone.Add(other.gameObject);
             }
         }
+
+        if(other.tag == "bullet")
+        {
+            if (!objectsInSwingZone.Contains(other.gameObject))
+            {
+                objectsInSwingZone.Add(other.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        objectsInSwingZone.Remove(other.gameObject);
+        if (objectsInSwingZone.Contains(other.gameObject))
+        {
+            objectsInSwingZone.Remove(other.gameObject);
+        }        
     }
 
     private void PrepareSwing()

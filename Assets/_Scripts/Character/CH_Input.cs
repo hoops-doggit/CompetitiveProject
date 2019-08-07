@@ -26,12 +26,13 @@ public class CH_Input : MonoBehaviour {
                 shootButton = "fire1";
                 throwButton = "throw1";
                 swingButton = "swing1";
-
                 break;
             case PlayerNumber.player2:
                 xAxis = "horizontal2";
                 yAxis = "vertical2";
-                shootButton = "fire1";
+                shootButton = "fire2";
+                throwButton = "throw2";
+                swingButton = "swing2";
                 break;
             case PlayerNumber.player3:
                 xAxis = "horizontal3";

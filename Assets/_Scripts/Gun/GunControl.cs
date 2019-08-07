@@ -20,14 +20,22 @@ public class GunControl : MonoBehaviour {
     public Transform machineGunSpawnPos;
     public int intervalTime;
 
+    [Header("Cooldown Gun Parameters")]
     public GameObject cooldownChargedBullet;
+    public GameObject cooldownChargedIndicator;
     public Transform cooldownSpawnPos;
-    public float timeTillCharge;
+    public int timeTillCharge;
+
+
+    private string shootButton;
+
 
 
     // Use this for initialization
     void Start () {
-        ChangeToChargedShot();
+        ChangeToCooldownChargedShot();
+        CH_Input chi = GetComponent<CH_Input>();
+        shootButton = chi.shootButton;
 	}
 
     public void ChangeToChargedShot()
@@ -47,7 +55,7 @@ public class GunControl : MonoBehaviour {
 
     public void ChangeToCooldownChargedShot()
     {
-        gun = new GunType_CooldownChargedShotBehaviour(bullet, bulletSpawnPos, timeTillCharge);
+        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator,  bulletSpawnPos, timeTillCharge);
     }
 
 
@@ -68,9 +76,13 @@ public class GunControl : MonoBehaviour {
         {
             ChangeToMachineGun();
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ChangeToCooldownChargedShot();
+        }
 
 
-		if (Input.GetButton("fire1"))
+        if (Input.GetButton(shootButton))
         {
             gun.TriggerPull();
         }

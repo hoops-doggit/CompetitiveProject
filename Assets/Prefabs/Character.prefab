@@ -189,7 +189,6 @@ GameObject:
   - component: {fileID: 114746917423204440}
   - component: {fileID: 114978605307332324}
   - component: {fileID: 1562957353}
-  - component: {fileID: 64067102}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -359,6 +358,10 @@ MonoBehaviour:
     type: 3}
   machineGunSpawnPos: {fileID: 4789697194395470}
   intervalTime: 3
+  cooldownChargedBullet: {fileID: 0}
+  cooldownChargedIndicator: {fileID: 0}
+  cooldownSpawnPos: {fileID: 0}
+  timeTillCharge: 0
 --- !u!114 &1562957353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,26 +377,6 @@ MonoBehaviour:
   ballHeldPos: {fileID: 2136872537}
   ballGroundPos: {fileID: 1939925927651520558}
   ballThrowSpeed: 900
---- !u!114 &64067102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052164874464912}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84d3245373812404fb8687fe83940613, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bathitZone: {fileID: 1047771283}
-  mats:
-  - {fileID: 2100000, guid: 1d0ae34244a849049bb8f292695e9ba8, type: 2}
-  - {fileID: 2100000, guid: 49625b441d6e0e841a4df474b0a672c6, type: 2}
-  lengthOfSwingPersistance: 0.5
-  hitStrength: 800
-  buttonHeld: 0
-  swingButton: 
 --- !u!1 &1110376990157868
 GameObject:
   m_ObjectHideFlags: 0

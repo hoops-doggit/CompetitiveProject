@@ -88,6 +88,14 @@ public class CH_Collisions : MonoBehaviour {
         //}
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "bullet")
+        {
+            //Drop ball
+        }
+    }
+
     // Update is called once per frame
     public void CalculateRays()
     {
