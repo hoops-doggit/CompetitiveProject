@@ -14,6 +14,7 @@ public class CH_Input : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         SetupInput(playerNumber);
+
 	}
 
     private void SetupInput(PlayerNumber pn)

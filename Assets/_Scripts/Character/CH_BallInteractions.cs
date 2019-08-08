@@ -11,7 +11,7 @@ public class CH_BallInteractions : MonoBehaviour
     private GameObject ball;
     private bool holdingBall;
     private string throwAxis;
-    private Rigidbody my_rb;
+    [SerializeField]private Rigidbody my_rb;
     
 
     private void Start()
@@ -33,12 +33,15 @@ public class CH_BallInteractions : MonoBehaviour
 
     public void PickUpBall(GameObject ball, B_Behaviour ballScript)
     {
-        this.ballScript = ballScript;
-        this.ball = ball;
-        holdingBall = true;
-        ball.transform.parent = ballHeldPos.transform;
-        ball.transform.localPosition = new Vector3 (0,0,0);
-        ballScript.BallPickedUp();
+        if (ballScript.heldBy != my_rb)
+        {
+            this.ballScript = ballScript;
+            this.ball = ball;
+            holdingBall = true;
+            ball.transform.parent = ballHeldPos.transform;
+            ball.transform.localPosition = new Vector3(0, 0, 0);
+            ballScript.BallPickedUp(my_rb);
+        }
     }
 
     public void ThrowBall()

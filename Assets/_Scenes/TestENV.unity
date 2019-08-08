@@ -435,6 +435,12 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1030422482}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &758578988 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 54952335257318386, guid: c5e99694659c3b84cbad00ce1ade85de,
+    type: 3}
+  m_PrefabInstance: {fileID: 1030422482}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &799533193
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +687,7 @@ PrefabInstance:
     - target: {fileID: 114001551946983430, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114978605307332324, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
@@ -705,6 +711,10 @@ PrefabInstance:
       propertyPath: timeTillCharge
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 1562957353, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: my_rb
+      value: 
+      objectReference: {fileID: 758578988}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
 --- !u!1 &1064337511
@@ -1110,6 +1120,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 461756010, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
       propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483030851695152892, guid: 9f4bc81f5dc519347ac34e168b83b9c4,
+        type: 3}
+      propertyPath: free
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

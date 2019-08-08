@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class B_Behaviour : MonoBehaviour
 {
@@ -6,6 +8,8 @@ public class B_Behaviour : MonoBehaviour
     private Rigidbody rb;
     private bool ballHeld;
     public bool free;
+    public Rigidbody heldBy;
+    private float ballThrowCooldown = 0.025f;
 
     private void Start()
     {
@@ -26,10 +30,7 @@ public class B_Behaviour : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            //free = true;
-        }
+
     }
 
     public void HitBall(Transform playerT, float hitStrength)
@@ -42,11 +43,12 @@ public class B_Behaviour : MonoBehaviour
         }        
     }
 
-    public void BallPickedUp()
+    public void BallPickedUp(Rigidbody r)
     {
         ballHeld = true;
         FreezeAllRigidbodyConstraints();
         free = false;
+        heldBy = r;
         col.enabled = false;
     }
 
@@ -56,6 +58,13 @@ public class B_Behaviour : MonoBehaviour
         UnfreezeAllRigidbodyConstraints();
         free = true;
         col.enabled = true;
+        StartCoroutine("ThrowCooldown");
+    }
+
+    private IEnumerator ThrowCooldown()
+    {
+        yield return new WaitForSeconds(ballThrowCooldown);
+        heldBy = null;
     }
 
     public void FreezeAllRigidbodyConstraints()
