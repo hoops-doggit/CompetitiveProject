@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class CH_SwingBehaviour : MonoBehaviour
 {
-    public float hiBallStrength;
-    public float forceToAddToBall;
-
-
-
+    public float hitBallStrength;
 
     public bool buttonHeld;
     public bool currentlySwinging;
@@ -17,6 +13,7 @@ public class CH_SwingBehaviour : MonoBehaviour
     [SerializeField] private Material[] mats = new Material[3];
     [SerializeField] private float lengthOfSwingPersistance;
     public List<GameObject> objectsInSwingZone = new List<GameObject>();
+    public List<GameObject> objectsThatHaveBeenHit = new List<GameObject>();
     private int swingChargeTimer;
     private int swingChargeMax = 7;
 
@@ -51,18 +48,16 @@ public class CH_SwingBehaviour : MonoBehaviour
             {
                 for (int i = 0; i < objectsInSwingZone.Count; i++)
                 {
-                    if(objectsInSwingZone[i].tag == "ball")
+                    if(objectsInSwingZone[i].tag == "ball" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
-                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hiBallStrength);
-                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
-                        //could error the for loop because it's altering the count as it's looping through
+                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitBallStrength);
+                        objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
                     }
 
                     if (objectsInSwingZone[i].tag == "bullet")
                     {
-                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hiBallStrength);
-                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
-                        //could error the for loop because it's altering the count as it's looping through
+                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength);
+                        objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
                     }
                 }
             }
@@ -93,7 +88,11 @@ public class CH_SwingBehaviour : MonoBehaviour
         if (objectsInSwingZone.Contains(other.gameObject))
         {
             objectsInSwingZone.Remove(other.gameObject);
-        }        
+        }
+        if (objectsThatHaveBeenHit.Contains(other.gameObject))
+        {
+            objectsThatHaveBeenHit.Remove(other.gameObject);
+        }
     }
 
     private void PrepareSwing()

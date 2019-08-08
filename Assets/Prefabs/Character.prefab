@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1047771283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.461, z: 0.359}
-  m_LocalScale: {x: 1.8070142, y: 1.8269686, z: 1.8070142}
+  m_LocalScale: {x: 2.6545038, y: 2.6838167, z: 2.6545038}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
   m_RootOrder: 9
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277828af86e6ce64eaba415bb998b670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitStrength: 1500
+  hitBallStrength: 1500
   buttonHeld: 0
   currentlySwinging: 0
   swingButton: 
@@ -115,6 +115,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 49625b441d6e0e841a4df474b0a672c6, type: 2}
   lengthOfSwingPersistance: 0.2
   objectsInSwingZone: []
+  objectsThatHaveBeenHit: []
 --- !u!1 &2136872536
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,6 +190,7 @@ GameObject:
   - component: {fileID: 114746917423204440}
   - component: {fileID: 114978605307332324}
   - component: {fileID: 1562957353}
+  - component: {fileID: 482660140}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -358,10 +360,12 @@ MonoBehaviour:
     type: 3}
   machineGunSpawnPos: {fileID: 4789697194395470}
   intervalTime: 3
-  cooldownChargedBullet: {fileID: 0}
-  cooldownChargedIndicator: {fileID: 0}
-  cooldownSpawnPos: {fileID: 0}
-  timeTillCharge: 0
+  cooldownChargedBullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16,
+    type: 3}
+  cooldownChargedIndicator: {fileID: 1237491444415750, guid: b51fb301b2a36df4fb73838480258646,
+    type: 3}
+  cooldownSpawnPos: {fileID: 4789697194395470}
+  timeTillCharge: 50
 --- !u!114 &1562957353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +381,30 @@ MonoBehaviour:
   ballHeldPos: {fileID: 2136872537}
   ballGroundPos: {fileID: 1939925927651520558}
   ballThrowSpeed: 900
+  my_rb: {fileID: 54952335257318386}
+--- !u!114 &482660140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052164874464912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0349b365fd377934797a02be818fc996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styles:
+  - {fileID: 0}
+  - {fileID: 0}
+  body:
+  - {fileID: 23356695621879278}
+  - {fileID: 23080004528061816}
+  gun:
+  - {fileID: 23555553907794434}
+  - {fileID: 23840083049968674}
+  - {fileID: 23834985527889638}
+  - {fileID: 23506678274439742}
 --- !u!1 &1110376990157868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,13 +1494,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a28437276350dae45b4394bbf3679386,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4100707
+      propertyPath: m_LocalScale.x
+      value: 1.4145359
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a28437276350dae45b4394bbf3679386,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4145359
+      propertyPath: m_LocalScale.z
+      value: 1.4100707
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: a28437276350dae45b4394bbf3679386,
         type: 3}
