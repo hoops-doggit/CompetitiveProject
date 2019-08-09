@@ -7,9 +7,11 @@ public class B_Behaviour : MonoBehaviour
     private Collider col;
     private Rigidbody rb;
     private bool ballHeld;
+    [SerializeField]private float dropForce;
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
+    private float stunCooldown = 20f;
 
     private void Start()
     {
@@ -61,9 +63,26 @@ public class B_Behaviour : MonoBehaviour
         StartCoroutine("ThrowCooldown");
     }
 
+    public void BallDropped()
+    {
+        ballHeld = false;
+        transform.parent = null;
+        UnfreezeAllRigidbodyConstraints();
+        free = true;
+        col.enabled = true;
+        rb.AddForce(Vector3.up * dropForce);
+        StartCoroutine("StunCooldown");
+    }
+
     private IEnumerator ThrowCooldown()
     {
         yield return new WaitForSeconds(ballThrowCooldown);
+        heldBy = null;
+    }
+
+    private IEnumerator StunCooldown()
+    {
+        yield return new WaitForSeconds(stunCooldown);
         heldBy = null;
     }
 

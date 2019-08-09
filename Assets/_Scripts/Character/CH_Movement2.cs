@@ -6,7 +6,8 @@ using UnityEngine;
 public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle;
-    public float speed;
+    public float speed, stunMovement;
+    private float stunMovementAmount;
     public float acc;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
@@ -63,18 +64,31 @@ public class CH_Movement2 : MonoBehaviour {
     void FixedUpdate()
     {
         chCol.CalculateRays();
-        Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis) * joystickInvert, transform.position, chCol.front, chCol.back, chCol.left, chCol.right, chCol.collisionPoints);
+        Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), false);
+
+
+        if (stunMovementAmount > 0)
+        {
+            stunMovementAmount /=2;
+            if(stunMovementAmount < 0.001f)
+            {
+                stunMovementAmount = 0;
+            }
+        }
     }
 
 
-    public void Move(float x, float y, Vector3 currentPosition, bool front, bool back, bool left, bool right, List<float> collisionPoints)
+    public void Move(float x, float y, bool mode)
     {
+        bool front = chCol.front; bool back = chCol.back; bool left = chCol.left; bool right = chCol.right;
+        List<float> collisionPoints = chCol.collisionPoints;
+
         inputVector = new Vector2(x, y);
         Vector2 rawInputVector = inputVector;
         Vector2 sides = new Vector2(Mathf.Sign(x), Mathf.Sign(y));
         magnitude = inputVector.magnitude;
 
-        #region Tunnel Facing Direction Assist
+        #region Facing Direction Assist
         //if player is pushing against wall and a collision is being registered, stop registering input
         //This code foces the player to look adjacent to the wall they're walking towards
 
@@ -102,9 +116,18 @@ public class CH_Movement2 : MonoBehaviour {
             inputVector/= inputVector.magnitude;            
         }
 
-        newPos = currentPosition;
-        newPos.z += inputVector.y  * speed;
-        newPos.x += inputVector.x  * speed;        
+        newPos = transform.position;
+
+        if (mode) //this is used for normal movement
+        {
+            newPos.z += inputVector.y * speed;
+            newPos.x += inputVector.x * speed;
+        }
+        else if (!mode) //this is used for moving the player against their will
+        {
+            newPos.z += inputVector.y * stunMovement;
+            newPos.x += inputVector.x * stunMovement;
+        }
         
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
@@ -115,6 +138,7 @@ public class CH_Movement2 : MonoBehaviour {
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);
         HeadDirection(inputVector);
     }
+
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)
     {

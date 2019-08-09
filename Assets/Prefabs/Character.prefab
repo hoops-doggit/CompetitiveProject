@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 114978605307332324}
   - component: {fileID: 1562957353}
   - component: {fileID: 482660140}
+  - component: {fileID: 1844469912}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -379,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballHeldPos: {fileID: 2136872537}
-  ballGroundPos: {fileID: 1939925927651520558}
+  ballThrowPosition: {fileID: 1939925927651520558}
   ballThrowSpeed: 900
   my_rb: {fileID: 54952335257318386}
 --- !u!114 &482660140
@@ -405,6 +406,18 @@ MonoBehaviour:
   - {fileID: 23840083049968674}
   - {fileID: 23834985527889638}
   - {fileID: 23506678274439742}
+--- !u!114 &1844469912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052164874464912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3e181abac8a5d48a5ebd916e24e321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1110376990157868
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +1012,7 @@ GameObject:
   - component: {fileID: 4543207619290032}
   - component: {fileID: 136959188194288028}
   - component: {fileID: 54952335257318386}
+  - component: {fileID: 1615619868}
   m_Layer: 0
   m_Name: Body_OBJECT
   m_TagString: Player
@@ -1060,6 +1074,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 3
+--- !u!114 &1615619868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741705178104622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ca6e74e2fd18c4f8a506c78bbbe4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1865676178639334
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CH_BallInteractions : MonoBehaviour
 {
     public Transform ballHeldPos;
-    public Transform ballGroundPos;
+    public Transform ballThrowPosition;
     public float ballThrowSpeed;
     private B_Behaviour ballScript;
     private GameObject ball;
@@ -47,12 +47,18 @@ public class CH_BallInteractions : MonoBehaviour
     public void ThrowBall()
     {
         holdingBall = false;
-        ball.transform.parent = ballGroundPos;
+        ball.transform.parent = ballThrowPosition;
         ball.transform.localPosition = new Vector3(0, 0, 0);
         ball.transform.parent = null;
         ballScript.BallThrown();
         ball.GetComponent<Rigidbody>().AddForce(ballHeldPos.transform.forward * ballThrowSpeed, ForceMode.Acceleration);
     }    
+
+    public void DropBall()
+    {
+        ballScript.BallDropped();
+        holdingBall = false;
+    }
 
     
 }
