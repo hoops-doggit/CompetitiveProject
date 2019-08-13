@@ -8,6 +8,8 @@ public class CH_Movement2 : MonoBehaviour {
     private float lastx, lasty, lastAngle;
     public float speed, stunMovement;
     private float stunMovementAmount;
+    public bool stunned;
+    private Vector2 stunnedDirection;
     public float acc;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
@@ -16,6 +18,7 @@ public class CH_Movement2 : MonoBehaviour {
     public Transform head;
     public Vector2 tempHeadRotation = new Vector2 (0,0);
     public float headAngle;
+    
 
 
     public Transform gunEnd;
@@ -46,7 +49,7 @@ public class CH_Movement2 : MonoBehaviour {
         lastx = 0;
         lasty = 0;
         lastAngle = 0;
-        chCol = GetComponent<CH_Collisions>();
+        
         CH_Input chi = GetComponent<CH_Input>();    
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
@@ -63,20 +66,35 @@ public class CH_Movement2 : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        chCol.CalculateRays();
-        Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), false);
+        chCol = GetComponent<CH_Collisions>();
+        chCol.CalculateRays();        
 
-
-        if (stunMovementAmount > 0)
+        if (stunned)
         {
-            stunMovementAmount /=2;
-            if(stunMovementAmount < 0.001f)
+            Move(stunnedDirection.x, stunnedDirection.y, false); //direction of impact
+            if (stunMovementAmount > 0)
             {
-                stunMovementAmount = 0;
+                stunMovementAmount /= 2;
+                if (stunMovementAmount < 0.001f)
+                {
+                    stunMovementAmount = 0;
+                    stunned = false;
+                }
             }
+        }
+        if (!stunned)
+        {
+            Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), true);
         }
     }
 
+    public void MoveYouGotStunned(Transform t)
+    {
+        //Vector3 forward = t.rotation * Vector3.back;
+        stunnedDirection = new Vector2(t.forward.x, t.forward.z);
+        stunned = true;
+        stunMovementAmount = stunMovement;
+    }
 
     public void Move(float x, float y, bool mode)
     {
@@ -138,6 +156,8 @@ public class CH_Movement2 : MonoBehaviour {
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);
         HeadDirection(inputVector);
     }
+
+    
 
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CH_PlayerInteractions : MonoBehaviour
 {
-    private CH_BallInteractions ballints;
+    private CH_BallInteractions ballInteractions;
     private CH_Movement2 movement;
     private bool evaluatingStunned;
     public Transform player2;
@@ -12,7 +12,7 @@ public class CH_PlayerInteractions : MonoBehaviour
 
     private void Start()
     {
-        ballints = GetComponent<CH_BallInteractions>();
+        ballInteractions = GetComponent<CH_BallInteractions>();
         movement = GetComponent<CH_Movement2>();
     }
 
@@ -23,18 +23,12 @@ public class CH_PlayerInteractions : MonoBehaviour
         {
             GotShot();
         }
-
-        if (evaluatingStunned)
-        {
-
-        }
-
     }
 
     public void GotShot()
     {
         evaluatingStunned = true;
-        ballints.DropBall();
+        ballInteractions.DropBall();
     }
 
     private void GotStunned(float x, float y)

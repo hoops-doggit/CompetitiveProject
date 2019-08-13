@@ -5,10 +5,12 @@ using UnityEngine;
 public class CH_CollisionListener : MonoBehaviour
 {
     private CH_PlayerInteractions playerInteractions;
+    private CH_Movement2 playerMovement;
 
     private void Start()
     {
         playerInteractions = GetComponentInParent<CH_PlayerInteractions>();
+        playerMovement = GetComponentInParent<CH_Movement2>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -16,6 +18,8 @@ public class CH_CollisionListener : MonoBehaviour
         if(collision.gameObject.tag == "bullet")
         {
             playerInteractions.GotShot();
+            Debug.Log("moveyougot stuneed");
+            playerMovement.MoveYouGotStunned(collision.gameObject.transform);
         }
     }
 }

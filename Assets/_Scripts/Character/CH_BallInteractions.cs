@@ -56,8 +56,12 @@ public class CH_BallInteractions : MonoBehaviour
 
     public void DropBall()
     {
-        ballScript.BallDropped();
-        holdingBall = false;
+        if (holdingBall)
+        {
+            ballScript.BallDropped();
+            holdingBall = false;
+        }
+        
     }
 
     
