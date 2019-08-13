@@ -9,7 +9,7 @@ public class CH_Movement2 : MonoBehaviour {
     public float speed, stunMovement;
     private float stunMovementAmount;
     public bool stunned;
-    private Vector2 stunnedDirection;
+    public Vector2 stunnedDirection;
     public float acc;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
@@ -88,10 +88,10 @@ public class CH_Movement2 : MonoBehaviour {
         }
     }
 
-    public void MoveYouGotStunned(Transform t)
+    public void MoveYouGotStunned(Vector3 velocity)
     {
         //Vector3 forward = t.rotation * Vector3.back;
-        stunnedDirection = new Vector2(t.forward.x, t.forward.z);
+        stunnedDirection = new Vector2(velocity.x, velocity.z).normalized;
         stunned = true;
         stunMovementAmount = stunMovement;
     }

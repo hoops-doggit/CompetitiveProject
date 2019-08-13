@@ -304,7 +304,7 @@ MonoBehaviour:
   Right02Debug: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 6144
 --- !u!114 &114746917423204440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
+  stunMovement: 0
+  stunned: 0
+  stunnedDirection: {x: 0, y: 0}
   acc: 1
   skinDepth: 0.251
   autoCorrectDistance: 0.23
@@ -418,6 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3e181abac8a5d48a5ebd916e24e321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player2: {fileID: 0}
 --- !u!1 &1110376990157868
 GameObject:
   m_ObjectHideFlags: 0
