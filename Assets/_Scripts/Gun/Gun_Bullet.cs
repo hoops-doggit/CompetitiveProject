@@ -6,6 +6,9 @@ public class Gun_Bullet : MonoBehaviour {
     public float maxAge = 800;
     public float initialSpeed = 200;
     private Rigidbody rb;
+    public Vector3 direction;
+    private int i = 0;
+    private bool directionSwitch = true;
 
 
     // Update is called once per frame
@@ -20,10 +23,21 @@ public class Gun_Bullet : MonoBehaviour {
         {
             Death();
         }
-	}
+
+        i++;
+        if (directionSwitch)
+        {
+            if (i > 1)
+            {
+                direction = rb.velocity;
+                directionSwitch = false;
+            }
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        
         Collider col = GetComponent<Collider>();
         col.enabled = false;
         if (collision.gameObject.GetComponent<Block_Destructible>() != null) {
@@ -41,5 +55,7 @@ public class Gun_Bullet : MonoBehaviour {
     {
         rb.AddForce(t.forward * (rb.velocity.magnitude + hitStrength), ForceMode.Acceleration);
     }
+
+    
 
 }

@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 482660140, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: styles.Array.data[0]
+      value: 
+      objectReference: {fileID: 205192586}
+    - target: {fileID: 482660140, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: styles.Array.data[1]
+      value: 
+      objectReference: {fileID: 2113138416}
     - target: {fileID: 114001551946983430, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
       propertyPath: joystick
@@ -190,14 +198,6 @@ PrefabInstance:
       propertyPath: stunMovement
       value: 0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 482660140, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
-      propertyPath: styles.Array.data[0]
-      value: 
-      objectReference: {fileID: 205192586}
-    - target: {fileID: 482660140, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
-      propertyPath: styles.Array.data[1]
-      value: 
-      objectReference: {fileID: 2113138416}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
 --- !u!1 &126743713
@@ -676,16 +676,6 @@ PrefabInstance:
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001551946983430, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
-      propertyPath: joystick
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
-      propertyPath: stunMovement
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 482660140, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: styles.Array.data[0]

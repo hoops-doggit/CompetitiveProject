@@ -155,7 +155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4306843607075242}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Left01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 1562957353}
   - component: {fileID: 482660140}
   - component: {fileID: 1844469912}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
-  joystick: 1
+  joystick: 0
   xAxis: 
   yAxis: 
   shootButton: 
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
-  stunMovement: 0
+  stunMovement: 0.2
   stunned: 0
   stunnedDirection: {x: 0, y: 0}
   acc: 1
@@ -431,7 +431,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4786574322133022}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Back02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4456054424833916}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Right01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4175803057364890}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontRay01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4352314601608466}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: FrontRay02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -984,7 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4804561885707022}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Right02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: 136959188194288028}
   - component: {fileID: 54952335257318386}
   - component: {fileID: 1615619868}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Body_OBJECT
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1099,7 +1099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4844867447570196}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Back01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4679600294101514}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Left02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1316,7 +1316,7 @@ GameObject:
   - component: {fileID: 2137631328429463245}
   - component: {fileID: 3215843421544661788}
   - component: {fileID: 8373397425483384429}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BaseballBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

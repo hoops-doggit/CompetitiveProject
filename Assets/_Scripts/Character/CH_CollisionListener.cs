@@ -19,7 +19,7 @@ public class CH_CollisionListener : MonoBehaviour
         {
             playerInteractions.GotShot();
             Debug.Log("moveyougot stuneed");
-            playerMovement.MoveYouGotStunned(collision.rigidbody.velocity);
+            playerMovement.MoveYouGotStunned(collision.gameObject.GetComponent<Gun_Bullet>().direction);
         }
     }
 }

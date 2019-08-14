@@ -74,8 +74,8 @@ public class CH_Movement2 : MonoBehaviour {
             Move(stunnedDirection.x, stunnedDirection.y, false); //direction of impact
             if (stunMovementAmount > 0)
             {
-                stunMovementAmount /= 2;
-                if (stunMovementAmount < 0.001f)
+                stunMovementAmount /= 2f;
+                if (stunMovementAmount < 0.0001f)
                 {
                     stunMovementAmount = 0;
                     stunned = false;
@@ -143,8 +143,8 @@ public class CH_Movement2 : MonoBehaviour {
         }
         else if (!mode) //this is used for moving the player against their will
         {
-            newPos.z += inputVector.y * stunMovement;
-            newPos.x += inputVector.x * stunMovement;
+            newPos.z += inputVector.y * stunMovementAmount;
+            newPos.x += inputVector.x * stunMovementAmount;
         }
         
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);

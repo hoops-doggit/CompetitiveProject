@@ -191,7 +191,7 @@ QualitySettings:
     shadowDistance: 108
     shadowNearPlaneOffset: 41
     shadowCascade2Split: 0.33333334
-    shadowCascade4Split: {x: 0.2788516, y: 0.529832, z: 0.6725492}
+    shadowCascade4Split: {x: 0.2788516, y: 0.529832, z: 0.78676236}
     shadowmaskMode: 1
     skinWeights: 4
     textureQuality: 0
@@ -216,4 +216,10 @@ QualitySettings:
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+  m_PerPlatformDefaultQuality:
+    Android: 0
+    Standalone: 0
+    WebGL: 0
+    Windows Store Apps: 0
+    iPhone: 0
+    tvOS: 0
