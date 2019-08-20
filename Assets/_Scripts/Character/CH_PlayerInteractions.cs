@@ -16,19 +16,10 @@ public class CH_PlayerInteractions : MonoBehaviour
         movement = GetComponent<CH_Movement2>();
     }
 
-    private void FixedUpdate()
-    {
-        //for debug only
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GotShot();
-        }
-    }
-
-    public void GotShot()
+    public void GotShot(Vector3 bulletVelocity)
     {
         evaluatingStunned = true;
-        ballInteractions.DropBall();
+        ballInteractions.DropBall(bulletVelocity, "bullet");
     }
 
     private void GotStunned(float x, float y)

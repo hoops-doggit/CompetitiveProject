@@ -9,7 +9,7 @@ public class CH_BallInteractions : MonoBehaviour
     public float ballThrowSpeed;
     private B_Behaviour ballScript;
     private GameObject ball;
-    private bool holdingBall;
+    public bool holdingBall;
     private string throwAxis;
     [SerializeField]private Rigidbody my_rb;
     
@@ -54,14 +54,19 @@ public class CH_BallInteractions : MonoBehaviour
         ball.GetComponent<Rigidbody>().AddForce(ballHeldPos.transform.forward * ballThrowSpeed, ForceMode.Acceleration);
     }    
 
-    public void DropBall()
+    public void DropBall(Vector3 stunVelocity, string reason)
     {
-        if (holdingBall)
+        if (holdingBall && reason == "bullet")
         {
-            ballScript.BallDropped();
+            ballScript.BallDroppedBullet(stunVelocity);
             holdingBall = false;
         }
-        
+        if (holdingBall && reason == "bat")
+        {
+            ballScript.BallDroppedBat(stunVelocity);
+            holdingBall = false;
+        }
+
     }
 
     

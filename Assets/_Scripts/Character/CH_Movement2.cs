@@ -6,7 +6,7 @@ using UnityEngine;
 public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle;
-    public float speed, stunMovement;
+    public float speed, bulletStunMovement, batStunMovement;
     private float stunMovementAmount;
     public bool stunned;
     public Vector2 stunnedDirection;
@@ -93,7 +93,20 @@ public class CH_Movement2 : MonoBehaviour {
         //Vector3 forward = t.rotation * Vector3.back;
         stunnedDirection = new Vector2(velocity.x, velocity.z).normalized;
         stunned = true;
-        stunMovementAmount = stunMovement;
+        stunMovementAmount = bulletStunMovement;
+    }
+
+    public void MoveYouGotWhackedByABat(Vector3 velocity)
+    {
+        //Vector3 forward = t.rotation * Vector3.back;
+        
+        stunnedDirection.x =  (velocity.x - transform.position.x) *-1;
+        stunnedDirection.y = (velocity.z - transform.position.z) * -1;
+        stunnedDirection = stunnedDirection.normalized;
+        GetComponent<CH_BallInteractions>().DropBall(velocity, "bat");
+        //stunnedDirection = new Vector2(velocity.x, velocity.z).normalized;
+        stunned = true;
+        stunMovementAmount = batStunMovement;
     }
 
     public void Move(float x, float y, bool mode)

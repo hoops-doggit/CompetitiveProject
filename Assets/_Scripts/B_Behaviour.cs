@@ -24,7 +24,7 @@ public class B_Behaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && free)
+        if (collision.gameObject.tag == "player" && free)
         {
             collision.gameObject.GetComponentInParent<CH_BallInteractions>().PickUpBall(gameObject, this);
         }        
@@ -63,21 +63,54 @@ public class B_Behaviour : MonoBehaviour
         StartCoroutine("ThrowCooldown");
     }
 
-    public void BallDropped()
+    private IEnumerator ThrowCooldown()
+    {
+        yield return new WaitForSeconds(ballThrowCooldown);
+        heldBy = null;
+    }
+
+
+
+    public void BallDroppedBullet(Vector3 hitDirection)
     {
         ballHeld = false;
         transform.parent = null;
         UnfreezeAllRigidbodyConstraints();
         free = true;
         col.enabled = true;
-        rb.AddForce(Vector3.up * dropForce);
+
+        Vector3 stunnedDirection = new Vector3(hitDirection.x, 1, hitDirection.z).normalized;
+        
+        stunnedDirection *= -1;
+        stunnedDirection.x *= dropForce;
+        stunnedDirection.z *= dropForce;
+        stunnedDirection.y *= 800;
+
+
+
+        rb.AddForce(stunnedDirection, ForceMode.Acceleration);
         StartCoroutine("StunCooldown");
     }
 
-    private IEnumerator ThrowCooldown()
+    public void BallDroppedBat(Vector3 hitDirection)
     {
-        yield return new WaitForSeconds(ballThrowCooldown);
-        heldBy = null;
+        ballHeld = false;
+        transform.parent = null;
+        UnfreezeAllRigidbodyConstraints();
+        free = true;
+        col.enabled = true;
+
+        Vector3 stunnedDirection = new Vector3(hitDirection.x - transform.position.x, 1, hitDirection.z - transform.position.z);
+        Debug.Log(stunnedDirection);
+        stunnedDirection.x *= -1;
+        stunnedDirection.z *= -1;
+
+        stunnedDirection.x *= dropForce;
+        stunnedDirection.z *= dropForce;
+        Debug.Log(stunnedDirection);
+
+        rb.AddForce(stunnedDirection, ForceMode.Acceleration);
+        StartCoroutine("StunCooldown");
     }
 
     private IEnumerator StunCooldown()
@@ -85,6 +118,12 @@ public class B_Behaviour : MonoBehaviour
         yield return new WaitForSeconds(stunCooldown);
         heldBy = null;
     }
+
+
+
+    
+
+    
 
     public void FreezeAllRigidbodyConstraints()
     {

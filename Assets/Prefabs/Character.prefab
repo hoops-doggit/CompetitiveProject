@@ -116,6 +116,7 @@ MonoBehaviour:
   lengthOfSwingPersistance: 0.2
   objectsInSwingZone: []
   objectsThatHaveBeenHit: []
+  swingChargeTimer: 0
 --- !u!1 &2136872536
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +305,7 @@ MonoBehaviour:
   Right02Debug: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 6144
+    m_Bits: 14336
 --- !u!114 &114746917423204440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
-  stunMovement: 0.2
+  bulletStunMovement: 0.2
+  batStunMovement: 0.1
   stunned: 0
   stunnedDirection: {x: 0, y: 0}
   acc: 1
@@ -385,6 +387,7 @@ MonoBehaviour:
   ballHeldPos: {fileID: 2136872537}
   ballThrowPosition: {fileID: 1939925927651520558}
   ballThrowSpeed: 900
+  holdingBall: 0
   my_rb: {fileID: 54952335257318386}
 --- !u!114 &482660140
 MonoBehaviour:
@@ -1019,7 +1022,7 @@ GameObject:
   - component: {fileID: 1615619868}
   m_Layer: 14
   m_Name: Body_OBJECT
-  m_TagString: Player
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
