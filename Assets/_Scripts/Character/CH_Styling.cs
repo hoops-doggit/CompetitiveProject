@@ -15,11 +15,12 @@ public class CH_Styling : MonoBehaviour
     void Start()
     {
         CH_Input i = GetComponent<CH_Input>();
-        if(i.playerNumber == PlayerNumber.player1)
+        if(i.playerNumber == PlayerNumber.player1 || i.playerNumber == PlayerNumber.player2)
         {
             PropogateStyle(0);
         }
-        else
+        
+        if(i.playerNumber == PlayerNumber.player3 || i.playerNumber == PlayerNumber.player4)
         {
             PropogateStyle(1);
         }

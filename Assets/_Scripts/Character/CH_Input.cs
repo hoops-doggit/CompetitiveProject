@@ -37,10 +37,16 @@ public class CH_Input : MonoBehaviour {
             case PlayerNumber.player3:
                 xAxis = "horizontal3";
                 yAxis = "vertical3";
+                shootButton = "fire3";
+                throwButton = "throw3";
+                swingButton = "swing3";
                 break;
             case PlayerNumber.player4:
                 xAxis = "horizontal4";
                 yAxis = "vertical4";
+                shootButton = "fire4";
+                throwButton = "throw4";
+                swingButton = "swing4";
                 break;
         }
     }
