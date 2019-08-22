@@ -53,6 +53,7 @@ public class CH_Movement2 : MonoBehaviour {
         CH_Input chi = GetComponent<CH_Input>();    
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
+
         if (chi.joystick)
         {
             joystickInvert = -1;

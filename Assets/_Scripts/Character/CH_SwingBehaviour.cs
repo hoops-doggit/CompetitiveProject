@@ -8,7 +8,7 @@ public class CH_SwingBehaviour : MonoBehaviour
 
     public bool buttonHeld;
     public bool currentlySwinging;
-    public string swingButton;
+    public KeyCode swingKey;
     [SerializeField] private GameObject bathitZone;
     [SerializeField] private Material[] mats = new Material[3];
     [SerializeField] private float lengthOfSwingPersistance;
@@ -21,7 +21,7 @@ public class CH_SwingBehaviour : MonoBehaviour
     private void Start()
     {
         CH_Input chi = GetComponentInParent<CH_Input>();
-        swingButton = chi.swingButton;
+        swingKey = chi.swingKey;
         StopSwing();
         bathitZone = gameObject;
     }
@@ -35,7 +35,7 @@ public class CH_SwingBehaviour : MonoBehaviour
             swingChargeTimer++;
         }
 
-        if (Input.GetButtonDown(swingButton) && swingChargeTimer >= swingChargeMax)
+        if (Input.GetKeyDown(swingKey) && swingChargeTimer >= swingChargeMax)
         {
             Swing();
             StartCoroutine("SwingEnumerator");

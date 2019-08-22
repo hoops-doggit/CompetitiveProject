@@ -10,13 +10,13 @@ public class CH_BaseballBatBehaviour : MonoBehaviour
     public float hitStrength;
     public bool buttonHeld;
 
-    public string swingButton;
+    public KeyCode swingKey;
 
 
     private void Start()
     {
         CH_Input chi = GetComponent<CH_Input>();
-        swingButton = chi.swingButton;
+        swingKey = chi.swingKey;
         StopSwing();
 
     }
@@ -25,12 +25,12 @@ public class CH_BaseballBatBehaviour : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (Input.GetButtonUp(swingButton))
+        if (Input.GetKeyUp(swingKey))
         {
             StartCoroutine("SwingEnumerator");
         }
 
-        if (Input.GetButton(swingButton))
+        if (Input.GetKey(swingKey))
         {
             PrepareSwing();
         }        

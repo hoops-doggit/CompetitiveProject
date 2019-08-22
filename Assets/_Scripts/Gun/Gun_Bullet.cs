@@ -37,7 +37,6 @@ public class Gun_Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        
         Collider col = GetComponent<Collider>();
         col.enabled = false;
         if (collision.gameObject.GetComponent<Block_Destructible>() != null) {

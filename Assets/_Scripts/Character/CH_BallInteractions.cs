@@ -10,21 +10,21 @@ public class CH_BallInteractions : MonoBehaviour
     private B_Behaviour ballScript;
     private GameObject ball;
     public bool holdingBall;
-    private string throwAxis;
+    private KeyCode throwKey;
     [SerializeField]private Rigidbody my_rb;
     
 
     private void Start()
     {
         CH_Input chi = GetComponent<CH_Input>();
-        throwAxis = chi.throwButton;
+        throwKey = chi.throwKey;
     }
 
     private void Update()
     {
         if (holdingBall)
         {
-            if (Input.GetButton(throwAxis))
+            if (Input.GetKey(throwKey))
             {
                 ThrowBall();
             }

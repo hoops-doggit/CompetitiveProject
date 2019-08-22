@@ -27,7 +27,7 @@ public class GunControl : MonoBehaviour {
     public int timeTillCharge;
 
 
-    private string shootButton;
+    public KeyCode shootButton;
 
 
 
@@ -35,7 +35,7 @@ public class GunControl : MonoBehaviour {
     void Start () {
         ChangeToCooldownChargedShot();
         CH_Input chi = GetComponent<CH_Input>();
-        shootButton = chi.shootButton;
+        shootButton = chi.shootKey;
 	}
 
     public void ChangeToChargedShot()
@@ -82,7 +82,7 @@ public class GunControl : MonoBehaviour {
         }
 
 
-        if (Input.GetButton(shootButton))
+        if (Input.GetKey(shootButton))
         {
             gun.TriggerPull();
         }

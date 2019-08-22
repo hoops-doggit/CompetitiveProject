@@ -7,9 +7,11 @@ public class CH_Input : MonoBehaviour {
     public bool joystick;
     public string xAxis;
     public string yAxis;
-    public string shootButton;
-    public string throwButton;
     public string swingButton;
+
+    public KeyCode shootKey;
+    public KeyCode throwKey;
+    public KeyCode swingKey;
 
     // Use this for initialization
     void Awake () {
@@ -23,30 +25,30 @@ public class CH_Input : MonoBehaviour {
             case PlayerNumber.player1:
                 xAxis = "horizontal1";
                 yAxis = "vertical1";
-                shootButton = "fire1";
-                throwButton = "throw1";
-                swingButton = "swing1";
+                shootKey = KeyCode.Joystick1Button0;
+                throwKey = KeyCode.Joystick1Button1;
+                swingKey = KeyCode.Joystick1Button2;
                 break;
             case PlayerNumber.player2:
                 xAxis = "horizontal2";
                 yAxis = "vertical2";
-                shootButton = "fire2";
-                throwButton = "throw2";
-                swingButton = "swing2";
+                shootKey = KeyCode.Joystick2Button0;
+                throwKey = KeyCode.Joystick2Button1;
+                swingKey = KeyCode.Joystick2Button2;
                 break;
             case PlayerNumber.player3:
                 xAxis = "horizontal3";
                 yAxis = "vertical3";
-                shootButton = "fire3";
-                throwButton = "throw3";
-                swingButton = "swing3";
+                shootKey = KeyCode.Joystick3Button0;
+                throwKey = KeyCode.Joystick3Button1;
+                swingKey = KeyCode.Joystick3Button2;
                 break;
             case PlayerNumber.player4:
                 xAxis = "horizontal4";
                 yAxis = "vertical4";
-                shootButton = "fire4";
-                throwButton = "throw4";
-                swingButton = "swing4";
+                shootKey = KeyCode.Joystick4Button0;
+                throwKey = KeyCode.Joystick4Button1;
+                swingKey = KeyCode.Joystick4Button2;
                 break;
         }
     }
