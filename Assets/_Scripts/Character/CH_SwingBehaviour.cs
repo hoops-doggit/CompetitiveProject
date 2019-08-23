@@ -61,6 +61,7 @@ public class CH_SwingBehaviour : MonoBehaviour
                     {
                         objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
+                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
                     }
 
                     if (objectsInSwingZone[i].tag == "player" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
@@ -154,11 +155,9 @@ public class CH_SwingBehaviour : MonoBehaviour
     }
 
     private IEnumerator SwingEnumerator()
-    {
-        Debug.Log("started swing");        
+    {       
         yield return new WaitForSeconds(lengthOfSwingPersistance);
         StopSwing();
-        Debug.Log("stopped swing");
         StopCoroutine("SwingEnumerator");
     }
 }

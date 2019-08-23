@@ -52,7 +52,8 @@ public class Gun_Bullet : MonoBehaviour {
 
     public void HitByBat(Transform t, float hitStrength)
     {
-        rb.AddForce(t.forward * (rb.velocity.magnitude + hitStrength), ForceMode.Acceleration);
+        rb.velocity = rb.velocity * -1;
+        //rb.AddForce(t.forward * (rb.velocity *= -1), ForceMode.Acceleration);
     }
 
     
