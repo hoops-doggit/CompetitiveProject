@@ -17,11 +17,13 @@ public class CH_SwingBehaviour : MonoBehaviour
     public int swingChargeTimer;
     private int swingChargeMax = 7;
     private bool ignoreBall = false;
+    private string owner;
 
     private void Start()
     {
         CH_Input chi = GetComponentInParent<CH_Input>();
         swingKey = chi.swingKey;
+        owner = chi.owner;
         StopSwing();
         bathitZone = gameObject;
     }
@@ -57,11 +59,11 @@ public class CH_SwingBehaviour : MonoBehaviour
                         }
                     }
 
-                    if (objectsInSwingZone[i].tag == "bullet")
+                    if (objectsInSwingZone[i].tag == "bullet" && objectsInSwingZone[i].GetComponent<Gun_Bullet>().owner != owner)
                     {
                         objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
-                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
+                        //objectsInSwingZone.Remove(objectsInSwingZone[i]);
                     }
 
                     if (objectsInSwingZone[i].tag == "player" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))

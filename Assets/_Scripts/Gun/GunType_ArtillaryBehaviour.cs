@@ -11,8 +11,9 @@ public class GunType_ArtillaryBehaviour : Gun {
     private float angle;
     private int coolDownTimer;
     private int coolDownLength;
+    private string owner;
 
-    public GunType_ArtillaryBehaviour(GameObject bullet, Transform bulletSpawnPos, Transform armPos, float angle, int coolDownLength)
+    public GunType_ArtillaryBehaviour(GameObject bullet, Transform bulletSpawnPos, Transform armPos, float angle, int coolDownLength, string owner)
     {
         this.bullet = bullet;
         this.bulletSpawnPos = bulletSpawnPos;
@@ -26,7 +27,7 @@ public class GunType_ArtillaryBehaviour : Gun {
         if (coolDownTimer == 0)
         {
             armPos.localEulerAngles = new Vector3(angle, 0, 0);
-            Shoot(bullet, bulletSpawnPos);
+            Shoot(bullet, bulletSpawnPos, owner);
             coolDownTimer = coolDownLength;
         }        
         base.TriggerStart();

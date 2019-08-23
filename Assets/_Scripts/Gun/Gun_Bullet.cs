@@ -9,6 +9,7 @@ public class Gun_Bullet : MonoBehaviour {
     public Vector3 direction;
     private int i = 0;
     private bool directionSwitch = true;
+    public string owner;
 
 
     // Update is called once per frame

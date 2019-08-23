@@ -13,15 +13,17 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
     private float cooldownTime;
     private float currentTime;
     private float scaleFactor = 0.001f;
+    private string owner;
 
 
     //Constructor
-    public GunType_CooldownChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, int cooldownTime)
+    public GunType_CooldownChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, int cooldownTime, string owner)
     {
         this.bullet = bullet;
         this.chargeIndicatorBullet = chargeIndicatorBullet;
         this.bulletSpawnPos = bulletSpawnPos;
         this.cooldownTime = cooldownTime;
+        this.owner = owner;
         currentTime = cooldownTime;
     }
 
@@ -56,7 +58,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
         base.TriggerStart();
         if(currentTime <= 0)
         {
-            Shoot(bullet, bulletSpawnPos);
+            Shoot(bullet, bulletSpawnPos, owner);
             GameObject.Destroy(cloneBullet);
             currentTime = cooldownTime;
         }

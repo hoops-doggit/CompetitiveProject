@@ -12,6 +12,7 @@ public class CH_Input : MonoBehaviour {
     public KeyCode shootKey;
     public KeyCode throwKey;
     public KeyCode swingKey;
+    public string owner;
 
     // Use this for initialization
     void Awake () {
@@ -28,6 +29,8 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick1Button0;
                 throwKey = KeyCode.Joystick1Button1;
                 swingKey = KeyCode.Joystick1Button2;
+                owner = "p1";
+
                 break;
             case PlayerNumber.player2:
                 xAxis = "horizontal2";
@@ -35,6 +38,7 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick2Button0;
                 throwKey = KeyCode.Joystick2Button1;
                 swingKey = KeyCode.Joystick2Button2;
+                owner = "p2";
                 break;
             case PlayerNumber.player3:
                 xAxis = "horizontal3";
@@ -42,6 +46,7 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick3Button0;
                 throwKey = KeyCode.Joystick3Button1;
                 swingKey = KeyCode.Joystick3Button2;
+                owner = "p3";
                 break;
             case PlayerNumber.player4:
                 xAxis = "horizontal4";
@@ -49,6 +54,7 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick4Button0;
                 throwKey = KeyCode.Joystick4Button1;
                 swingKey = KeyCode.Joystick4Button2;
+                owner = "p4";
                 break;
         }
     }

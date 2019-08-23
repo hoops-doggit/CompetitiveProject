@@ -28,6 +28,7 @@ public class GunControl : MonoBehaviour {
 
 
     public KeyCode shootButton;
+    public string owner;
 
 
 
@@ -36,26 +37,27 @@ public class GunControl : MonoBehaviour {
         ChangeToCooldownChargedShot();
         CH_Input chi = GetComponent<CH_Input>();
         shootButton = chi.shootKey;
+        owner = chi.owner;
 	}
 
     public void ChangeToChargedShot()
     {
-        gun = new GunType_ChargedShotBehaviour(bullet, chargeIndicator, bulletSpawnPos, timeTillFire);
+        gun = new GunType_ChargedShotBehaviour(bullet, chargeIndicator, bulletSpawnPos, timeTillFire, owner);
     }
 
     public void ChangeToArtillary()
     {
-        gun = new GunType_ArtillaryBehaviour(aBullet, aBulletSpawnPos, armPos, angle, coolDownLength);
+        gun = new GunType_ArtillaryBehaviour(aBullet, aBulletSpawnPos, armPos, angle, coolDownLength, owner);
 ;   }
 
     public void ChangeToMachineGun()
     {
-        gun = new GunType_MachineGun(machineGunBullet, machineGunSpawnPos, intervalTime);
+        gun = new GunType_MachineGun(machineGunBullet, machineGunSpawnPos, intervalTime, owner);
     }
 
     public void ChangeToCooldownChargedShot()
     {
-        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator,  bulletSpawnPos, timeTillCharge);
+        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator,  bulletSpawnPos, timeTillCharge, owner);
     }
 
 

@@ -32,7 +32,7 @@ public abstract class Gun {
         timeHeld = 0;
     }
 
-    public void Shoot(GameObject bullet, Transform bulletSpawnPos)
+    public void Shoot(GameObject bullet, Transform bulletSpawnPos, string owner )
     {
         //commented out text is for targeting block transforms
 
@@ -47,6 +47,7 @@ public abstract class Gun {
         GameObject b = GameObject.Instantiate(bullet);
         b.transform.position = bulletSpawnPos.position;
         b.transform.rotation = bulletSpawnPos.rotation;
+        b.GetComponent<Gun_Bullet>().owner = owner;
         //b.transform.LookAt(target);
     }
 
