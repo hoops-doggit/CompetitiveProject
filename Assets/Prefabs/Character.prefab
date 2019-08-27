@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047771283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.461, z: 0.359}
-  m_LocalScale: {x: 2.6545038, y: 2.6838167, z: 2.6545038}
+  m_LocalPosition: {x: 0.0000000074506, y: -0.461, z: 0.359}
+  m_LocalScale: {x: 2.24, y: 2.24, z: 2.24}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
   m_RootOrder: 9
@@ -107,7 +107,7 @@ MonoBehaviour:
   hitBallStrength: 1500
   buttonHeld: 0
   currentlySwinging: 0
-  swingButton: 
+  swingKey: 0
   bathitZone: {fileID: 1047771283}
   mats:
   - {fileID: 2100000, guid: 1d0ae34244a849049bb8f292695e9ba8, type: 2}
@@ -239,9 +239,11 @@ MonoBehaviour:
   joystick: 0
   xAxis: 
   yAxis: 
-  shootButton: 
-  throwButton: 
   swingButton: 
+  shootKey: 0
+  throwKey: 0
+  swingKey: 0
+  owner: 
 --- !u!114 &114412149405729196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
-  bulletStunMovement: 0.2
+  bulletStunMovement: 0.3
   batStunMovement: 0.1
   stunned: 0
   stunnedDirection: {x: 0, y: 0}
@@ -372,6 +374,8 @@ MonoBehaviour:
     type: 3}
   cooldownSpawnPos: {fileID: 4789697194395470}
   timeTillCharge: 50
+  shootButton: 0
+  owner: 
 --- !u!114 &1562957353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   styles:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   body:
@@ -1061,10 +1067,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.32
-  m_Height: 0.95
+  m_Radius: 0.35
+  m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.23, z: 0}
 --- !u!54 &54952335257318386
 Rigidbody:
   m_ObjectHideFlags: 0

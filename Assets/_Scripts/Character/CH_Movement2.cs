@@ -75,8 +75,8 @@ public class CH_Movement2 : MonoBehaviour {
             Move(stunnedDirection.x, stunnedDirection.y, false); //direction of impact
             if (stunMovementAmount > 0)
             {
-                stunMovementAmount /= 2f;
-                if (stunMovementAmount < 0.0001f)
+                stunMovementAmount /= 1.25f;
+                if (stunMovementAmount < 0.001f)
                 {
                     stunMovementAmount = 0;
                     stunned = false;
@@ -168,7 +168,12 @@ public class CH_Movement2 : MonoBehaviour {
 
         gameObject.transform.position = newPos;
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);
-        HeadDirection(inputVector);
+        if (stunned) { }
+        else
+        {
+            HeadDirection(inputVector);
+        }
+        
     }
 
     

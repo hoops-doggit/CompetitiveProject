@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class GunControl : MonoBehaviour {
+    public bool firegun;
     private Gun gun;
     [Header("Charged Shot Parameters")]
     [SerializeField] private GameObject bullet;
@@ -83,6 +84,11 @@ public class GunControl : MonoBehaviour {
             ChangeToCooldownChargedShot();
         }
 
+
+        if (firegun)
+        {
+            gun.TriggerPull();
+        }
 
         if (Input.GetKey(shootButton))
         {
