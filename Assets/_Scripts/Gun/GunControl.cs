@@ -35,11 +35,13 @@ public class GunControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        ChangeToCooldownChargedShot();
+
         CH_Input chi = GetComponent<CH_Input>();
         shootButton = chi.shootKey;
         owner = chi.owner;
-	}
+
+        ChangeToCooldownChargedShot();
+    }
 
     public void ChangeToChargedShot()
     {

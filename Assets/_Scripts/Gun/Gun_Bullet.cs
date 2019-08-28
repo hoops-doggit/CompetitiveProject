@@ -40,12 +40,23 @@ public class Gun_Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        //if (collision.gameObject.tag == "swingZone") 
+        //{
+        //    HitByBat(collision.transform, 3, "p2");
+        //}
+        //else
+        //{
+            
+        //}
+
         Collider col = GetComponent<Collider>();
         col.enabled = false;
-        if (collision.gameObject.GetComponent<Block_Destructible>() != null) {
+        if (collision.gameObject.GetComponent<Block_Destructible>() != null)
+        {
             collision.gameObject.GetComponent<Block_Destructible>().Bumped();
         }
         Death();
+
     }
 
     private void Death()
@@ -53,10 +64,12 @@ public class Gun_Bullet : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void HitByBat(Transform t, float hitStrength)
+    public void HitByBat(Transform t, float hitStrength, string newOwner)
     {
+        //this currently sends bullet back in reverse direction. It should send it back to wherever the owner now is
         rb.velocity = transform.forward * -1 * rb.velocity.magnitude;
-        //rb.AddForce(t.forward * (rb.velocity *= -1), ForceMode.Acceleration);
+        //rb.AddForce((transform.forward * -1) * rb.velocity.magnitude, ForceMode.Acceleration);
+        owner = newOwner;
     }
 
     

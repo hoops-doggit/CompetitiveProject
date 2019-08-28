@@ -17,13 +17,16 @@ public class CH_SwingBehaviour : MonoBehaviour
     public int swingChargeTimer;
     private int swingChargeMax = 7;
     private bool ignoreBall = false;
-    private string owner;
+    [SerializeField]private string owner;
 
     private void Start()
     {
-        CH_Input chi = GetComponentInParent<CH_Input>();
-        swingKey = chi.swingKey;
-        owner = chi.owner;
+        if (GetComponentInParent<CH_Input>() != null)
+        {
+            CH_Input chi = GetComponentInParent<CH_Input>();
+            swingKey = chi.swingKey;
+            owner = chi.owner;
+        }
         StopSwing();
         bathitZone = gameObject;
     }
@@ -59,11 +62,10 @@ public class CH_SwingBehaviour : MonoBehaviour
                         }
                     }
 
-                    if (objectsInSwingZone[i].tag == "bullet" && objectsInSwingZone[i].GetComponent<Gun_Bullet>().owner != owner)
+                    if (objectsInSwingZone[i].tag == "bullet" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
-                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength);
+                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength, owner);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
-                        //objectsInSwingZone.Remove(objectsInSwingZone[i]);
                     }
 
                     if (objectsInSwingZone[i].tag == "player" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
@@ -93,6 +95,17 @@ public class CH_SwingBehaviour : MonoBehaviour
                 }
             }
         }
+
+        if (objectsThatHaveBeenHit.Count != 0)
+        {
+            for (int i = 0; i < objectsThatHaveBeenHit.Count; i++)
+            {
+                if (objectsThatHaveBeenHit[i] == null)
+                {
+                    objectsThatHaveBeenHit.RemoveAt(i);
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -105,7 +118,13 @@ public class CH_SwingBehaviour : MonoBehaviour
             }
         }
 
-        if(other.tag == "bullet")
+        if(other.tag == "bullet" && other.GetComponent<Gun_Bullet>().owner != owner && currentlySwinging)
+        {
+
+            other.GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength, owner);
+            objectsThatHaveBeenHit.Add(other.gameObject);
+        }
+        else if(other.tag == "bullet" && other.GetComponent<Gun_Bullet>().owner != owner && !currentlySwinging)
         {
             if (!objectsInSwingZone.Contains(other.gameObject))
             {
@@ -122,6 +141,23 @@ public class CH_SwingBehaviour : MonoBehaviour
         }
 
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "bullet" && collision.gameObject.GetComponent<Gun_Bullet>().owner != owner && currentlySwinging)
+    //    {
+
+    //        collision.gameObject.GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength, owner);
+    //        objectsThatHaveBeenHit.Add(collision.gameObject.gameObject);
+    //    }
+    //    else if (collision.gameObject.tag == "bullet" && collision.gameObject.GetComponent<Gun_Bullet>().owner != owner && !currentlySwinging)
+    //    {
+    //        if (!objectsInSwingZone.Contains(collision.gameObject.gameObject))
+    //        {
+    //            objectsInSwingZone.Add(collision.gameObject.gameObject);
+    //        }
+    //    }
+    //}
 
     private void OnTriggerExit(Collider other)
     {
