@@ -25,6 +25,7 @@ public class Gun_Bullet : MonoBehaviour {
             Death();
         }
 
+        #region gonna get rid of this
         i++;
         if (directionSwitch)
         {
@@ -34,6 +35,7 @@ public class Gun_Bullet : MonoBehaviour {
                 directionSwitch = false;
             }
         }
+        #endregion
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -53,7 +55,7 @@ public class Gun_Bullet : MonoBehaviour {
 
     public void HitByBat(Transform t, float hitStrength)
     {
-        rb.velocity = rb.velocity * -1;
+        rb.velocity = transform.forward * -1 * rb.velocity.magnitude;
         //rb.AddForce(t.forward * (rb.velocity *= -1), ForceMode.Acceleration);
     }
 

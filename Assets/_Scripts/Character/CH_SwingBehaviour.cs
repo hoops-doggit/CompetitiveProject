@@ -81,6 +81,20 @@ public class CH_SwingBehaviour : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (objectsInSwingZone.Count != 0)
+        {
+            for (int i = 0; i < objectsInSwingZone.Count; i++)
+            {
+                if (objectsInSwingZone[i] == null)
+                {
+                    objectsInSwingZone.RemoveAt(i);
+                }
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "ball" && other.GetComponent<B_Behaviour>().free)

@@ -5086,7 +5086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.995
+      value: -6.85
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5140,6 +5140,15 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletStunMovement
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114978605307332324, guid: c5e99694659c3b84cbad00ce1ade85de,
+        type: 3}
+      propertyPath: firegun
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047771288, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: lengthOfSwingPersistance
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
@@ -11489,7 +11498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7
+      value: -10.49
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11497,7 +11506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.44
+      value: -6.53
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalRotation.x
