@@ -86,6 +86,7 @@ public class CH_Movement2 : MonoBehaviour {
         if (!stunned)
         {
             Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), true);
+            HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
         }
     }
 
@@ -99,8 +100,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     public void MoveYouGotWhackedByABat(Vector3 velocity)
     {
-        //Vector3 forward = t.rotation * Vector3.back;
-        
+        //Vector3 forward = t.rotation * Vector3.back;        
         stunnedDirection.x =  (velocity.x - transform.position.x) *-1;
         stunnedDirection.y = (velocity.z - transform.position.z) * -1;
         stunnedDirection = stunnedDirection.normalized;
@@ -172,8 +172,7 @@ public class CH_Movement2 : MonoBehaviour {
         else
         {
             HeadDirection(inputVector);
-        }
-        
+        }        
     }
 
     
@@ -224,18 +223,18 @@ public class CH_Movement2 : MonoBehaviour {
             if (x < 0)
             {
                 angle = 360 + Vector2.SignedAngle(new Vector2(x, y), Vector2.up);
-                if (angle>lastAngle-360)
-                {
+                //if (angle>lastAngle-360)
+                //{
 
-                }
-                else if (angle > lastAngle + angleCutoff)
-                {
-                    angle = lastAngle + angleCutoff;
-                }
-                else if( angle < lastAngle - angleCutoff)
-                {
-                    angle = lastAngle - angleCutoff;
-                }
+                //}
+                //else if (angle > lastAngle + angleCutoff)
+                //{
+                //    angle = lastAngle + angleCutoff;
+                //}
+                //else if( angle < lastAngle - angleCutoff)
+                //{
+                //    angle = lastAngle - angleCutoff;
+                //}
                 
                 head.eulerAngles = new Vector3(0, angle, 0);
                 lastAngle = angle;
@@ -244,18 +243,18 @@ public class CH_Movement2 : MonoBehaviour {
             {
 
                 angle = Vector2.Angle(new Vector2(x, y), Vector2.up);
-                if (angle > lastAngle - 360)
-                {
+                //if (angle > lastAngle - 360)
+                //{
 
-                }
-                else if (angle > lastAngle + angleCutoff)
-                {
-                    angle = lastAngle + angleCutoff;
-                }
-                else if (angle < lastAngle - angleCutoff)
-                {
-                    angle = lastAngle - angleCutoff;
-                }
+                //}
+                //else if (angle > lastAngle + angleCutoff)
+                //{
+                //    angle = lastAngle + angleCutoff;
+                //}
+                //else if (angle < lastAngle - angleCutoff)
+                //{
+                //    angle = lastAngle - angleCutoff;
+                //}
                 head.eulerAngles = new Vector3(0, angle, 0);
                 lastAngle = angle;
             }

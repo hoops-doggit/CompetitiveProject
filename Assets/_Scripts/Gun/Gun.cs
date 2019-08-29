@@ -48,6 +48,7 @@ public abstract class Gun {
         b.transform.position = bulletSpawnPos.position;
         b.transform.rotation = bulletSpawnPos.rotation;
         b.GetComponent<Gun_Bullet>().owner = owner;
+        b.layer = LayerMask.NameToLayer(owner);
         //b.transform.LookAt(target);
     }
 

@@ -11,6 +11,7 @@ public class CH_CollisionListener : MonoBehaviour
     {
         playerInteractions = GetComponentInParent<CH_PlayerInteractions>();
         playerMovement = GetComponentInParent<CH_Movement2>();
+        gameObject.layer = LayerMask.NameToLayer(GetComponentInParent<CH_Input>().owner);
     }
 
     private void OnCollisionEnter(Collision collision)

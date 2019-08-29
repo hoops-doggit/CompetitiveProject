@@ -9,6 +9,7 @@ public class Gun_Bullet : MonoBehaviour {
     public Vector3 direction;
     private int i = 0;
     public string owner;
+    private int bulletTimer = 0;
 
 
     // Update is called once per frame
@@ -34,27 +35,29 @@ public class Gun_Bullet : MonoBehaviour {
     private void Update()
     {
         direction = rb.velocity;
+        if(bulletTimer < 2)
+        {
+            bulletTimer++;
+            if (bulletTimer >= 2)
+            {
+                gameObject.layer = LayerMask.NameToLayer(owner);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.tag == "swingZone") 
-        //{
-        //    HitByBat(collision.transform, 3, "p2");
-        //}
-        //else
-        //{
-            
-        //}
 
-        Collider col = GetComponent<Collider>();
-        col.enabled = false;
+        //Collider col = GetComponent<Collider>();
+        //col.enabled = false;
+
         if (collision.gameObject.GetComponent<Block_Destructible>() != null)
         {
             collision.gameObject.GetComponent<Block_Destructible>().Bumped();
-        }
-        Death();
+            
+        }     
 
+        Death();
     }
 
     private void Death()
@@ -69,6 +72,7 @@ public class Gun_Bullet : MonoBehaviour {
         rb.velocity = transform.forward * rb.velocity.magnitude;
         //rb.AddForce((transform.forward * -1) * rb.velocity.magnitude, ForceMode.Acceleration);
         owner = newOwner;
+        gameObject.layer = LayerMask.NameToLayer(newOwner);
     }
 
     

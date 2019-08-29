@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 135867751168944046}
   - component: {fileID: 54254682554222818}
   - component: {fileID: 114910984415137588}
-  m_Layer: 11
+  m_Layer: 19
   m_Name: Bullet
   m_TagString: bullet
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.48
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &54254682554222818
 Rigidbody:
@@ -124,4 +124,4 @@ MonoBehaviour:
   maxAge: 200
   initialSpeed: 1600
   direction: {x: 0, y: 0, z: 0}
-  owner: 
+  owner: p1
