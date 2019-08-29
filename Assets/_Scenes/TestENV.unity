@@ -584,7 +584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.34
+      value: -5.74
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.y
@@ -592,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.87
+      value: -4.76
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalRotation.x
@@ -658,6 +658,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1047771284, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064056595, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2064056596, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
@@ -929,6 +933,18 @@ PrefabInstance:
       propertyPath: styles.Array.data[3]
       value: 
       objectReference: {fileID: 1199242505}
+    - target: {fileID: 1741705178104622, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047771283, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064056595, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
 --- !u!1 &1064337511
@@ -1307,7 +1323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979619769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0.039000005, z: -0.23}
+  m_LocalPosition: {x: -1.45, y: 0.039000005, z: -0.23}
   m_LocalScale: {x: 2.24, y: 2.24, z: 2.24}
   m_Children: []
   m_Father: {fileID: 0}

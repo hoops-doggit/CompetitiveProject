@@ -34,8 +34,6 @@ public class CH_SwingBehaviour : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(0);
-
         if (swingChargeTimer <= swingChargeMax)
         {
             swingChargeTimer++;
@@ -111,9 +109,6 @@ public class CH_SwingBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        Debug.Log(1);
-
         if (other.tag == "ball" && other.GetComponent<B_Behaviour>().free)
         {
             if (!objectsInSwingZone.Contains(other.gameObject))

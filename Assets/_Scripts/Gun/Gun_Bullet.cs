@@ -8,7 +8,6 @@ public class Gun_Bullet : MonoBehaviour {
     private Rigidbody rb;
     public Vector3 direction;
     private int i = 0;
-    private bool directionSwitch = true;
     public string owner;
 
 
@@ -25,17 +24,16 @@ public class Gun_Bullet : MonoBehaviour {
             Death();
         }
 
-        #region gonna get rid of this
-        i++;
-        if (directionSwitch)
+        if (i < 1)
         {
-            if (i > 1)
-            {
-                direction = rb.velocity;
-                directionSwitch = false;
-            }
+            i++;
+            direction = rb.velocity;
         }
-        #endregion
+    }
+
+    private void Update()
+    {
+        direction = rb.velocity;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,7 +65,8 @@ public class Gun_Bullet : MonoBehaviour {
     public void HitByBat(Transform t, float hitStrength, string newOwner)
     {
         //this currently sends bullet back in reverse direction. It should send it back to wherever the owner now is
-        rb.velocity = transform.forward * -1 * rb.velocity.magnitude;
+        transform.rotation = Quaternion.Inverse(transform.rotation);
+        rb.velocity = transform.forward * rb.velocity.magnitude;
         //rb.AddForce((transform.forward * -1) * rb.velocity.magnitude, ForceMode.Acceleration);
         owner = newOwner;
     }
