@@ -30,6 +30,7 @@ public class GunControl : MonoBehaviour {
 
     public KeyCode shootButton;
     public string owner;
+    public Transform ownerT;
 
 
 
@@ -45,22 +46,22 @@ public class GunControl : MonoBehaviour {
 
     public void ChangeToChargedShot()
     {
-        gun = new GunType_ChargedShotBehaviour(bullet, chargeIndicator, bulletSpawnPos, timeTillFire, owner);
+        gun = new GunType_ChargedShotBehaviour(bullet, chargeIndicator, bulletSpawnPos, timeTillFire, owner, ownerT);
     }
 
     public void ChangeToArtillary()
     {
-        gun = new GunType_ArtillaryBehaviour(aBullet, aBulletSpawnPos, armPos, angle, coolDownLength, owner);
+        gun = new GunType_ArtillaryBehaviour(aBullet, aBulletSpawnPos, armPos, angle, coolDownLength, owner, ownerT);
 ;   }
 
     public void ChangeToMachineGun()
     {
-        gun = new GunType_MachineGun(machineGunBullet, machineGunSpawnPos, intervalTime, owner);
+        gun = new GunType_MachineGun(machineGunBullet, machineGunSpawnPos, intervalTime, owner, ownerT);
     }
 
     public void ChangeToCooldownChargedShot()
     {
-        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator,  bulletSpawnPos, timeTillCharge, owner);
+        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator,  bulletSpawnPos, timeTillCharge, owner, ownerT);
     }
 
 

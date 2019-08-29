@@ -32,9 +32,9 @@ public abstract class Gun {
         timeHeld = 0;
     }
 
-    public void Shoot(GameObject bullet, Transform bulletSpawnPos, string owner )
+    public void Shoot(GameObject bullet, Transform bulletSpawnPos, string owner, Transform ownerT)
     {
-        //commented out text is for targeting block transforms
+        #region commented out text is for targeting block transforms
 
         //int layerMask = 1 << 11;
         //layerMask = ~layerMask;
@@ -44,10 +44,17 @@ public abstract class Gun {
         //{
         //    target = hit.collider.gameObject.GetComponent<Collider>().bounds.center;
         //}
+        #endregion
+
         GameObject b = GameObject.Instantiate(bullet);
         b.transform.position = bulletSpawnPos.position;
         b.transform.rotation = bulletSpawnPos.rotation;
         b.GetComponent<Gun_Bullet>().owner = owner;
+        if (ownerT != null)
+        {
+            b.GetComponent<Gun_Bullet>().ownerT = ownerT;
+        }
+
         b.layer = LayerMask.NameToLayer(owner);
         //b.transform.LookAt(target);
     }

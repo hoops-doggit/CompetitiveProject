@@ -37,8 +37,6 @@ public class CH_Styling : MonoBehaviour
     }
 
 
-
-
     private void PropogateStyle(int styleNo)
     {
         foreach (Renderer r in body)

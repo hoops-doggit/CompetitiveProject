@@ -113,11 +113,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1d0ae34244a849049bb8f292695e9ba8, type: 2}
   - {fileID: 2100000, guid: db641eb477219ec4993eaa3511a329f5, type: 2}
   - {fileID: 2100000, guid: 49625b441d6e0e841a4df474b0a672c6, type: 2}
-  lengthOfSwingPersistance: 5
+  lengthOfSwingPersistance: 0.16
   objectsInSwingZone: []
   objectsThatHaveBeenHit: []
   swingChargeTimer: 0
   owner: 
+  ownerT: {fileID: 0}
 --- !u!1 &2136872536
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,8 +193,9 @@ GameObject:
   - component: {fileID: 114746917423204440}
   - component: {fileID: 114978605307332324}
   - component: {fileID: 1562957353}
-  - component: {fileID: 482660140}
   - component: {fileID: 1844469912}
+  - component: {fileID: 482660140}
+  - component: {fileID: 3331559993457418728}
   m_Layer: 14
   m_Name: Character
   m_TagString: Untagged
@@ -322,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
-  bulletStunMovement: 0.3
+  bulletStunMovement: 0.2
   batStunMovement: 0.1
   stunned: 0
   stunnedDirection: {x: 0, y: 0}
@@ -378,6 +380,7 @@ MonoBehaviour:
   timeTillCharge: 100
   shootButton: 0
   owner: 
+  ownerT: {fileID: 5449944217141419792}
 --- !u!114 &1562957353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,31 +398,6 @@ MonoBehaviour:
   ballThrowSpeed: 900
   holdingBall: 0
   my_rb: {fileID: 54952335257318386}
---- !u!114 &482660140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052164874464912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0349b365fd377934797a02be818fc996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  styles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  body:
-  - {fileID: 23356695621879278}
-  - {fileID: 23080004528061816}
-  gun:
-  - {fileID: 23555553907794434}
-  - {fileID: 23840083049968674}
-  - {fileID: 23834985527889638}
-  - {fileID: 23506678274439742}
 --- !u!114 &1844469912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +411,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player2: {fileID: 0}
+--- !u!114 &482660140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052164874464912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0349b365fd377934797a02be818fc996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styles:
+  - {fileID: 5943637358183272739, guid: 8313dccce8f6f7d468561cd6dca98068, type: 3}
+  - {fileID: 7955893420328452761, guid: 3f98a4c1980c95c479ee50461bcdad4e, type: 3}
+  - {fileID: 1788692526949332488, guid: cedf4b1e8b7eeca47acf8b7a41bd51f9, type: 3}
+  - {fileID: 4398366646779605298, guid: 4669b0c2856432a42b0ce9d4dcf63945, type: 3}
+  body:
+  - {fileID: 23356695621879278}
+  - {fileID: 23080004528061816}
+  gun:
+  - {fileID: 23555553907794434}
+  - {fileID: 23840083049968674}
+  - {fileID: 23834985527889638}
+  - {fileID: 23506678274439742}
+--- !u!114 &3331559993457418728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052164874464912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316e3d7b2165a74db1cd441e2f357cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1110376990157868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1071,7 @@ Transform:
   - {fileID: 8478535675981271663}
   - {fileID: 5006512736701880872}
   - {fileID: 1047771287}
+  - {fileID: 5449944217141419792}
   m_Father: {fileID: 4878228158558918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1451,6 +1467,36 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: -5076798556035486163, guid: a28437276350dae45b4394bbf3679386, type: 3}
+--- !u!1 &8813402263783171639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5449944217141419792}
+  m_Layer: 0
+  m_Name: ChargeShotBulletHomingTargetPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5449944217141419792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8813402263783171639}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4543207619290032}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1930178866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1550,15 +1596,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1d0ae34244a849049bb8f292695e9ba8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a28437276350dae45b4394bbf3679386, type: 3}
---- !u!1 &8296172667824990267 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: a28437276350dae45b4394bbf3679386,
-    type: 3}
-  m_PrefabInstance: {fileID: 1930178866}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5006512736701880872 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: a28437276350dae45b4394bbf3679386,
+    type: 3}
+  m_PrefabInstance: {fileID: 1930178866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8296172667824990267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: a28437276350dae45b4394bbf3679386,
     type: 3}
   m_PrefabInstance: {fileID: 1930178866}
   m_PrefabAsset: {fileID: 0}

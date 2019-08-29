@@ -9,13 +9,15 @@ public class GunType_MachineGun : Gun {
     private int bulletInterval;
     private int intervalTime;
     private string owner;
+    private Transform ownerT;
 
-    public GunType_MachineGun(GameObject bullet, Transform t, int bulletInterval, string owner)
+    public GunType_MachineGun(GameObject bullet, Transform t, int bulletInterval, string owner, Transform ownerT)
     {
         this.bullet = bullet;
         this.t = t;
         this.bulletInterval = bulletInterval;
         this.owner = owner;
+        this.ownerT = ownerT;
     }    
 
     public override void TriggerHold()
@@ -23,7 +25,7 @@ public class GunType_MachineGun : Gun {
         intervalTime++;
         if (intervalTime >= bulletInterval)
         {
-            Shoot(bullet, t, owner);
+            Shoot(bullet, t, owner, ownerT);
             intervalTime = 0;
         }
         

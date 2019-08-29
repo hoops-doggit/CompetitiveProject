@@ -18,6 +18,7 @@ public class CH_SwingBehaviour : MonoBehaviour
     private int swingChargeMax = 7;
     private bool ignoreBall = false;
     [SerializeField]private string owner;
+    [SerializeField]private Transform ownerT;
 
     private void Start()
     {
@@ -27,6 +28,11 @@ public class CH_SwingBehaviour : MonoBehaviour
             swingKey = chi.swingKey;
             owner = chi.owner;
         }
+        if( GetComponentInParent<GunControl>() != null)
+        {
+            ownerT = GetComponentInParent<GunControl>().ownerT;
+        }
+
         StopSwing();
         bathitZone = gameObject;
     }
@@ -63,7 +69,7 @@ public class CH_SwingBehaviour : MonoBehaviour
 
                     if (objectsInSwingZone[i].tag == "bullet" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
-                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength, owner);
+                        objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(ownerT, hitBallStrength, owner);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
                     }
 

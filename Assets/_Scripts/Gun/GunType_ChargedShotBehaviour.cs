@@ -13,16 +13,18 @@ public class GunType_ChargedShotBehaviour : Gun {
     private float timeTillFire;
     private float scaleFactor = 0.001f;
     private string owner;
+    private Transform ownerT;
 
 
     //Constructor
-    public GunType_ChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, float timeTillFire, string owner)
+    public GunType_ChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, float timeTillFire, string owner, Transform ownerT)
     {
         this.bullet = bullet;
         this.chargeIndicatorBullet = chargeIndicatorBullet;
         this.bulletSpawnPos = bulletSpawnPos;
         this.timeTillFire = timeTillFire;
         this.owner = owner;
+        this.ownerT = ownerT;
     }
 
 
@@ -51,7 +53,7 @@ public class GunType_ChargedShotBehaviour : Gun {
 
         if (timeHeld > timeTillFire)
         {
-            Shoot(bullet, bulletSpawnPos, owner);
+            Shoot(bullet, bulletSpawnPos, owner, ownerT);
         }
         GameObject.Destroy(cloneBullet);
 

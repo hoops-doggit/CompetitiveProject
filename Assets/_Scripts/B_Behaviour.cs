@@ -18,7 +18,8 @@ public class B_Behaviour : MonoBehaviour
         ballHeld = false;
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
-        FreezeAllRigidbodyConstraints();
+        rb.Sleep();
+        //FreezeAllRigidbodyConstraints();
         free = true;
     }
 
@@ -117,13 +118,7 @@ public class B_Behaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(stunCooldown);
         heldBy = null;
-    }
-
-
-
-    
-
-    
+    }    
 
     public void FreezeAllRigidbodyConstraints()
     {

@@ -6,6 +6,7 @@ public class GM_MatchMaster : MonoBehaviour
 {
     public static GM_MatchMaster instance = null;
     [SerializeField] private Transform ballStartPos;
+    [SerializeField] private List<GameObject> players;
 
 
     private void Awake()
@@ -22,8 +23,15 @@ public class GM_MatchMaster : MonoBehaviour
 
     public void ResetBall(GameObject ball)
     {
+        Debug.Log("ResettingRound");
         ball.transform.parent = null;
-        ball.GetComponent<B_Behaviour>().FreezeAllRigidbodyConstraints();
+        ball.GetComponent<Rigidbody>().Sleep();
         ball.transform.position = ballStartPos.position;
+        ball.GetComponent<Collider>().enabled = true;
+        foreach(GameObject go in players)
+        {
+            go.GetComponent<CH_RoundReset>().ResetPlayer();
+        }
+        Debug.Log("Just reset players");
     }
 }
