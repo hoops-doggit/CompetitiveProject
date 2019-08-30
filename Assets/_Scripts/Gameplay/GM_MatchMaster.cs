@@ -28,6 +28,7 @@ public class GM_MatchMaster : MonoBehaviour
         ball.GetComponent<Rigidbody>().Sleep();
         ball.transform.position = ballStartPos.position;
         ball.GetComponent<Collider>().enabled = true;
+
         foreach(GameObject go in players)
         {
             go.GetComponent<CH_RoundReset>().ResetPlayer();

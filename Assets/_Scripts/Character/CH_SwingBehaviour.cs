@@ -19,6 +19,7 @@ public class CH_SwingBehaviour : MonoBehaviour
     private bool ignoreBall = false;
     [SerializeField]private string owner;
     [SerializeField]private Transform ownerT;
+    private CH_BallInteractions chb;
 
     private void Start()
     {
@@ -32,6 +33,12 @@ public class CH_SwingBehaviour : MonoBehaviour
         {
             ownerT = GetComponentInParent<GunControl>().ownerT;
         }
+
+        if ( GetComponentInParent<CH_BallInteractions>() != null)
+        {
+            chb = GetComponentInParent<CH_BallInteractions>();
+        }
+
 
         StopSwing();
         bathitZone = gameObject;
@@ -84,6 +91,10 @@ public class CH_SwingBehaviour : MonoBehaviour
 
                     }
                 }
+            }
+            if (chb.holdingBall)
+            {
+                chb.ThrowBall();
             }
         }
     }

@@ -25,6 +25,15 @@ public class B_Behaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (rb.IsSleeping())
+        {
+            rb.WakeUp();
+            UnfreezeAllRigidbodyConstraints();
+
+        }
+
+
+
         if (collision.gameObject.tag == "player" && free)
         {
             collision.gameObject.GetComponentInParent<CH_BallInteractions>().PickUpBall(gameObject, this);

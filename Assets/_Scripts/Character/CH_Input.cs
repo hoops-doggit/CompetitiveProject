@@ -37,8 +37,8 @@ public class CH_Input : MonoBehaviour {
                 yAxis = "vertical2";
                 shootKey = KeyCode.Joystick2Button0;
                 throwKey = KeyCode.Joystick2Button1;
-                //swingKey = KeyCode.Joystick2Button2;
-                swingKey = KeyCode.Space;
+                swingKey = KeyCode.Joystick2Button2;
+                //swingKey = KeyCode.Space;
                 owner = "p2";
                 break;
             case PlayerNumber.player3:

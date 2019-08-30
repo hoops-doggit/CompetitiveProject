@@ -31,6 +31,7 @@ public class GunControl : MonoBehaviour {
     public KeyCode shootButton;
     public string owner;
     public Transform ownerT;
+    private CH_BallInteractions chb;
 
 
 
@@ -38,6 +39,8 @@ public class GunControl : MonoBehaviour {
     void Start () {
 
         CH_Input chi = GetComponent<CH_Input>();
+        chb = GetComponentInParent<CH_BallInteractions>();
+
         shootButton = chi.shootKey;
         owner = chi.owner;
 
@@ -95,6 +98,11 @@ public class GunControl : MonoBehaviour {
 
         if (Input.GetKey(shootButton))
         {
+            if (chb.holdingBall)
+            {
+                chb.ThrowBall();
+            }
+
             gun.TriggerPull();
         }
         else
