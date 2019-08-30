@@ -204,11 +204,17 @@ public class CH_SwingBehaviour : MonoBehaviour
 
     private void Swing()
     {
-
-        currentlySwinging = true;
-        MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
-        batMeshRend.enabled = true;
-        batMeshRend.material = mats[2];
+        if (!chb.holdingBall)
+        {
+            currentlySwinging = true;
+            MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
+            batMeshRend.enabled = true;
+            batMeshRend.material = mats[2];
+        }
+        else
+        {
+            chb.ThrowBall();
+        }
     }
 
     public void StopSwing()

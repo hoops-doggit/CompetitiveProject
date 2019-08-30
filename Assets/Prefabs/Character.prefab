@@ -381,6 +381,9 @@ MonoBehaviour:
   shootButton: 0
   owner: 
   ownerT: {fileID: 5449944217141419792}
+  chargeMats:
+  - {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
+  - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
 --- !u!114 &1562957353
 MonoBehaviour:
   m_ObjectHideFlags: 0

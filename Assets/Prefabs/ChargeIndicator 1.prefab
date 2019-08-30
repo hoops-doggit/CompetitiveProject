@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23268319390705558}
   - component: {fileID: 7040437252410840392}
   m_Layer: 11
-  m_Name: ChargeIndicator
+  m_Name: ChargeIndicator 1
   m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6e6b72fed2e60174791e744d285c320c, type: 2}
+  - {fileID: 2100000, guid: f79f63d32f4a97649a156f377d0d54ae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -38,7 +38,7 @@ public class GM_GoalBox : MonoBehaviour
         mat.SetColor("_EmissionColor", scoredGlow);
         yield return new WaitForSeconds(3);
         mat.SetColor("_EmissionColor", preGlow);
-        GM_MatchMaster.instance.ResetBall(ball);
+        GM_MatchMaster.instance.ResetRound();
         gameObject.GetComponent<Collider>().enabled = true;
 
 

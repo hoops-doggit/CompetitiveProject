@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 2100000, guid: 7a77796efec996648b4c35b533860546, type: 2}
   gun: {fileID: 2100000, guid: dfd0abc0f43fccc4580d79948dfd5beb, type: 2}
+  bullet: {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
   bat: {fileID: 2100000, guid: 14e0bae1725f7c54696d14540f13f69c, type: 2}
 --- !u!1 &3582519848172126161
 GameObject:
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 2100000, guid: 14e0bae1725f7c54696d14540f13f69c, type: 2}
   gun: {fileID: 2100000, guid: dfd0abc0f43fccc4580d79948dfd5beb, type: 2}
+  bullet: {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
   bat: {fileID: 2100000, guid: 14e0bae1725f7c54696d14540f13f69c, type: 2}
 --- !u!1 &3582519848775024465
 GameObject:
@@ -171,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 2100000, guid: e3cedc82d953c7a4eb645330dd854670, type: 2}
   gun: {fileID: 2100000, guid: dfd0abc0f43fccc4580d79948dfd5beb, type: 2}
+  bullet: {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
   bat: {fileID: 2100000, guid: e3cedc82d953c7a4eb645330dd854670, type: 2}
 --- !u!1 &8897632197189298363
 GameObject:
@@ -217,4 +220,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 2100000, guid: 042454058a1d1c7408881f31f063ae5f, type: 2}
   gun: {fileID: 2100000, guid: dfd0abc0f43fccc4580d79948dfd5beb, type: 2}
+  bullet: {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
   bat: {fileID: 2100000, guid: 14e0bae1725f7c54696d14540f13f69c, type: 2}

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Gun_ChargingBullet : MonoBehaviour
 {
     public Material charging;
-    public Material charged;
+    public List<Material> charged = new List<Material>();
     private Renderer r;
 
     private void Start()
@@ -12,8 +14,8 @@ public class Gun_ChargingBullet : MonoBehaviour
     }
 
 
-    public void SetChargedMat()
+    public void SetChargedMat(int i)
     {
-        r.material = charged;
+        r.material = charged[i];
     }
 }

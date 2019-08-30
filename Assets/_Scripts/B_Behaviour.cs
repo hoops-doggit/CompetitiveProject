@@ -15,12 +15,7 @@ public class B_Behaviour : MonoBehaviour
 
     private void Start()
     {
-        ballHeld = false;
-        col = GetComponent<Collider>();
-        rb = GetComponent<Rigidbody>();
-        rb.Sleep();
-        //FreezeAllRigidbodyConstraints();
-        free = true;
+        SetupBall();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,10 +24,7 @@ public class B_Behaviour : MonoBehaviour
         {
             rb.WakeUp();
             UnfreezeAllRigidbodyConstraints();
-
         }
-
-
 
         if (collision.gameObject.tag == "player" && free)
         {
@@ -43,6 +35,16 @@ public class B_Behaviour : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
 
+    }
+
+    public void SetupBall()
+    {
+        ballHeld = false;
+        col = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+        rb.Sleep();
+        //FreezeAllRigidbodyConstraints();
+        free = true;
     }
 
     public void HitBall(Transform playerT, float hitStrength)

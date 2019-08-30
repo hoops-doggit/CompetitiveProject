@@ -5,8 +5,12 @@ using UnityEngine;
 public class GM_MatchMaster : MonoBehaviour
 {
     public static GM_MatchMaster instance = null;
-    [SerializeField] private Transform ballStartPos;
+    [SerializeField] private GameObject ballStartPos;
     [SerializeField] private List<GameObject> players;
+    [SerializeField] private GameObject ball;
+    [SerializeField] private GameObject destructibleBlocks;
+    private GameObject blocksClone;
+    private GameObject ballClone;
 
 
     private void Awake()
@@ -21,18 +25,34 @@ public class GM_MatchMaster : MonoBehaviour
         }
     }
 
-    public void ResetBall(GameObject ball)
+    private void Start()
     {
+        ballStartPos.SetActive(false);
+        ResetRound();
+    }
+
+    public void ResetRound()
+    {
+        SetupPlayField();
+        Destroy(ballClone);
+        SpawnBall();
         Debug.Log("ResettingRound");
-        ball.transform.parent = null;
-        ball.GetComponent<Rigidbody>().Sleep();
-        ball.transform.position = ballStartPos.position;
-        ball.GetComponent<Collider>().enabled = true;
+        ballClone.GetComponent<Collider>().enabled = true;
 
         foreach(GameObject go in players)
         {
             go.GetComponent<CH_RoundReset>().ResetPlayer();
         }
         Debug.Log("Just reset players");
+    }
+
+    public void SpawnBall()
+    {
+        ballClone = Instantiate(ball, ballStartPos.transform.position, Quaternion.identity);
+    }
+
+    public void SetupPlayField()
+    {
+        blocksClone = Instantiate(destructibleBlocks);
     }
 }

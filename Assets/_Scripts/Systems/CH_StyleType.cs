@@ -6,5 +6,6 @@ public class CH_StyleType : MonoBehaviour
 {
     public Material body;
     public Material gun;
+    public Material bullet;
     public Material bat;
 }

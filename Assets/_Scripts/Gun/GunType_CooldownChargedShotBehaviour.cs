@@ -50,7 +50,16 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
         }
         else
         {
-            cloneBullet.GetComponent<Gun_ChargingBullet>().SetChargedMat();
+            int i = 0;
+            if (owner == "p1" || owner == "p3")
+            {
+                i= 0;
+            }
+            else
+            {
+                i= 1;
+            }
+            cloneBullet.GetComponent<Gun_ChargingBullet>().SetChargedMat(i);
         }
         base.Gupdate();
     }

@@ -88,26 +88,31 @@ public class GunControl : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ChangeToCooldownChargedShot();
-        }
+        }        
 
-
-        if (firegun)
-        {
-            gun.TriggerPull();
-        }
-
-        if (Input.GetKey(shootButton))
+        if (Input.GetKeyDown(shootButton))
         {
             if (chb.holdingBall)
             {
                 chb.ThrowBall();
             }
 
-            gun.TriggerPull();
+            else if(!chb.holdingBall)
+            {
+                gun.TriggerPull();
+            }            
         }
         else
         {
             gun.TriggerRelease();
         }
-	}
+
+
+        //This is used for debugging etc
+        if (firegun)
+        {
+            gun.TriggerPull();
+        }
+
+    }
 }
