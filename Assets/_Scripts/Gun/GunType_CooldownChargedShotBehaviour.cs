@@ -43,7 +43,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
                 cloneBullet.transform.SetParent(bulletSpawnPos);
                 cloneBullet.transform.localScale = Vector3.zero;
             }
-            else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x)
+            else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x/2)
             {
                 cloneBullet.transform.localScale += bullet.transform.localScale / cooldownTime;
             }

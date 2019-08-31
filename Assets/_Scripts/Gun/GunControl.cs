@@ -43,7 +43,6 @@ public class GunControl : MonoBehaviour {
 
         shootButton = chi.shootKey;
         owner = chi.owner;
-
         ChangeToCooldownChargedShot();
     }
 

@@ -20,7 +20,6 @@ public class CH_CollisionListener : MonoBehaviour
         {
             GameManager.inst.TimeFreeze();
             playerInteractions.GotShot(collision.gameObject.GetComponent<Gun_Bullet>().direction);
-            Debug.Log("moveyougot stuneed");
             playerMovement.MoveYouGotStunned(collision.gameObject.GetComponent<Gun_Bullet>().direction);
         }
 

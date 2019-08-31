@@ -136,7 +136,7 @@ public class CH_SwingBehaviour : MonoBehaviour
 
         if(other.tag == "bullet" && other.GetComponent<Gun_Bullet>().owner != owner && currentlySwinging)
         {
-
+            Debug.Log("should deflect");
             other.GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength, owner);
             objectsThatHaveBeenHit.Add(other.gameObject);
         }

@@ -12,8 +12,11 @@ public class Gun_Bullet : MonoBehaviour {
     public Vector3 direction;
     private int i = 0;
     public string owner;
-    private int bulletTimer = 0;
     public Transform ownerT;
+    private int bulletTimer = 0;
+    public string tempOwner;
+    public Transform tempOwnerT;
+    
     [SerializeField] private List<Material> bulletMats = new List<Material>();
 
 
@@ -62,6 +65,11 @@ public class Gun_Bullet : MonoBehaviour {
                 gameObject.layer = LayerMask.NameToLayer(owner);
             }
         }
+        if (tempOwner != null && ownerT != tempOwnerT)
+        {
+            //owner = tempOwner;
+            //ownerT = tempOwnerT;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -77,7 +85,7 @@ public class Gun_Bullet : MonoBehaviour {
         
         if(collision.gameObject.tag == "bullet")
         {
-            HitAnotherBullet(ownerT, go.GetComponent<Gun_Bullet>().owner);
+            //HitAnotherBullet(ownerT, go.GetComponent<Gun_Bullet>().owner);
         }
         else
         {
@@ -107,13 +115,11 @@ public class Gun_Bullet : MonoBehaviour {
     public void HitAnotherBullet(Transform t, string newOwner)
     {
         rb = GetComponent<Rigidbody>();
-        float mag = rb.velocity.magnitude;
-        transform.rotation = Quaternion.Inverse(transform.rotation);
         transform.LookAt(ownerT);
-        ownerT = t;
-        rb.velocity = transform.forward * mag;
-        //rb.AddForce((transform.forward * -1) * rb.velocity.magnitude, ForceMode.Acceleration);
-        owner = newOwner;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(transform.forward * initialSpeed, ForceMode.Acceleration);
+        tempOwnerT = t;
+        tempOwner = newOwner;
         gameObject.layer = LayerMask.NameToLayer(newOwner);
     }
 
