@@ -74,14 +74,7 @@ public class Gun_Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-
-        //Collider col = GetComponent<Collider>();
-        //col.enabled = false;
         GameObject go = collision.gameObject;
-        if (collision.gameObject.GetComponent<Block_Destructible>() != null)
-        {
-            collision.gameObject.GetComponent<Block_Destructible>().Bumped();            
-        }
         
         if(collision.gameObject.tag == "bullet")
         {

@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 2.24, y: 2.24, z: 2.24}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1047771286
 MeshFilter:
@@ -377,13 +377,11 @@ MonoBehaviour:
   cooldownChargedIndicator: {fileID: 1237491444415750, guid: b51fb301b2a36df4fb73838480258646,
     type: 3}
   cooldownSpawnPos: {fileID: 4789697194395470}
+  cooldownChargePos: {fileID: 7580044181883872941}
   timeTillCharge: 100
   shootButton: 0
   owner: 
   ownerT: {fileID: 5449944217141419792}
-  chargeMats:
-  - {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
-  - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
 --- !u!114 &1562957353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,7 +512,7 @@ Transform:
   - {fileID: 4813635358224052}
   - {fileID: 4565905765085628}
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 95.716, y: -2.79599, z: 0}
 --- !u!33 &33219547799208432
 MeshFilter:
@@ -864,7 +862,7 @@ Transform:
   m_Children:
   - {fileID: 4002032953697666}
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1543976182495408
 GameObject:
@@ -896,7 +894,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.5, z: 0.7}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33936396786769400
 MeshFilter:
@@ -1068,6 +1066,7 @@ Transform:
   - {fileID: 1939925927651520558}
   - {fileID: 4110281213889620}
   - {fileID: 4789697194395470}
+  - {fileID: 7580044181883872941}
   - {fileID: 4573432742080386}
   - {fileID: 4105578355365548}
   - {fileID: 4103064968963276}
@@ -1365,7 +1364,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.4066314, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 9.911, y: -2.969, z: -26.923}
 --- !u!33 &2137631328429463245
 MeshFilter:
@@ -1426,6 +1425,36 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5003539088735597628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7580044181883872941}
+  m_Layer: 0
+  m_Name: ChargeShotIndicatorSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7580044181883872941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003539088735597628}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.166, y: 0, z: 0.771}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4543207619290032}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5204447870660520680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,7 +1527,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4543207619290032}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1930178866
 PrefabInstance:
@@ -1565,7 +1594,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: a28437276350dae45b4394bbf3679386,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: a28437276350dae45b4394bbf3679386,
         type: 3}

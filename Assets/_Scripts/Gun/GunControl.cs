@@ -24,7 +24,7 @@ public class GunControl : MonoBehaviour {
     [Header("Cooldown Gun Parameters")]
     public GameObject cooldownChargedBullet;
     public GameObject cooldownChargedIndicator;
-    public Transform cooldownSpawnPos;
+    public Transform cooldownSpawnPos, cooldownChargePos;
     public int timeTillCharge;
 
 
@@ -63,7 +63,7 @@ public class GunControl : MonoBehaviour {
 
     public void ChangeToCooldownChargedShot()
     {
-        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator,  bulletSpawnPos, timeTillCharge, owner, ownerT);
+        gun = new GunType_CooldownChargedShotBehaviour(bullet, cooldownChargedIndicator, cooldownChargePos, bulletSpawnPos, timeTillCharge, owner, ownerT);
     }
 
 

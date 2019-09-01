@@ -10,6 +10,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
     private GameObject chargeIndicatorBullet;
     private GameObject cloneBullet;
     private Transform bulletSpawnPos;
+    private Transform chargeIndicatorPos;
     private float cooldownTime;
     private float currentTime;
     private float scaleFactor = 0.001f;
@@ -18,7 +19,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
 
 
     //Constructor
-    public GunType_CooldownChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform bulletSpawnPos, int cooldownTime, string owner, Transform ownerT)
+    public GunType_CooldownChargedShotBehaviour(GameObject bullet, GameObject chargeIndicatorBullet,  Transform chargeIndicatorPos,Transform bulletSpawnPos, int cooldownTime, string owner, Transform ownerT)
     {
         this.bullet = bullet;
         this.chargeIndicatorBullet = chargeIndicatorBullet;
@@ -26,6 +27,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
         this.cooldownTime = cooldownTime;
         this.owner = owner;
         this.ownerT = ownerT;
+        this.chargeIndicatorPos = chargeIndicatorPos;
         currentTime = cooldownTime;
     }
 
@@ -39,11 +41,11 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
             if (cloneBullet == null)
             {
                 cloneBullet = GameObject.Instantiate(chargeIndicatorBullet);
-                cloneBullet.transform.position = bulletSpawnPos.position;
+                cloneBullet.transform.position = chargeIndicatorPos.position;
                 cloneBullet.transform.SetParent(bulletSpawnPos);
                 cloneBullet.transform.localScale = Vector3.zero;
             }
-            else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x/2)
+            else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x)
             {
                 cloneBullet.transform.localScale += bullet.transform.localScale / cooldownTime;
             }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class GM_MatchMaster : MonoBehaviour
 {
     public static GM_MatchMaster instance = null;
-    [SerializeField] private GameObject ballStartPos;
+    [SerializeField] private List<GameObject> ballStartPos = new List<GameObject>();
     [SerializeField] private List<GameObject> players;
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject destructibleBlocks;
     private GameObject blocksClone;
-    private GameObject ballClone;
+    public List<GameObject> ballClones = new List<GameObject>();
 
 
     private void Awake()
@@ -27,32 +27,52 @@ public class GM_MatchMaster : MonoBehaviour
 
     private void Start()
     {
-        ballStartPos.SetActive(false);
-        ResetRound();
+        foreach (GameObject i in ballStartPos)
+        {
+            i.SetActive(false);
+        }
     }
 
     public void ResetRound()
-    {
+    {        
         SetupPlayField();
-        Destroy(ballClone);
+
+        if(ballClones.Count !=0)
+        {
+            foreach (GameObject i in ballClones)
+            {
+                Destroy(i);
+            }
+            ballClones.Clear();
+        }        
+
         SpawnBall();
-        Debug.Log("ResettingRound");
-        ballClone.GetComponent<Collider>().enabled = true;
+
+        Debug.Log("ResettingRound");        
 
         foreach(GameObject go in players)
         {
             go.GetComponent<CH_RoundReset>().ResetPlayer();
         }
+
         Debug.Log("Just reset players");
     }
 
     public void SpawnBall()
     {
-        ballClone = Instantiate(ball, ballStartPos.transform.position, Quaternion.identity);
+        for(int i = 0; i < ballStartPos.Count; i++)
+        {
+            ballClones.Add(Instantiate(ball, ballStartPos[i].transform.position, Quaternion.identity));
+            ballClones[i].GetComponent<Collider>().enabled = true;
+        }
     }
 
     public void SetupPlayField()
     {
+        if(blocksClone != null)
+        {
+            Destroy(blocksClone);
+        }
         blocksClone = Instantiate(destructibleBlocks);
     }
 }

@@ -187,6 +187,20 @@ public class CH_SwingBehaviour : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (objectsThatHaveBeenHit.Contains(other.gameObject) && objectsInSwingZone.Contains(other.gameObject))
+        {
+            objectsInSwingZone.Remove(other.gameObject);
+        }
+
+        if(other == null)
+        {
+            objectsInSwingZone.Clear();
+            objectsThatHaveBeenHit.Clear();
+        }
+    }
+
     private void PrepareSwing()
     {
         swingChargeTimer++;

@@ -33,14 +33,17 @@ public class CH_BallInteractions : MonoBehaviour
 
     public void PickUpBall(GameObject ball, B_Behaviour ballScript)
     {
-        if (ballScript.heldBy != my_rb)
+        if (!holdingBall)
         {
-            this.ballScript = ballScript;
-            this.ball = ball;
-            holdingBall = true;
-            ball.transform.parent = ballHeldPos.transform;
-            ball.transform.localPosition = new Vector3(0, 0, 0);
-            ballScript.BallPickedUp(my_rb);
+            if (ballScript.heldBy != my_rb)
+            {
+                this.ballScript = ballScript;
+                this.ball = ball;
+                holdingBall = true;
+                ball.transform.parent = ballHeldPos.transform;
+                ball.transform.localPosition = new Vector3(0, 0, 0);
+                ballScript.BallPickedUp(my_rb);
+            }
         }
     }
 
