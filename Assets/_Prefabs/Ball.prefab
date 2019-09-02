@@ -125,3 +125,4 @@ MonoBehaviour:
   dropUpForce: 800
   free: 1
   heldBy: {fileID: 0}
+  stunCooldown: 0.2

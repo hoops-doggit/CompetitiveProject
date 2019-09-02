@@ -23,6 +23,7 @@ public class GM_GoalBox : MonoBehaviour
         {
             ball = other.gameObject;
             GoalScored();
+            Destroy(other.gameObject);
         }
     }
 
@@ -38,11 +39,7 @@ public class GM_GoalBox : MonoBehaviour
         mat.SetColor("_EmissionColor", scoredGlow);
         yield return new WaitForSeconds(3);
         mat.SetColor("_EmissionColor", preGlow);
-        gameObject.GetComponent<Collider>().enabled = true;
-        GM_MatchMaster.instance.ResetRound();
-        
-
-
+        gameObject.GetComponent<Collider>().enabled = true;       
     }
 
 

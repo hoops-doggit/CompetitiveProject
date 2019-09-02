@@ -12,7 +12,7 @@ public class B_Behaviour : MonoBehaviour
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
-    private float stunCooldown = 20f;
+    [SerializeField]private float stunCooldown = 0.1f;
 
     private void Start()
     {
@@ -109,6 +109,7 @@ public class B_Behaviour : MonoBehaviour
     {
         ballHeld = false;
         transform.parent = null;
+        
         UnfreezeAllRigidbodyConstraints();
         free = true;
         col.enabled = true;

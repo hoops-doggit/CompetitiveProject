@@ -36,7 +36,7 @@ public class UI_MatchStartingText : MonoBehaviour
 
     public void EndOfMatch(int team)
     {
-        if(team == 1)
+        if (team == 1)
         {
             startGameText.text = "oh hey team 1 you won!";
             StartCoroutine(RestartGame());
@@ -46,8 +46,22 @@ public class UI_MatchStartingText : MonoBehaviour
             startGameText.text = "wowowowow team 2 you won!";
             StartCoroutine(RestartGame());
         }
-       
     }
+
+    public void Goal()
+    {
+        startGameText.text = "Goal!!!";
+        StartCoroutine(EraseText());
+    }
+
+    public IEnumerator EraseText()
+    {
+        yield return new WaitForSeconds(0.2f);
+        startGameText.text = null;
+    }
+    
+
+
 
     private IEnumerator RestartGame()
     {

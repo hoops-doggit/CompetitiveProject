@@ -8,7 +8,7 @@ public class CH_Movement2 : MonoBehaviour {
     private float lastx, lasty, lastAngle;
     public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement;
     private float stunMovementAmount;
-    public bool stunned;
+    public bool stunned, shotBullet;
     public Vector2 stunnedDirection;
     public float acc;
     public float skinDepth;
@@ -36,9 +36,8 @@ public class CH_Movement2 : MonoBehaviour {
     [SerializeField]
     private List<float> clampValues = new List<float>(4);
 
-    private string xAxis;
-    private string yAxis;
-    private string throwButton;
+    private string xAxis, yAxis, throwButton, hold;
+
     private int joystickInvert;
 
 
@@ -52,6 +51,7 @@ public class CH_Movement2 : MonoBehaviour {
         CH_Input chi = GetComponent<CH_Input>();    
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
+        hold = chi.hold;
 
         if (chi.joystick)
         {
@@ -82,10 +82,31 @@ public class CH_Movement2 : MonoBehaviour {
                 }
             }
         }
-        if (!stunned)
+
+        else if (shotBullet)
         {
-            Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), true);
-            HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+            Move(stunnedDirection.x, stunnedDirection.y, false); //direction of impact
+            if (stunMovementAmount > 0)
+            {
+                stunMovementAmount /= 1.25f;
+                if (stunMovementAmount < 0.01f)
+                {
+                    stunMovementAmount = 0;
+                    stunned = false;
+                }
+            }
+        }
+        if (!stunned && !shotBullet)
+        {
+            if (Input.GetAxisRaw(hold) > 0)
+            {
+                HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+            }
+            else
+            {
+                Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), true);
+                HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+            }
         }
     }
 
@@ -93,9 +114,16 @@ public class CH_Movement2 : MonoBehaviour {
     {
         //Vector3 forward = t.rotation * Vector3.back;
         stunnedDirection = new Vector2(velocity.x, velocity.z).normalized;
+        stunMovementAmount = bulletStunMovement;
+    }
+
+    public void MoveYouJustShot(Vector3 bulletDirection)
+    {
+        stunnedDirection = new Vector2(bulletDirection.x, bulletDirection.z).normalized * -1;
         stunned = true;
         stunMovementAmount = bulletStunMovement;
     }
+
 
     public void MoveYouGotWhackedByABat(Vector3 positionOfHitter)
     {
@@ -112,10 +140,6 @@ public class CH_Movement2 : MonoBehaviour {
         stunMovementAmount = batStunMovement;
     }
 
-    public void MoveYouJustShotYourGun()
-    {
-
-    }
 
     public void Move(float x, float y, bool mode)
     {

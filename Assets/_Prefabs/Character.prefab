@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballHeldPos: {fileID: 2136872537}
   ballThrowPosition: {fileID: 1939925927651520558}
-  ballThrowSpeed: 900
+  ballThrowSpeed: 1200
   holdingBall: 0
   my_rb: {fileID: 54952335257318386}
 --- !u!114 &1844469912
@@ -985,7 +985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675312252498312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.166, y: 0, z: 0.771}
+  m_LocalPosition: {x: 0, y: 0, z: 0.771}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4543207619290032}

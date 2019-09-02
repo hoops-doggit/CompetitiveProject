@@ -10,6 +10,9 @@ public class CH_Styling : MonoBehaviour
     public Renderer[] body;
     public Renderer[] gun;
 
+    private bool hitFlash;
+    private Color bodyColour;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +37,23 @@ public class CH_Styling : MonoBehaviour
         {
             PropogateStyle(3);
         }
+
+        bodyColour = body[0].material.color;
     }
+
+    private void Update()
+    {
+        if (hitFlash)
+        {
+            foreach (Renderer r in body)
+            {
+                r.material.color = Color.white;
+            }
+        }
+    }
+
+
+
 
 
     private void PropogateStyle(int styleNo)
@@ -49,4 +68,28 @@ public class CH_Styling : MonoBehaviour
             r.material = styles[styleNo].gun;
         }
     }
+
+    public void BodyHitFlash()
+    {
+        foreach (Renderer r in body)
+        {
+            r.material.color = Color.white;
+        }
+
+        StartCoroutine(ReturnHitFlash());
+    }
+
+    private IEnumerator ReturnHitFlash()
+    {
+        yield return new WaitForSeconds(0.01f);
+
+        foreach (Renderer r in body)
+        {
+            r.material.color = bodyColour;
+        }
+    }
+
+
+
+
 }

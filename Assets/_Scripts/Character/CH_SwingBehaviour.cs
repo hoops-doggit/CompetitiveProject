@@ -20,12 +20,15 @@ public class CH_SwingBehaviour : MonoBehaviour
     [SerializeField]private string owner;
     [SerializeField]private Transform ownerT;
     private CH_BallInteractions chb;
+    private CH_Styling chs;
     private Rigidbody rb;
 
     private void Start()
     {
 
         rb = GetComponentInParent<Rigidbody>();
+        chs = GetComponentInParent<CH_Styling>();
+
         if (GetComponentInParent<CH_Input>() != null)
         {
             CH_Input chi = GetComponentInParent<CH_Input>();
@@ -89,15 +92,21 @@ public class CH_SwingBehaviour : MonoBehaviour
                     {
                         GameManager.inst.TimeFreeze();
                         objectsInSwingZone[i].transform.parent.GetComponent<CH_Movement2>().MoveYouGotWhackedByABat(transform.position);
+                        objectsInSwingZone[i].transform.parent.GetComponent<CH_Styling>().BodyHitFlash();
+
+                        //i think this is what's causing the weird stuff causing the player to hold onto the ball;
                         if (objectsInSwingZone[i].GetComponentInParent<CH_BallInteractions>().holdingBall)
                         {
                             ignoreBall = true;
                         }
+
+                        //objectsInSwingZone.Remove(objectsInSwingZone[i]);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
 
                     }
                 }
             }
+
             if (chb.holdingBall)
             {
                 chb.ThrowBall();
@@ -146,6 +155,7 @@ public class CH_SwingBehaviour : MonoBehaviour
             other.GetComponent<Gun_Bullet>().HitByBat(GetComponentInParent<Transform>(), hitBallStrength, owner);
             objectsThatHaveBeenHit.Add(other.gameObject);
         }
+
         else if(other.tag == "bullet" && other.GetComponent<Gun_Bullet>().owner != owner && !currentlySwinging)
         {
             if (!objectsInSwingZone.Contains(other.gameObject))
@@ -197,7 +207,7 @@ public class CH_SwingBehaviour : MonoBehaviour
     {
         if (objectsThatHaveBeenHit.Contains(other.gameObject) && objectsInSwingZone.Contains(other.gameObject))
         {
-            objectsInSwingZone.Remove(other.gameObject);
+            //objectsInSwingZone.Remove(other.gameObject);
         }
 
         if(other == null)
@@ -245,6 +255,7 @@ public class CH_SwingBehaviour : MonoBehaviour
         batMeshRend.material = mats[0];        
         batMeshRend.enabled = false;
         objectsThatHaveBeenHit.Clear();
+        Debug.Log("stopping swing");
         ignoreBall = false;
     }
 
@@ -252,6 +263,6 @@ public class CH_SwingBehaviour : MonoBehaviour
     {       
         yield return new WaitForSeconds(lengthOfSwingPersistance);
         StopSwing();
-        StopCoroutine("SwingEnumerator");
+        //StopCoroutine("SwingEnumerator");
     }
 }

@@ -9,6 +9,7 @@ public class GM_ScoreKeeper : MonoBehaviour
     public int team1score = 0;
     public int team2score = 0;
     public int maxScore;
+    public int goalsScoredThisRound;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class GM_ScoreKeeper : MonoBehaviour
     private void Team1Scored()
     {
         team1score++;
+        goalsScoredThisRound++;
         UpdateScoreUI();
         CheckForWinner();
     }
@@ -44,6 +46,7 @@ public class GM_ScoreKeeper : MonoBehaviour
     private void Team2Scored()
     {
         team2score++;
+        goalsScoredThisRound++;
         UpdateScoreUI();
         CheckForWinner();
     }
@@ -55,6 +58,12 @@ public class GM_ScoreKeeper : MonoBehaviour
 
     private void CheckForWinner()
     {
+        if(goalsScoredThisRound == 2)
+        {
+            GM_MatchMaster.instance.ResetRound();
+            goalsScoredThisRound = 0;
+        }
+
         if(team1score >= 5)
         {
             uiThing.EndOfMatch(1);
