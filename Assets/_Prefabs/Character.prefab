@@ -296,21 +296,9 @@ MonoBehaviour:
   backColPoint: 0
   leftColPoint: 0
   rightColPoint: 0
-  fColGo: {fileID: 0}
-  bColGo: {fileID: 0}
-  lColGo: {fileID: 0}
-  rColGo: {fileID: 0}
-  Front01Debug: {fileID: 0}
-  Front02Debug: {fileID: 0}
-  Back01Debug: {fileID: 0}
-  Back02Debug: {fileID: 0}
-  Left01Debug: {fileID: 0}
-  Left02Debug: {fileID: 0}
-  Right01Debug: {fileID: 0}
-  Right02Debug: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 14336
+    m_Bits: 14340
 --- !u!114 &114746917423204440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,8 +312,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
+  runningWithBallSpeed: 0.09
   bulletStunMovement: 0.2
-  batStunMovement: 0.1
+  batStunMovement: 0.2
   stunned: 0
   stunnedDirection: {x: 0, y: 0}
   acc: 1

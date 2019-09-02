@@ -8,6 +8,7 @@ public class B_Behaviour : MonoBehaviour
     private Rigidbody rb;
     private bool ballHeld;
     [SerializeField]private float dropForce;
+    [SerializeField]private float dropUpForce;
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
@@ -96,7 +97,7 @@ public class B_Behaviour : MonoBehaviour
         stunnedDirection *= -1;
         stunnedDirection.x *= dropForce;
         stunnedDirection.z *= dropForce;
-        stunnedDirection.y *= 800;
+        stunnedDirection.y *= dropUpForce;
 
 
 
@@ -113,13 +114,13 @@ public class B_Behaviour : MonoBehaviour
         col.enabled = true;
 
         Vector3 stunnedDirection = new Vector3(hitDirection.x - transform.position.x, 1, hitDirection.z - transform.position.z);
-        Debug.Log(stunnedDirection);
+
         stunnedDirection.x *= -1;
         stunnedDirection.z *= -1;
 
         stunnedDirection.x *= dropForce;
         stunnedDirection.z *= dropForce;
-        Debug.Log(stunnedDirection);
+
 
         rb.AddForce(stunnedDirection, ForceMode.Acceleration);
         StartCoroutine("StunCooldown");

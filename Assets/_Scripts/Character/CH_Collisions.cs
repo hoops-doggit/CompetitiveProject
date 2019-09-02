@@ -49,51 +49,16 @@ public class CH_Collisions : MonoBehaviour {
     public float backColPoint;
     public float leftColPoint;
     public float rightColPoint;
-    public GameObject fColGo;
-    public GameObject bColGo;
-    public GameObject lColGo;
-    public GameObject rColGo;
+
 
     private float characterRadius = 0.43f;
-
-    public GameObject Front01Debug;
-    public GameObject Front02Debug;
-    public GameObject Back01Debug;
-    public GameObject Back02Debug;
-    public GameObject Left01Debug;
-    public GameObject Left02Debug;
-    public GameObject Right01Debug;
-    public GameObject Right02Debug;
 
     public LayerMask layerMask;
 
     // Use this for initialization
     void Start()
     {
-        layerMask = ~layerMask;
-        //if (!debug)
-        //{
-        //    fColGo.SetActive(false);
-        //    bColGo.SetActive(false);
-        //    lColGo.SetActive(false);
-        //    rColGo.SetActive(false);
-        //    Front01Debug.SetActive(false);
-        //    Front02Debug.SetActive(false);
-        //    Back01Debug.SetActive(false);
-        //    Back02Debug.SetActive(false);
-        //    Left01Debug.SetActive(false);
-        //    Left02Debug.SetActive(false);
-        //    Right01Debug.SetActive(false);
-        //    Right02Debug.SetActive(false);
-        //}
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "bullet")
-        {
-            //Drop ball
-        }
+        layerMask = ~layerMask; 
     }
 
     // Update is called once per frame
@@ -307,23 +272,6 @@ public class CH_Collisions : MonoBehaviour {
         collisionPoints[0] = frontColPoint;
         collisionPoints[1] = backColPoint;
         collisionPoints[2] = leftColPoint;
-        collisionPoints[3] = rightColPoint;        
-
-        if (debug)
-        {
-            Front01Debug.transform.position = new Vector3(front01Hit.point.x, 0.5f, front01Hit.point.z);
-            Front02Debug.transform.position = new Vector3(front02Hit.point.x, 0.5f, front02Hit.point.z);
-            Back01Debug.transform.position = new Vector3(back01Hit.point.x, 0.5f, back01Hit.point.z);
-            Back02Debug.transform.position = new Vector3(back02Hit.point.x, 0.5f, back02Hit.point.z);
-            Left01Debug.transform.position = new Vector3(left01Hit.point.x, 0.5f, left01Hit.point.z);
-            Left02Debug.transform.position = new Vector3(left02Hit.point.x, 0.5f, left02Hit.point.z);
-            Right01Debug.transform.position = new Vector3(right01Hit.point.x, 0.5f, right01Hit.point.z);
-            Right02Debug.transform.position = new Vector3(right02Hit.point.x, 0.5f, right02Hit.point.z);
-
-            fColGo.transform.position = new Vector3(transform.position.x, transform.position.y, frontColPoint);
-            bColGo.transform.position = new Vector3(transform.position.x, transform.position.y, backColPoint);
-            lColGo.transform.position = new Vector3(leftColPoint, transform.position.y, transform.position.z);
-            rColGo.transform.position = new Vector3(rightColPoint, transform.position.y, transform.position.z);
-        }
+        collisionPoints[3] = rightColPoint;
     }
 }

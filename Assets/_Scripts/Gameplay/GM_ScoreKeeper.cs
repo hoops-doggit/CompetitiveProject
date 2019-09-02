@@ -5,8 +5,10 @@ using UnityEngine;
 public class GM_ScoreKeeper : MonoBehaviour
 {
     public static GM_ScoreKeeper instance = null;
+    [SerializeField] UI_MatchStartingText uiThing;
     public int team1score = 0;
     public int team2score = 0;
+    public int maxScore;
 
     private void Awake()
     {
@@ -36,16 +38,31 @@ public class GM_ScoreKeeper : MonoBehaviour
     {
         team1score++;
         UpdateScoreUI();
+        CheckForWinner();
     }
 
     private void Team2Scored()
     {
         team2score++;
         UpdateScoreUI();
+        CheckForWinner();
     }
     
     private void UpdateScoreUI()
     {
         GetComponent<GM_UI>().UpdateScoreText();
     }
+
+    private void CheckForWinner()
+    {
+        if(team1score >= 5)
+        {
+            uiThing.EndOfMatch(1);
+        }
+        else if(team2score >= 5)
+        {
+            uiThing.EndOfMatch(2);
+        }
+    }
+
 }

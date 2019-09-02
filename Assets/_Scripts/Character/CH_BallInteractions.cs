@@ -57,16 +57,16 @@ public class CH_BallInteractions : MonoBehaviour
         ResetRelationshipToBall();
     }    
 
-    public void DropBall(Vector3 stunVelocity, string reason)
+    public void DropBall(Vector3 stunPosition, string reason)
     {
         if (holdingBall && reason == "bullet")
         {
-            ballScript.BallDroppedBullet(stunVelocity);
+            ballScript.BallDroppedBullet(stunPosition);
             ResetRelationshipToBall();
         }
         if (holdingBall && reason == "bat")
         {
-            ballScript.BallDroppedBat(stunVelocity);
+            ballScript.BallDroppedBat(stunPosition);
             ResetRelationshipToBall();
         }
     }

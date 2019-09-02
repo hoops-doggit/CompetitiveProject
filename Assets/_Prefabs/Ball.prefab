@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f3accaf6522a049b52cc8f4035d1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropForce: 400
+  dropForce: 1200
+  dropUpForce: 800
   free: 1
   heldBy: {fileID: 0}

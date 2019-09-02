@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1755916, g: 0.21971515, b: 0.30203873, a: 1}
+  m_IndirectSpecularColor: {r: 0.17559192, g: 0.21971561, b: 0.30203938, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,8 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed59d21f2637aef49b43c4a3bbb35f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiThing: {fileID: 1864955515}
   team1score: 0
   team2score: 0
+  maxScore: 0
 --- !u!4 &1382662
 Transform:
   m_ObjectHideFlags: 0
@@ -172,7 +174,7 @@ Transform:
   - {fileID: 205181246}
   - {fileID: 1339031290}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1382663
 MonoBehaviour:
@@ -223,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc024e2b723d48b41852feb93edd98e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lengthOfTimeFreeze: 0.05
 --- !u!1001 &1993011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2190,7 +2193,7 @@ Transform:
   - {fileID: 170076735}
   - {fileID: 1848755208}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &120808624
 PrefabInstance:
@@ -3295,7 +3298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4493474137303248, guid: 2144f2d3d9a1bb545b15f18afbdc86b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4493474137303248, guid: 2144f2d3d9a1bb545b15f18afbdc86b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3663,7 +3666,7 @@ PrefabInstance:
     - target: {fileID: 114978605307332324, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
       propertyPath: firegun
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
@@ -3965,7 +3968,7 @@ Transform:
   - {fileID: 2079692261}
   - {fileID: 1029955103}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &233143311
 GameObject:
@@ -5639,14 +5642,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
-      propertyPath: batStunMovement
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 4789697194395470, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562957353, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: ballThrowSpeed
+      value: 1200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
@@ -5969,7 +5971,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &404646493
 PrefabInstance:
@@ -7984,7 +7986,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &564276099
 PrefabInstance:
@@ -10488,7 +10490,7 @@ Transform:
   - {fileID: 1506343009}
   - {fileID: 931531858}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &737011171
 PrefabInstance:
@@ -11392,7 +11394,7 @@ RectTransform:
   m_Children:
   - {fileID: 1864955511}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12059,11 +12061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  destructible: 1
-  particles: {fileID: 0}
-  particleSpawnPos: {fileID: 0}
-  timeTillRespawn: 5
 --- !u!1001 &841684077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13200,7 +13197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 67.33, y: 0, z: 0}
 --- !u!114 &906859252
 MonoBehaviour:
@@ -13697,7 +13694,7 @@ Transform:
   - {fileID: 218234686}
   - {fileID: 1097292488}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &939817000
 PrefabInstance:
@@ -15142,7 +15139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4493474137303248, guid: 2144f2d3d9a1bb545b15f18afbdc86b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4493474137303248, guid: 2144f2d3d9a1bb545b15f18afbdc86b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17457,11 +17454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  destructible: 1
-  particles: {fileID: 0}
-  particleSpawnPos: {fileID: 0}
-  timeTillRespawn: 5
 --- !u!1001 &1183800613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17946,11 +17938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  destructible: 1
-  particles: {fileID: 0}
-  particleSpawnPos: {fileID: 0}
-  timeTillRespawn: 5
 --- !u!1001 &1232130518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19027,11 +19014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  destructible: 1
-  particles: {fileID: 0}
-  particleSpawnPos: {fileID: 0}
-  timeTillRespawn: 5
 --- !u!1001 &1310653896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20195,7 +20177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1398653349
 PrefabInstance:
@@ -22994,7 +22976,7 @@ GameObject:
   - component: {fileID: 1632877761}
   - component: {fileID: 1632877760}
   - component: {fileID: 1632877764}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25660,7 +25642,7 @@ PrefabInstance:
     - target: {fileID: 3582519848172126160, guid: 707bc64450d6f974993db97952cb5a2c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3582519848172126160, guid: 707bc64450d6f974993db97952cb5a2c,
         type: 3}
@@ -25855,7 +25837,7 @@ GameObject:
   - component: {fileID: 1864955512}
   - component: {fileID: 1864955515}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: IntroText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25953,6 +25935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4162b142b8e3e746a40f94f38dd1dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGameText: {fileID: 1864955513}
   mm: {fileID: 1382664}
 --- !u!1001 &1865710161
 PrefabInstance:
@@ -25967,7 +25950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4493474137303248, guid: 2144f2d3d9a1bb545b15f18afbdc86b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4493474137303248, guid: 2144f2d3d9a1bb545b15f18afbdc86b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27143,7 +27126,7 @@ GameObject:
   - component: {fileID: 1951323627}
   - component: {fileID: 1951323626}
   - component: {fileID: 1951323630}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Team2Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27638,11 +27621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6533f07f9381d034997f27374361dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  destructible: 1
-  particles: {fileID: 0}
-  particleSpawnPos: {fileID: 0}
-  timeTillRespawn: 5
 --- !u!1001 &2000208155
 PrefabInstance:
   m_ObjectHideFlags: 0

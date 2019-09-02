@@ -6,7 +6,7 @@ using UnityEngine;
 public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle;
-    public float speed, bulletStunMovement, batStunMovement;
+    public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement;
     private float stunMovementAmount;
     public bool stunned;
     public Vector2 stunnedDirection;
@@ -17,8 +17,7 @@ public class CH_Movement2 : MonoBehaviour {
     public float headTurnTolerance;
     public Transform head;
     public Vector2 tempHeadRotation = new Vector2 (0,0);
-    public float headAngle;
-    
+    public float headAngle;    
 
 
     public Transform gunEnd;
@@ -98,16 +97,24 @@ public class CH_Movement2 : MonoBehaviour {
         stunMovementAmount = bulletStunMovement;
     }
 
-    public void MoveYouGotWhackedByABat(Vector3 velocity)
+    public void MoveYouGotWhackedByABat(Vector3 positionOfHitter)
     {
-        //Vector3 forward = t.rotation * Vector3.back;        
-        stunnedDirection.x =  (velocity.x - transform.position.x) *-1;
-        stunnedDirection.y = (velocity.z - transform.position.z) * -1;
+
+        //stunned direction is used for calculating the direction the player who got hit should move
+        stunnedDirection.x =  (positionOfHitter.x - transform.position.x) *-1;
+        stunnedDirection.y = (positionOfHitter.z - transform.position.z) * -1;
         stunnedDirection = stunnedDirection.normalized;
-        GetComponent<CH_BallInteractions>().DropBall(velocity, "bat");
-        //stunnedDirection = new Vector2(velocity.x, velocity.z).normalized;
+
+
+        GetComponent<CH_BallInteractions>().DropBall(positionOfHitter, "bat");
+
         stunned = true;
         stunMovementAmount = batStunMovement;
+    }
+
+    public void MoveYouJustShotYourGun()
+    {
+
     }
 
     public void Move(float x, float y, bool mode)

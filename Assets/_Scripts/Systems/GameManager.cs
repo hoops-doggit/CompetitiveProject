@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager inst;
+    public float lengthOfTimeFreeze;
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator TimeFreezeCo()
     {
         Time.timeScale = 0.001f;
-        yield return new WaitForSecondsRealtime(0.025f);
+        yield return new WaitForSecondsRealtime(lengthOfTimeFreeze);
         Time.timeScale = 1;
     }
 }

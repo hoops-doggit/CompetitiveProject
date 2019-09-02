@@ -20,9 +20,12 @@ public class CH_SwingBehaviour : MonoBehaviour
     [SerializeField]private string owner;
     [SerializeField]private Transform ownerT;
     private CH_BallInteractions chb;
+    private Rigidbody rb;
 
     private void Start()
     {
+
+        rb = GetComponentInParent<Rigidbody>();
         if (GetComponentInParent<CH_Input>() != null)
         {
             CH_Input chi = GetComponentInParent<CH_Input>();
@@ -68,6 +71,7 @@ public class CH_SwingBehaviour : MonoBehaviour
                     {
                         if (objectsInSwingZone[i].tag == "ball" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                         {
+                            GameManager.inst.TimeFreeze();
                             objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitBallStrength);
                             objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
                             ignoreBall = true;
@@ -76,12 +80,14 @@ public class CH_SwingBehaviour : MonoBehaviour
 
                     if (objectsInSwingZone[i].tag == "bullet" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
+                        GameManager.inst.TimeFreeze();
                         objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(ownerT, hitBallStrength, owner);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
                     }
 
                     if (objectsInSwingZone[i].tag == "player" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
+                        GameManager.inst.TimeFreeze();
                         objectsInSwingZone[i].transform.parent.GetComponent<CH_Movement2>().MoveYouGotWhackedByABat(transform.position);
                         if (objectsInSwingZone[i].GetComponentInParent<CH_BallInteractions>().holdingBall)
                         {
