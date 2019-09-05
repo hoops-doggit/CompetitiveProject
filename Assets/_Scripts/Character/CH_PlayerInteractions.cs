@@ -16,10 +16,10 @@ public class CH_PlayerInteractions : MonoBehaviour
         movement = GetComponent<CH_Movement2>();
     }
 
-    public void GotShot(Vector3 bulletVelocity)
+    public void GotShot(Vector3 bulletDirection)
     {
         evaluatingStunned = true;
-        ballInteractions.DropBall(bulletVelocity, "bullet");
+        ballInteractions.DropBall(bulletDirection, "bullet");
     }
 
     private void GotStunned(float x, float y)

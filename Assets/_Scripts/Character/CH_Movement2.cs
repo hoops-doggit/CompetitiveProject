@@ -6,7 +6,7 @@ using UnityEngine;
 public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle;
-    public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement;
+    public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
     private float stunMovementAmount;
     public bool stunned, shotBullet;
     public Vector2 stunnedDirection;
@@ -92,7 +92,7 @@ public class CH_Movement2 : MonoBehaviour {
                 if (stunMovementAmount < 0.01f)
                 {
                     stunMovementAmount = 0;
-                    stunned = false;
+                    shotBullet = false;
                 }
             }
         }
@@ -110,18 +110,19 @@ public class CH_Movement2 : MonoBehaviour {
         }
     }
 
-    public void MoveYouGotStunned(Vector3 velocity)
+    public void MoveYouGotShot(Vector3 velocity)
     {
         //Vector3 forward = t.rotation * Vector3.back;
         stunnedDirection = new Vector2(velocity.x, velocity.z).normalized;
         stunMovementAmount = bulletStunMovement;
+        stunned = true;
     }
 
     public void MoveYouJustShot(Vector3 bulletDirection)
     {
         stunnedDirection = new Vector2(bulletDirection.x, bulletDirection.z).normalized * -1;
-        stunned = true;
-        stunMovementAmount = bulletStunMovement;
+        shotBullet = true;
+        stunMovementAmount = shotBulletMovement;
     }
 
 
@@ -199,7 +200,7 @@ public class CH_Movement2 : MonoBehaviour {
 
         gameObject.transform.position = newPos;
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);
-        if (stunned) { }
+        if (stunned || shotBullet) { }
         else
         {
             HeadDirection(inputVector);

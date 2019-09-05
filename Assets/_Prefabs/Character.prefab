@@ -243,6 +243,7 @@ MonoBehaviour:
   xAxis: 
   yAxis: 
   swingButton: 
+  hold: 
   shootKey: 0
   throwKey: 0
   swingKey: 0
@@ -312,10 +313,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.12
-  runningWithBallSpeed: 0.09
-  bulletStunMovement: 0.2
-  batStunMovement: 0.2
+  runningWithBallSpeed: 20
+  bulletStunMovement: 0.4
+  batStunMovement: 0.3
+  shotBulletMovement: 0.7
   stunned: 0
+  shotBullet: 0
   stunnedDirection: {x: 0, y: 0}
   acc: 1
   skinDepth: 0.251

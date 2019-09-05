@@ -22,7 +22,7 @@ public class CH_CollisionListener : MonoBehaviour
         {
             GameManager.inst.TimeFreeze();
             playerInteractions.GotShot(collision.gameObject.GetComponent<Gun_Bullet>().direction);
-            playerMovement.MoveYouGotStunned(collision.gameObject.GetComponent<Gun_Bullet>().direction);
+            playerMovement.MoveYouGotShot(collision.gameObject.GetComponent<Gun_Bullet>().direction);
             chs.BodyHitFlash();
         }
 
