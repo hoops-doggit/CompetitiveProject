@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/GunnerSoccer.unity
     guid: 64c5f6a5b8990454692c964253f86b94
+  - enabled: 1
+    path: Assets/_Scenes/GunnerSoccer Backup.unity
+    guid: 9fc1c22e84d19734383abd0c338c9b7d
   m_configObjects: {}
