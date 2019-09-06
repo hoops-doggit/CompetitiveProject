@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/GunnerSoccer.unity
-    guid: 64c5f6a5b8990454692c964253f86b94
+    path: Assets/_Scenes/GunnerSoccer2P.unity
+    guid: e89c230bc89f43a40b0912e98c516d14
   m_configObjects: {}
