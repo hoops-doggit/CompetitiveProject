@@ -64,7 +64,7 @@ public class CH_Collisions : MonoBehaviour {
     // Update is called once per frame
     public void CalculateRays()
     {
-        skinDepth = GetComponent<CH_Movement2>().skinDepth;
+        skinDepth = GetComponent<CH_Movement>().skinDepth;
         xFloatList.Clear();
         yFloatList.Clear();
         xFloatRaw.Clear();

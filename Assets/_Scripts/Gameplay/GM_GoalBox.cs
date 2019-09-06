@@ -7,8 +7,7 @@ public class GM_GoalBox : MonoBehaviour
     public GoalBoxes gb;
     private Material mat;
     private Color preGlow;
-    [ColorUsageAttribute(true, true, 0f, 8f, 0.125f, 3f)]
-    public Color scoredGlow;
+    [ColorUsageAttribute(true, true)] public Color scoredGlow;
     private GameObject ball;
 
     private void Start()

@@ -58,7 +58,7 @@ public class GM_ScoreKeeper : MonoBehaviour
 
     private void CheckForWinner()
     {
-        if(goalsScoredThisRound == 2)
+        if(goalsScoredThisRound == 1)
         {
             GM_MatchMaster.instance.ResetRound();
             goalsScoredThisRound = 0;

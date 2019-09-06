@@ -5,7 +5,7 @@ using UnityEngine;
 public class CH_PlayerInteractions : MonoBehaviour
 {
     private CH_BallInteractions ballInteractions;
-    private CH_Movement2 movement;
+    private CH_Movement movement;
     private bool evaluatingStunned;
     public Transform player2;
 
@@ -13,7 +13,7 @@ public class CH_PlayerInteractions : MonoBehaviour
     private void Start()
     {
         ballInteractions = GetComponent<CH_BallInteractions>();
-        movement = GetComponent<CH_Movement2>();
+        movement = GetComponent<CH_Movement>();
     }
 
     public void GotShot(Vector3 bulletDirection)
@@ -26,6 +26,6 @@ public class CH_PlayerInteractions : MonoBehaviour
     {
         //takes source of stun and moves character away in that direction
         Vector2 direction = new Vector2(player2.position.x, player2.position.z).normalized;
-        movement.Move(direction.x, direction.y, true);
+        movement.Move(direction.x, direction.y, 1);
     }
 }

@@ -36,9 +36,5 @@ public class Tags : MonoBehaviour {
     [EnumFlags]
     public TileTags tags = 0;
 
-	// Use this for initialization
-	void Start () {
-		
-	}	
 
 }

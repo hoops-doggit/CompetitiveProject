@@ -54,7 +54,7 @@ public abstract class Gun {
         {
             b.GetComponent<Gun_Bullet>().ownerT = ownerT;
         }
-        ownerT.GetComponentInParent<CH_Movement2>().MoveYouJustShot(b.transform.forward);
+        ownerT.GetComponentInParent<CH_Movement>().MoveYouJustShot(b.transform.forward);
 
         b.layer = LayerMask.NameToLayer(owner);
         //b.transform.LookAt(target);

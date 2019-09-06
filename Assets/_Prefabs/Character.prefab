@@ -319,14 +319,15 @@ MonoBehaviour:
   shotBulletMovement: 0.7
   stunned: 0
   shotBullet: 0
-  stunnedDirection: {x: 0, y: 0}
+  movementDirection: {x: 0, y: 0}
   acc: 1
   skinDepth: 0.251
   autoCorrectDistance: 0.23
   autoCorrectAmount: 1.01
+  autoCorrectDeadZone: 0
   headTurnTolerance: 0
   head: {fileID: 4543207619290032}
-  tempHeadRotation: {x: 1.41, y: 1.02}
+  tempHeadRotation: {x: 0, y: 0}
   headAngle: 0
   gunEnd: {fileID: 4789697194395470}
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 3}
