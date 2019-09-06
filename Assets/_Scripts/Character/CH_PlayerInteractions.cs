@@ -5,7 +5,7 @@ using UnityEngine;
 public class CH_PlayerInteractions : MonoBehaviour
 {
     private CH_BallInteractions ballInteractions;
-    private CH_Movement movement;
+    private CH_Movement2 movement;
     private bool evaluatingStunned;
     public Transform player2;
 
@@ -13,7 +13,7 @@ public class CH_PlayerInteractions : MonoBehaviour
     private void Start()
     {
         ballInteractions = GetComponent<CH_BallInteractions>();
-        movement = GetComponent<CH_Movement>();
+        movement = GetComponent<CH_Movement2>();
     }
 
     public void GotShot(Vector3 bulletDirection)

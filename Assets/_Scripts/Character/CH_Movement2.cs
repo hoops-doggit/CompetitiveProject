@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CH_Movement : MonoBehaviour {
+public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle, movementAmount;
     public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;

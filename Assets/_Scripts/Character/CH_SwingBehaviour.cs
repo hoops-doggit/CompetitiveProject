@@ -91,7 +91,7 @@ public class CH_SwingBehaviour : MonoBehaviour
                     if (objectsInSwingZone[i].tag == "player" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
                         GameManager.inst.TimeFreeze();
-                        objectsInSwingZone[i].transform.parent.GetComponent<CH_Movement>().MoveYouGotWhackedByABat(transform.position);
+                        objectsInSwingZone[i].transform.parent.GetComponent<CH_Movement2>().MoveYouGotWhackedByABat(transform.position);
                         objectsInSwingZone[i].transform.parent.GetComponent<CH_Styling>().BodyHitFlash();
 
                         //i think this is what's causing the weird stuff causing the player to hold onto the ball;

@@ -5,13 +5,13 @@ using UnityEngine;
 public class CH_CollisionListener : MonoBehaviour
 {
     private CH_PlayerInteractions playerInteractions;
-    private CH_Movement playerMovement;
+    private CH_Movement2 playerMovement;
     private CH_Styling chs;
 
     private void Start()
     {
         playerInteractions = GetComponentInParent<CH_PlayerInteractions>();
-        playerMovement = GetComponentInParent<CH_Movement>();
+        playerMovement = GetComponentInParent<CH_Movement2>();
         gameObject.layer = LayerMask.NameToLayer(GetComponentInParent<CH_Input>().owner);
         chs = GetComponentInParent<CH_Styling>();
     }
