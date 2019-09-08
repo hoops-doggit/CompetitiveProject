@@ -6,6 +6,16 @@ using UnityEngine.UI;
 public class GM_UI : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
+    [SerializeField] private GameObject canvases;
+
+    private void Awake()
+    {
+        if (canvases.activeSelf == false)
+        {
+            canvases.SetActive(true);
+        }
+    }
+
 
 
     public void UpdateScoreText()

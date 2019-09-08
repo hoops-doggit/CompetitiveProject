@@ -10,6 +10,8 @@ public class UI_MatchStartingText : MonoBehaviour
     private bool start;
     [SerializeField] private GM_MatchMaster mm;
 
+    
+
     public void StartGame()
     {
         if (!start)
