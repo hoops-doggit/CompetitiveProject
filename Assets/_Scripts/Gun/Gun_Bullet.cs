@@ -10,7 +10,7 @@ public class Gun_Bullet : MonoBehaviour {
     public float initialSpeed = 200;
     private Rigidbody rb;
     public Vector3 direction;
-    private int i = 0;
+    private int i = 0, deflectNumber;
     public string owner;
     public Transform ownerT;
     private int bulletTimer = 0;
@@ -41,11 +41,11 @@ public class Gun_Bullet : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        age++;
-        if (age > maxAge)
-        {
-            Death();
-        }
+        //age++;
+        //if (age > maxAge)
+        //{
+        //    Death();
+        //}
 
         if (i < 1)
         {
@@ -80,12 +80,16 @@ public class Gun_Bullet : MonoBehaviour {
         {
             //HitAnotherBullet(ownerT, go.GetComponent<Gun_Bullet>().owner);
         }
+        deflectNumber++;
+        if(deflectNumber <= 1)
+        {
+            //start hashing out bullet secondary bounce here; 
+            //go.GetComponent<Rigidbody>().AddRelativeForce();
+        }
         else
         {
             Death();
-        }
-
-        
+        }       
     }
 
     private void Death()
