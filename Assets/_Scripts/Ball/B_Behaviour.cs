@@ -12,11 +12,17 @@ public class B_Behaviour : MonoBehaviour
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
+    public float magnitude;
     [SerializeField]private float stunCooldown = 0.1f;
 
     private void Start()
     {
         SetupBall();
+    }
+
+    private void Update()
+    {
+        magnitude = rb.velocity.magnitude;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -48,13 +54,23 @@ public class B_Behaviour : MonoBehaviour
         free = true;
     }
 
-    public void HitBall(Transform playerT, float hitStrength)
+    public void HitBall(Transform playerT, float ballHitStrength)
     {
         if (!ballHeld)
         {
             Debug.Log("got hit");
             UnfreezeAllRigidbodyConstraints();
-            rb.AddForce(playerT.forward * hitStrength, ForceMode.Acceleration);
+            if(magnitude < 20)
+            {
+                rb.velocity = playerT.forward * 30;
+                //rb.AddForce(playerT.forward * 1500, ForceMode.Acceleration);
+            }
+            else
+            {
+                rb.velocity = playerT.forward * magnitude * ballHitStrength;
+                //rb.AddForce(playerT.forward * magnitude * ballHitStrength, ForceMode.Acceleration);
+            }
+            
         }        
     }
 

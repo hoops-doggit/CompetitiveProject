@@ -20,15 +20,14 @@ public class Block_Destructable : MonoBehaviour{
 
             if (health < 1)
             {
-                GoodBye(col.gameObject);
+                DestroyBlock();
+                col.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
             }
         }
     }
 
-    public void GoodBye(GameObject collidedWith)
+    public void DestroyBlock( )
     {
-        collidedWith.GetComponent<Collider>().enabled = false;
-
         if (particles != null)
         {
             ParticleSystem p = Instantiate(particles);

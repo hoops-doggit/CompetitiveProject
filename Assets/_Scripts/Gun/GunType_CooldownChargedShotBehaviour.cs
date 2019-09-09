@@ -57,7 +57,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
             {
                 i= 0;
             }
-            else
+            else if( owner == "p2" || owner == "p4")
             {
                 i= 1;
             }

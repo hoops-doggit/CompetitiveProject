@@ -8,7 +8,8 @@ public class GM_MatchMaster : MonoBehaviour
     [SerializeField] private List<GameObject> ballStartPos = new List<GameObject>();
     [SerializeField] private List<GameObject> players;
     [SerializeField] private GameObject ball;
-    [SerializeField] private GameObject destructibleBlocks;
+    [SerializeField] private GameObject centreBlocks;
+    [SerializeField] private List<Block_Destructable> destructibleBlocks;
     private GameObject blocksClone;
     public List<GameObject> ballClones = new List<GameObject>();
 
@@ -58,6 +59,11 @@ public class GM_MatchMaster : MonoBehaviour
             go.GetComponent<CH_RoundReset>().ResetPlayer();
         }
 
+        foreach(Block_Destructable b in destructibleBlocks)
+        {
+            b.RegenerateBlock();
+        }
+
         Debug.Log("Just reset players");
     }
 
@@ -76,6 +82,6 @@ public class GM_MatchMaster : MonoBehaviour
         {
             Destroy(blocksClone);
         }
-        blocksClone = Instantiate(destructibleBlocks);
+        //blocksClone = Instantiate(centreBlocks);
     }
 }

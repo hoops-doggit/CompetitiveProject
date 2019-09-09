@@ -88,11 +88,11 @@ public class Gun_Bullet : MonoBehaviour {
         }
         else
         {
-            Death();
+            DestroyBullet();
         }       
     }
 
-    private void Death()
+    public void DestroyBullet()
     {
         Destroy(gameObject);
     }
@@ -103,7 +103,7 @@ public class Gun_Bullet : MonoBehaviour {
         transform.rotation = Quaternion.Inverse(transform.rotation);
         transform.LookAt(ownerT);
         ownerT = t;
-        rb.velocity = transform.forward * rb.velocity.magnitude;
+        rb.velocity = transform.forward * rb.velocity.magnitude * 1.5f;
         //rb.AddForce((transform.forward * -1) * rb.velocity.magnitude, ForceMode.Acceleration);
         owner = newOwner;
         gameObject.layer = LayerMask.NameToLayer(newOwner);
