@@ -78,6 +78,8 @@ public class CH_SwingBehaviour : MonoBehaviour
                             objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitBallStrength);
                             objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
                             ignoreBall = true;
+                            objectsInSwingZone.Remove(objectsInSwingZone[i]);
+                            i--;
                         }
                     }
 
@@ -86,6 +88,8 @@ public class CH_SwingBehaviour : MonoBehaviour
                         GameManager.inst.TimeFreeze();
                         objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(ownerT, hitBallStrength, owner);
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
+                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
+                        i--;
                     }
 
                     if (objectsInSwingZone[i].tag == "player" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
@@ -100,8 +104,10 @@ public class CH_SwingBehaviour : MonoBehaviour
                             ignoreBall = true;
                         }
 
-                        //objectsInSwingZone.Remove(objectsInSwingZone[i]);
+                        
                         objectsThatHaveBeenHit.Add(objectsInSwingZone[i]);
+                        objectsInSwingZone.Remove(objectsInSwingZone[i]);
+                        i--;
 
                     }
                 }
