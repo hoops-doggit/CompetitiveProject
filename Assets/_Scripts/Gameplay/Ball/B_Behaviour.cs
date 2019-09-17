@@ -39,10 +39,7 @@ public class B_Behaviour : MonoBehaviour
         }        
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-
-    }
+   
 
     public void SetupBall()
     {
@@ -58,7 +55,7 @@ public class B_Behaviour : MonoBehaviour
     {
         if (!ballHeld)
         {
-            Debug.Log("got hit");
+            //Debug.Log("got hit");
             UnfreezeAllRigidbodyConstraints();
             if(magnitude < 20)
             {
@@ -97,8 +94,6 @@ public class B_Behaviour : MonoBehaviour
         yield return new WaitForSeconds(ballThrowCooldown);
         heldBy = null;
     }
-
-
 
     public void BallDroppedBullet(Vector3 hitDirection)
     {
@@ -145,6 +140,7 @@ public class B_Behaviour : MonoBehaviour
 
     private IEnumerator StunCooldown()
     {
+        //this is to stop the player who just got stunned from picking up the ball while they're stunned
         yield return new WaitForSeconds(stunCooldown);
         heldBy = null;
     }    
