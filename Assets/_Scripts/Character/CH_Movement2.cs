@@ -7,7 +7,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle, movementAmount;
     public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
-    public bool stunned, shotBullet;
+    public bool stunned, shotBullet, playerMovementDisabled;
     public Vector2 movementDirection;
     public float acc;
     public float skinDepth;
@@ -95,16 +95,20 @@ public class CH_Movement2 : MonoBehaviour {
                 }
             }
         }
-        if (!stunned && !shotBullet)
+
+        if (!playerMovementDisabled)
         {
-            if (Input.GetAxisRaw(hold) > 0)
+            if (!stunned && !shotBullet)
             {
-                HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
-            }
-            else
-            {
-                Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 0);
-                HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+                if (Input.GetAxisRaw(hold) > 0)
+                {
+                    HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+                }
+                else
+                {
+                    Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 0);
+                    HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+                }
             }
         }
     }
@@ -124,7 +128,6 @@ public class CH_Movement2 : MonoBehaviour {
         movementAmount = shotBulletMovement;
     }
 
-
     public void MoveYouGotWhackedByABat(Vector3 positionOfHitter)
     {
         //stunned direction is used for calculating the direction the player who got hit should move
@@ -135,7 +138,6 @@ public class CH_Movement2 : MonoBehaviour {
         movementAmount = batStunMovement;
         stunned = true;
     }
-
 
     public void Move(float x, float y, int mode)
     {
@@ -201,10 +203,7 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         PositionAutoCorrectOLD(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
-    }
-
-    
-
+    }  
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)
     {

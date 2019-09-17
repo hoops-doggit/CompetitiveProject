@@ -80,14 +80,21 @@ public class CH_Collisions : MonoBehaviour {
             if (front01Hit.distance <= skinDepth)
             {
                 front01 = true;
-                Debug.DrawRay(tFront01.position, tFront01.TransformDirection(Vector3.forward) * front01Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tFront01.position, tFront01.TransformDirection(Vector3.forward) * front01Hit.distance, Color.red);
+                }
+
             }
             else
             {
                 front01 = false;
                 float distance = maxDistance;
                 if (front01Hit.distance < maxDistance) { distance = front01Hit.distance; }
-                Debug.DrawRay(tFront01.position, tFront01.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tFront01.position, tFront01.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
 
         }
@@ -96,14 +103,20 @@ public class CH_Collisions : MonoBehaviour {
             if (front02Hit.distance <= skinDepth)
             {
                 front02 = true;
-                Debug.DrawRay(tFront02.position, tFront02.TransformDirection(Vector3.forward) * front02Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tFront02.position, tFront02.TransformDirection(Vector3.forward) * front02Hit.distance, Color.red);
+                }
             }
             else
             {
                 front02 = false;
                 float distance = maxDistance;
                 if (front02Hit.distance < maxDistance) { distance = front02Hit.distance; }
-                Debug.DrawRay(tFront02.position, tFront02.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tFront02.position, tFront02.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
 
         }
@@ -112,14 +125,20 @@ public class CH_Collisions : MonoBehaviour {
             if (back01Hit.distance <= skinDepth)
             {
                 back01 = true;
-                Debug.DrawRay(tBack01.position, tBack01.TransformDirection(Vector3.forward) * back01Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tBack01.position, tBack01.TransformDirection(Vector3.forward) * back01Hit.distance, Color.red);
+                }
             }
             else
             {
                 back01 = false;
                 float distance = maxDistance;
                 if (back01Hit.distance < maxDistance) { distance = back01Hit.distance; }
-                Debug.DrawRay(tBack01.position, tBack01.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tBack01.position, tBack01.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
   
         }
@@ -128,14 +147,20 @@ public class CH_Collisions : MonoBehaviour {
             if (back02Hit.distance <= skinDepth)
             {
                 back02 = true;
-                Debug.DrawRay(tBack02.position, tBack02.TransformDirection(Vector3.forward) * back02Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tBack02.position, tBack02.TransformDirection(Vector3.forward) * back02Hit.distance, Color.red);
+                }
             }
             else
             {
                 back02 = false;
                 float distance = maxDistance;
                 if (back02Hit.distance < maxDistance) { distance = back02Hit.distance; }
-                Debug.DrawRay(tBack02.position, tBack02.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tBack02.position, tBack02.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
 
         }
@@ -145,15 +170,20 @@ public class CH_Collisions : MonoBehaviour {
             if (left01Hit.distance <= skinDepth)
             {
                 left01 = true;
-                Debug.DrawRay(tLeft01.position, tLeft01.TransformDirection(Vector3.forward) * left01Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tLeft01.position, tLeft01.TransformDirection(Vector3.forward) * left01Hit.distance, Color.red);
+                }
             }
             else
             {
                 left01 = false;
                 float distance = maxDistance;
                 if (left01Hit.distance < maxDistance) { distance = left01Hit.distance; }
-
-                Debug.DrawRay(tLeft01.position, tLeft01.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tLeft01.position, tLeft01.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
 
         }
@@ -162,14 +192,20 @@ public class CH_Collisions : MonoBehaviour {
             if (left02Hit.distance <= skinDepth)
             {
                 left02 = true;
-                Debug.DrawRay(tLeft02.position, tLeft02.TransformDirection(Vector3.forward) * left02Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tLeft02.position, tLeft02.TransformDirection(Vector3.forward) * left02Hit.distance, Color.red);
+                }
             }
             else
             {
                 left02 = false;
                 float distance = maxDistance;
                 if (left02Hit.distance < maxDistance) { distance = left02Hit.distance; }
-                Debug.DrawRay(tLeft02.position, tLeft02.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tLeft02.position, tLeft02.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
 
         }
@@ -178,14 +214,20 @@ public class CH_Collisions : MonoBehaviour {
             if (right01Hit.distance <= skinDepth)
             {
                 right01 = true;
-                Debug.DrawRay(tRight01.position, tRight01.TransformDirection(Vector3.forward) * right01Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tRight01.position, tRight01.TransformDirection(Vector3.forward) * right01Hit.distance, Color.red);
+                }
             }
             else
             {
                 right01 = false;
                 float distance = maxDistance;
                 if (right01Hit.distance < maxDistance) { distance = right01Hit.distance; }
-                Debug.DrawRay(tRight01.position, tRight01.TransformDirection(Vector3.forward) * distance, Color.green);
+                if (debug)
+                {
+                    Debug.DrawRay(tRight01.position, tRight01.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
 
         }
@@ -194,15 +236,21 @@ public class CH_Collisions : MonoBehaviour {
             if (right02Hit.distance <= skinDepth)
             {
                 right02 = true;
-                Debug.DrawRay(tRight02.position, tRight02.TransformDirection(Vector3.forward) * right02Hit.distance, Color.red);
+                if (debug)
+                {
+                    Debug.DrawRay(tRight02.position, tRight02.TransformDirection(Vector3.forward) * right02Hit.distance, Color.red);
+                }
             }
 
             else
             {
                 right02 = false;
-                float distance = maxDistance;                
-                if (right02Hit.distance < maxDistance) {distance = right02Hit.distance;}
-                Debug.DrawRay(tRight02.position, tRight02.TransformDirection(Vector3.forward) * distance, Color.green);
+                float distance = maxDistance;
+                if (right02Hit.distance < maxDistance) { distance = right02Hit.distance; }
+                if (debug)
+                {
+                    Debug.DrawRay(tRight02.position, tRight02.TransformDirection(Vector3.forward) * distance, Color.green);
+                }
             }
         }
 
