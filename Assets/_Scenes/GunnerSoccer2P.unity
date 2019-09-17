@@ -6032,22 +6032,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1047771287, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.3090878
-      objectReference: {fileID: 0}
-    - target: {fileID: 1047771287, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.3090878
-      objectReference: {fileID: 0}
-    - target: {fileID: 1047771287, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.3090878
-      objectReference: {fileID: 0}
-    - target: {fileID: 1047771287, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.14
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
 --- !u!4 &367994505 stripped
@@ -10631,6 +10615,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 461756010, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
 --- !u!1001 &706415428
@@ -14309,7 +14297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBallStrength: 1.5
-  hitPause: 0.16
+  hitPause: 0.1
   currentlySwinging: 0
   swingKey: 0
   bathitZone: {fileID: 921620631}
