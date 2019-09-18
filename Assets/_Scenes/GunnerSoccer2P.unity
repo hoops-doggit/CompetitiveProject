@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5957,11 +5957,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 231247471}
     m_Modifications:
-    - target: {fileID: 1818521632117398569, guid: c5e99694659c3b84cbad00ce1ade85de,
+    - target: {fileID: 4143370639984889439, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.3499999
-      objectReference: {fileID: 0}
+      propertyPath: deflectAngle.Array.data[0]
+      value: 
+      objectReference: {fileID: 367994507}
+    - target: {fileID: 4143370639984889439, guid: c5e99694659c3b84cbad00ce1ade85de,
+        type: 3}
+      propertyPath: deflectAngle.Array.data[1]
+      value: 
+      objectReference: {fileID: 367994506}
+    - target: {fileID: 4143370639984889439, guid: c5e99694659c3b84cbad00ce1ade85de,
+        type: 3}
+      propertyPath: deflectAngle.Array.data[2]
+      value: 
+      objectReference: {fileID: 367994508}
     - target: {fileID: 1052164874464912, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_Name
       value: Character
@@ -6061,11 +6071,40 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.35
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1818521632117398569, guid: c5e99694659c3b84cbad00ce1ade85de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.3499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019815551259312371, guid: c5e99694659c3b84cbad00ce1ade85de,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: db641eb477219ec4993eaa3511a329f5, type: 2}
+    m_RemovedComponents:
+    - {fileID: 1047771288, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
 --- !u!4 &367994505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de,
+    type: 3}
+  m_PrefabInstance: {fileID: 367994504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &367994506 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1021935785088277057, guid: c5e99694659c3b84cbad00ce1ade85de,
+    type: 3}
+  m_PrefabInstance: {fileID: 367994504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &367994507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 528715092036233134, guid: c5e99694659c3b84cbad00ce1ade85de,
+    type: 3}
+  m_PrefabInstance: {fileID: 367994504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &367994508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5398882187206101592, guid: c5e99694659c3b84cbad00ce1ade85de,
     type: 3}
   m_PrefabInstance: {fileID: 367994504}
   m_PrefabAsset: {fileID: 0}
@@ -14313,39 +14352,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 919956545}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &921620631 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1047771283, guid: c5e99694659c3b84cbad00ce1ade85de,
-    type: 3}
-  m_PrefabInstance: {fileID: 367994504}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &921620637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921620631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d09a1fa477ec62f458d5eb3b5e22546b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitBallStrength: 1.5
-  hitPause: 0.16
-  currentlySwinging: 0
-  swingKey: 0
-  bathitZone: {fileID: 921620631}
-  mats:
-  - {fileID: 2100000, guid: 1d0ae34244a849049bb8f292695e9ba8, type: 2}
-  - {fileID: 2100000, guid: db641eb477219ec4993eaa3511a329f5, type: 2}
-  - {fileID: 2100000, guid: 49625b441d6e0e841a4df474b0a672c6, type: 2}
-  lengthOfSwingPersistance: 0.16
-  objectsInSwingZone: []
-  objectsThatHaveBeenHit: []
-  swingCooldown: 0
-  owner: 
-  ownerT: {fileID: 0}
 --- !u!1001 &923974372
 PrefabInstance:
   m_ObjectHideFlags: 0

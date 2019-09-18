@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CH_SwingAttack : MonoBehaviour
-{   
-    public float hitBallStrength, hitPause;
-    public bool currentlySwinging;
+{
     public KeyCode swingKey;
-    [SerializeField] private GameObject bathitZone;
-    [SerializeField] private Material[] mats = new Material[3];
+    public float hitBallStrength, hitPause;
     [SerializeField] private float lengthOfSwingPersistance;
+    public bool currentlySwinging;    
+    
+    [SerializeField] private GameObject bathitZone;
+    [SerializeField] GameObject[] deflectAngle;
+    [SerializeField] private Material[] mats = new Material[3];
+    
     public List<GameObject> objectsInSwingZone = new List<GameObject>();
     public List<GameObject> objectsThatHaveBeenHit = new List<GameObject>();
     public int swingCooldown;
@@ -17,6 +20,7 @@ public class CH_SwingAttack : MonoBehaviour
     private bool ignoreBall = false;
     [SerializeField] private string owner;
     [SerializeField] private Transform ownerT;
+    public float extremeLeftAngle, leftMiddleAngle, rightMiddleAngle;
     private CH_BallInteractions chb;
     private CH_Styling chs;
     private CH_Movement2 chm;
@@ -66,28 +70,34 @@ public class CH_SwingAttack : MonoBehaviour
 
     private void Update()
     {
-        //if (objectsInSwingZone.Count != 0)
-        //{
-        //    for (int i = 0; i < objectsInSwingZone.Count; i++)
-        //    {
-        //        if (objectsInSwingZone[i] == null)
-        //        {
+        if (objectsInSwingZone.Count != 0)
+        {
+            for (int i = 0; i < objectsInSwingZone.Count; i++)
+            {
+                if (objectsInSwingZone[i] == null)
+                {
 
-        //            objectsInSwingZone.RemoveAt(i);
-        //        }
-        //    }
-        //}
+                    objectsInSwingZone.RemoveAt(i);
+                }
+            }
+        }
 
-        //if (objectsThatHaveBeenHit.Count != 0)
-        //{
-        //    for (int i = 0; i < objectsThatHaveBeenHit.Count; i++)
-        //    {
-        //        if (objectsThatHaveBeenHit[i] == null)
-        //        {
-        //            objectsThatHaveBeenHit.RemoveAt(i);
-        //        }
-        //    }
-        //}
+        if (objectsThatHaveBeenHit.Count != 0)
+        {
+            for (int i = 0; i < objectsThatHaveBeenHit.Count; i++)
+            {
+                if (objectsThatHaveBeenHit[i] == null)
+                {
+                    objectsThatHaveBeenHit.RemoveAt(i);
+                }
+            }
+        }
+
+        if (currentlySwinging)
+        {
+            CalculateDeflectAngle()
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -236,6 +246,7 @@ public class CH_SwingAttack : MonoBehaviour
     {
         if (!chb.holdingBall)
         {
+            ToggleDeflectAngles();
             currentlySwinging = true;
             chm.playerMovementDisabled = true;
             MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
@@ -259,6 +270,62 @@ public class CH_SwingAttack : MonoBehaviour
         objectsThatHaveBeenHit.Clear();
         ignoreBall = false;
         chm.playerMovementDisabled = false;
-        
+        ToggleDeflectAngles();
+
+
     }   
+
+    private void ToggleDeflectAngles()
+    {
+        for (int i = 0; i < deflectAngle.Length; i++)
+        {
+            if (deflectAngle[0].activeSelf)
+            {
+                deflectAngle[i].SetActive(false);
+            }
+            else
+            {
+                deflectAngle[i].SetActive(true);
+            }
+        }
+    }
+
+    private void DeflectAnglesOn()
+    {
+        for (int i = 0; i < deflectAngle.Length; i++)
+        {
+            deflectAngle[i].SetActive(true);
+        }  
+    }
+
+    private void HighlightSelectedDeflectAngle(int i)
+    {
+        foreach(GameObject go in deflectAngle)
+        {
+            go.GetComponent<CH_SwingAngleIndicator>().AngleDeselected();
+        }
+        deflectAngle[i].GetComponent<CH_SwingAngleIndicator>().AngleSelected();
+    }
+
+    private void CalculateDeflectAngle(float xAxis, float yAxis, float lookAngle)
+    {
+        Vector2 temp = new Vector2(xAxis, yAxis);
+        float inputAngle = Mathf.Atan(xAxis/yAxis);
+
+        if(inputAngle < rightMiddleAngle && inputAngle > leftMiddleAngle)
+        {
+            //Do middleAttack
+            HighlightSelectedDeflectAngle(1);
+        }
+
+        else if (inputAngle < leftMiddleAngle)
+        {
+            HighlightSelectedDeflectAngle(0);
+        }
+
+        else if(inputAngle > rightMiddleAngle)
+        {
+            HighlightSelectedDeflectAngle(2);
+        }
+    }
 }
