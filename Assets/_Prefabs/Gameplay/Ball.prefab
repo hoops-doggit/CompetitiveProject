@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 23669146892728076}
   - component: {fileID: 135441058571754648}
   - component: {fileID: 461756010}
-  - component: {fileID: 1483030851695152892}
   - component: {fileID: 6916770526504188164}
   - component: {fileID: -4019700343472109532}
+  - component: {fileID: 1483030851695152892}
   - component: {fileID: 7444372478252359363}
   m_Layer: 13
   m_Name: Ball
@@ -112,24 +112,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1483030851695152892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470256393434294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f3accaf6522a049b52cc8f4035d1b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropForce: 1200
-  dropUpForce: 800
-  free: 1
-  heldBy: {fileID: 0}
-  magnitude: 0
-  stunCooldown: 0.2
 --- !u!96 &6916770526504188164
 TrailRenderer:
   serializedVersion: 2
@@ -238,6 +220,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minTime: 0.1
+--- !u!114 &1483030851695152892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470256393434294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f3accaf6522a049b52cc8f4035d1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropForce: 1200
+  dropUpForce: 800
+  free: 1
+  heldBy: {fileID: 0}
+  magnitude: 0
+  stunCooldown: 0.2
 --- !u!114 &7444372478252359363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,3 +251,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}

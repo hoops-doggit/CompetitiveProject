@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4186,6 +4186,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 217289051}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &217739068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1470256393434294, guid: 9f4bc81f5dc519347ac34e168b83b9c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 703477647}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &217739069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217739068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 834a158570e4df34ea1aefd270537a2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 0, z: 0}
+  angularVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &218234685
 GameObject:
   m_ObjectHideFlags: 0
@@ -5937,6 +5957,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 231247471}
     m_Modifications:
+    - target: {fileID: 1818521632117398569, guid: c5e99694659c3b84cbad00ce1ade85de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.3499999
+      objectReference: {fileID: 0}
     - target: {fileID: 1052164874464912, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_Name
       value: Character
@@ -6031,6 +6056,10 @@ PrefabInstance:
     - target: {fileID: 1047771288, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047771287, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
@@ -10581,7 +10610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4736103993689276, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06860542
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4736103993689276, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -10619,7 +10648,13 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7444372478252359363, guid: 9f4bc81f5dc519347ac34e168b83b9c4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7444372478252359363, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
 --- !u!1001 &706415428
 PrefabInstance:
@@ -14297,7 +14332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBallStrength: 1.5
-  hitPause: 0.1
+  hitPause: 0.16
   currentlySwinging: 0
   swingKey: 0
   bathitZone: {fileID: 921620631}

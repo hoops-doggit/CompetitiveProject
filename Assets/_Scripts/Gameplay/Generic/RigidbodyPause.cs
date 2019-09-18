@@ -21,8 +21,7 @@ public class RigidbodyPause : MonoBehaviour
     public void WakeRigidbody()
     {
         rb.WakeUp();
-        rb.AddForce(velocity,ForceMode.VelocityChange);
-        
+        rb.velocity = velocity;        
     }
 
 

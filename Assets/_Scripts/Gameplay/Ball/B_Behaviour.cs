@@ -12,8 +12,10 @@ public class B_Behaviour : MonoBehaviour
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
-    public float magnitude;
+    public float magnitude, prePauseMagnitude;
     [SerializeField]private float stunCooldown = 0.1f;
+    private Vector3 prePauseDirection;
+    
 
     private void Start()
     {
@@ -22,7 +24,10 @@ public class B_Behaviour : MonoBehaviour
 
     private void Update()
     {
-        magnitude = rb.velocity.magnitude;
+        if (!rb.IsSleeping())
+        {
+            magnitude = rb.velocity.magnitude;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,10 +60,11 @@ public class B_Behaviour : MonoBehaviour
     {
         if (!ballHeld)
         {
-            //Debug.Log("got hit");
-            UnfreezeAllRigidbodyConstraints();
+            Debug.Log("prepausemagnitude = " + prePauseMagnitude);
+            Debug.Log("magnitude = " + magnitude);
             if(magnitude < 20)
             {
+                
                 rb.velocity = playerT.forward * 30;
                 //rb.AddForce(playerT.forward * 1500, ForceMode.Acceleration);
             }
@@ -66,8 +72,7 @@ public class B_Behaviour : MonoBehaviour
             {
                 rb.velocity = playerT.forward * magnitude * ballHitStrength;
                 //rb.AddForce(playerT.forward * magnitude * ballHitStrength, ForceMode.Acceleration);
-            }
-            
+            }            
         }        
     }
 
@@ -93,6 +98,21 @@ public class B_Behaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(ballThrowCooldown);
         heldBy = null;
+    }
+
+    public void PauseBallSwing()
+    {
+        prePauseMagnitude = rb.velocity.magnitude;
+        prePauseDirection = rb.velocity.normalized;        
+        FreezeAllRigidbodyConstraints();
+        free = false;
+    }
+
+    public void WakeBallSwing()
+    {
+        UnfreezeAllRigidbodyConstraints();
+        rb.velocity = prePauseDirection * prePauseMagnitude;
+        free = true;
     }
 
     public void BallDroppedBullet(Vector3 hitDirection)

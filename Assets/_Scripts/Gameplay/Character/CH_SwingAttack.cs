@@ -61,33 +61,33 @@ public class CH_SwingAttack : MonoBehaviour
         if (Input.GetKeyDown(swingKey) && swingCooldown >= swingChargeMax)
         {
             Swing();
-        }        
+        }
     }
 
     private void Update()
     {
-        if (objectsInSwingZone.Count != 0)
-        {
-            for (int i = 0; i < objectsInSwingZone.Count; i++)
-            {
-                if (objectsInSwingZone[i] == null)
-                {
+        //if (objectsInSwingZone.Count != 0)
+        //{
+        //    for (int i = 0; i < objectsInSwingZone.Count; i++)
+        //    {
+        //        if (objectsInSwingZone[i] == null)
+        //        {
 
-                    objectsInSwingZone.RemoveAt(i);
-                }
-            }
-        }
+        //            objectsInSwingZone.RemoveAt(i);
+        //        }
+        //    }
+        //}
 
-        if (objectsThatHaveBeenHit.Count != 0)
-        {
-            for (int i = 0; i < objectsThatHaveBeenHit.Count; i++)
-            {
-                if (objectsThatHaveBeenHit[i] == null)
-                {
-                    objectsThatHaveBeenHit.RemoveAt(i);
-                }
-            }
-        }
+        //if (objectsThatHaveBeenHit.Count != 0)
+        //{
+        //    for (int i = 0; i < objectsThatHaveBeenHit.Count; i++)
+        //    {
+        //        if (objectsThatHaveBeenHit[i] == null)
+        //        {
+        //            objectsThatHaveBeenHit.RemoveAt(i);
+        //        }
+        //    }
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -111,7 +111,7 @@ public class CH_SwingAttack : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (objectsInSwingZone.Contains(other.gameObject))
+        if (objectsInSwingZone.Contains(other.gameObject) && !currentlySwinging)
         {
             objectsInSwingZone.Remove(other.gameObject);
         }
@@ -125,19 +125,18 @@ public class CH_SwingAttack : MonoBehaviour
     {
         if (!objectsInSwingZone.Contains(other.gameObject))
         {
-            //if (other.GetComponent<RigidbodyPause>())
-            //{
-            //    other.GetComponent<RigidbodyPause>().PauseRigidbody();
-            //}
 
             if (other.tag == "ball" && other.GetComponent<B_Behaviour>().free)
             {
                 objectsInSwingZone.Add(other.gameObject);
+                other.GetComponent<RigidbodyPause>().PauseRigidbody();
+                //other.GetComponent<B_Behaviour>().PauseBallSwing();
             }
 
             else if (other.tag == "bullet" && other.GetComponent<Gun_Bullet>().owner != owner)
             {
                 objectsInSwingZone.Add(other.gameObject);
+                other.GetComponent<RigidbodyPause>().PauseRigidbody();
             }
 
             else if (other.tag == "player")
@@ -164,13 +163,7 @@ public class CH_SwingAttack : MonoBehaviour
     public IEnumerator SwingAttack()
     {
         //stop player from moving
-        foreach (GameObject go in objectsInSwingZone)
-        {
-            if (go.GetComponent<RigidbodyPause>())
-            {
-                go.GetComponent<RigidbodyPause>().PauseRigidbody();
-            }
-        }
+        
         yield return new WaitForSeconds(hitPause);
         //wait till swing has chaged (hit pause)
         //Do things
@@ -189,9 +182,10 @@ public class CH_SwingAttack : MonoBehaviour
                 {
                     if (objectsInSwingZone[i].tag == "ball" && !objectsThatHaveBeenHit.Contains(objectsInSwingZone[i]))
                     {
-                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().WakeRigidbody();
                         GameManager.inst.TimeFreeze();
-                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitBallStrength);
+                        //objectsInSwingZone[i].GetComponent<B_Behaviour>().WakeBallSwing();
+                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().WakeRigidbody();
+                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitBallStrength);                        
                         ignoreBall = true;
                     }
                 }

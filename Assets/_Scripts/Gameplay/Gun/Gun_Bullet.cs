@@ -75,11 +75,15 @@ public class Gun_Bullet : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         GameObject go = collision.gameObject;
-        
-        if(collision.gameObject.tag == "bullet")
+
+        owner = "";
+        gameObject.layer = 20;
+
+        if (collision.gameObject.tag == "bullet")
         {
             //HitAnotherBullet(ownerT, go.GetComponent<Gun_Bullet>().owner);
         }
+
         deflectNumber++;
         if(deflectNumber <= 1)
         {

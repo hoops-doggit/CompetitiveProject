@@ -33,8 +33,8 @@ public class CH_Input : MonoBehaviour {
                 throwKey = KeyCode.Joystick1Button1;
                 swingKey = KeyCode.Joystick1Button2;
                 owner = "p1";
-
                 break;
+
             case PlayerNumber.player2:
                 xAxis = "horizontal2";
                 yAxis = "vertical2";
@@ -45,6 +45,7 @@ public class CH_Input : MonoBehaviour {
                 //swingKey = KeyCode.Space;
                 owner = "p2";
                 break;
+
             case PlayerNumber.player3:
                 xAxis = "horizontal3";
                 yAxis = "vertical3";
@@ -54,6 +55,7 @@ public class CH_Input : MonoBehaviour {
                 swingKey = KeyCode.Joystick3Button2;
                 owner = "p3";
                 break;
+
             case PlayerNumber.player4:
                 xAxis = "horizontal4";
                 yAxis = "vertical4";
