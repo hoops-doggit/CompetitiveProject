@@ -137,14 +137,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingKey: 0
   hitBallStrength: 1.5
-  hitPause: 0.16
+  hitPause: 2
   lengthOfSwingPersistance: 0.16
   currentlySwinging: 0
   bathitZone: {fileID: 1047771283}
   deflectAngle:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 528715092036233134}
+  - {fileID: 1021935785088277057}
+  - {fileID: 5398882187206101592}
   mats:
   - {fileID: 2100000, guid: 1d0ae34244a849049bb8f292695e9ba8, type: 2}
   - {fileID: 2100000, guid: db641eb477219ec4993eaa3511a329f5, type: 2}
@@ -154,6 +154,9 @@ MonoBehaviour:
   swingCooldown: 0
   owner: 
   ownerT: {fileID: 0}
+  extremeLeftAngle: -125
+  leftMiddleAngle: -22.5
+  rightMiddleAngle: 22.5
 --- !u!1 &2136872536
 GameObject:
   m_ObjectHideFlags: 0

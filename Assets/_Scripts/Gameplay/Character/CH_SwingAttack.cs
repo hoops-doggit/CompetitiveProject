@@ -11,6 +11,7 @@ public class CH_SwingAttack : MonoBehaviour
     
     [SerializeField] private GameObject bathitZone;
     [SerializeField] GameObject[] deflectAngle;
+    private int selectedDeflectAngle;
     [SerializeField] private Material[] mats = new Material[3];
     
     public List<GameObject> objectsInSwingZone = new List<GameObject>();
@@ -20,11 +21,12 @@ public class CH_SwingAttack : MonoBehaviour
     private bool ignoreBall = false;
     [SerializeField] private string owner;
     [SerializeField] private Transform ownerT;
-    public float extremeLeftAngle, leftMiddleAngle, rightMiddleAngle;
+    public float extremeAngleCutoff, middleAngle, inputAngleDebug, headAngleDebug, lmid, lcutoff, rmid,  rcutoff;
     private CH_BallInteractions chb;
     private CH_Styling chs;
     private CH_Movement2 chm;
     private Rigidbody rb;
+    private CH_Input chi;
 
     Vector3 savedVelocity;
     Vector3 savedAngularVelocity;
@@ -34,6 +36,7 @@ public class CH_SwingAttack : MonoBehaviour
         rb = GetComponentInParent<Rigidbody>();
         chs = GetComponentInParent<CH_Styling>();
         chm = GetComponentInParent<CH_Movement2>();
+        chi = GetComponentInParent<CH_Input>();
 
         if (GetComponentInParent<CH_Input>() != null)
         {
@@ -51,6 +54,7 @@ public class CH_SwingAttack : MonoBehaviour
             chb = GetComponentInParent<CH_BallInteractions>();
         }
 
+        TurnOffDeflectAngles();
         StopSwing();
         bathitZone = gameObject;
     }
@@ -95,8 +99,11 @@ public class CH_SwingAttack : MonoBehaviour
 
         if (currentlySwinging)
         {
-            CalculateDeflectAngle()
+            CalculateDeflectAngle2(Input.GetAxisRaw(chi.xAxis), Input.GetAxisRaw(chi.yAxis),GetComponentInParent<Transform>().eulerAngles.y);
+            //DotProductCalculateDeflectAngle(Input.GetAxisRaw(chi.xAxis), Input.GetAxisRaw(chi.yAxis),GetComponentInParent<Transform>().eulerAngles.y);
         }
+
+       
 
     }
 
@@ -170,10 +177,45 @@ public class CH_SwingAttack : MonoBehaviour
         GetComponent<Rigidbody>().AddTorque(savedAngularVelocity, ForceMode.VelocityChange);
     }
 
+
+
+    private void PrepareSwing()
+    {
+        swingCooldown++;
+        MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
+        batMeshRend.enabled = true;
+        if (swingCooldown < swingChargeMax)
+        {
+            batMeshRend.material = mats[0];
+        }
+        else
+        {
+            batMeshRend.material = mats[1];
+        }
+    }
+
+    private void Swing()
+    {
+        if (!chb.holdingBall)
+        {
+            TurnOnDeflectAngles();
+            currentlySwinging = true;
+            chm.playerMovementDisabled = true;
+            MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
+            batMeshRend.enabled = true;
+            batMeshRend.material = mats[2];
+            StartCoroutine(SwingAttack());
+        }
+        else
+        {
+            chb.ThrowBall();
+        }
+    }
+
     public IEnumerator SwingAttack()
     {
         //stop player from moving
-        
+
         yield return new WaitForSeconds(hitPause);
         //wait till swing has chaged (hit pause)
         //Do things
@@ -195,7 +237,7 @@ public class CH_SwingAttack : MonoBehaviour
                         GameManager.inst.TimeFreeze();
                         //objectsInSwingZone[i].GetComponent<B_Behaviour>().WakeBallSwing();
                         objectsInSwingZone[i].GetComponent<RigidbodyPause>().WakeRigidbody();
-                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(GetComponentInParent<Transform>(), hitBallStrength);                        
+                        objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(deflectAngle[selectedDeflectAngle].transform, hitBallStrength);
                         ignoreBall = true;
                     }
                 }
@@ -225,39 +267,6 @@ public class CH_SwingAttack : MonoBehaviour
         StopSwing();
         yield break;
         #endregion        
-    }  
-
-    private void PrepareSwing()
-    {
-        swingCooldown++;
-        MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
-        batMeshRend.enabled = true;
-        if (swingCooldown < swingChargeMax)
-        {
-            batMeshRend.material = mats[0];
-        }
-        else
-        {
-            batMeshRend.material = mats[1];
-        }
-    }
-
-    private void Swing()
-    {
-        if (!chb.holdingBall)
-        {
-            ToggleDeflectAngles();
-            currentlySwinging = true;
-            chm.playerMovementDisabled = true;
-            MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
-            batMeshRend.enabled = true;
-            batMeshRend.material = mats[2];
-            StartCoroutine(SwingAttack());
-        }
-        else
-        {
-            chb.ThrowBall();
-        }
     }
 
     public void StopSwing()
@@ -270,23 +279,22 @@ public class CH_SwingAttack : MonoBehaviour
         objectsThatHaveBeenHit.Clear();
         ignoreBall = false;
         chm.playerMovementDisabled = false;
-        ToggleDeflectAngles();
+        TurnOffDeflectAngles();
+    }
 
-
-    }   
-
-    private void ToggleDeflectAngles()
+    private void TurnOffDeflectAngles()
     {
         for (int i = 0; i < deflectAngle.Length; i++)
         {
-            if (deflectAngle[0].activeSelf)
-            {
-                deflectAngle[i].SetActive(false);
-            }
-            else
-            {
-                deflectAngle[i].SetActive(true);
-            }
+            deflectAngle[i].SetActive(false);
+        }
+    }
+
+    private void TurnOnDeflectAngles()
+    {
+        for (int i = 0; i < deflectAngle.Length; i++)
+        {
+            deflectAngle[i].SetActive(true);
         }
     }
 
@@ -305,27 +313,169 @@ public class CH_SwingAttack : MonoBehaviour
             go.GetComponent<CH_SwingAngleIndicator>().AngleDeselected();
         }
         deflectAngle[i].GetComponent<CH_SwingAngleIndicator>().AngleSelected();
+        selectedDeflectAngle = i;
     }
 
-    private void CalculateDeflectAngle(float xAxis, float yAxis, float lookAngle)
+    private void CalculateDeflectAngle1(float xAxis, float yAxis, float lookAngle)
     {
-        Vector2 temp = new Vector2(xAxis, yAxis);
-        float inputAngle = Mathf.Atan(xAxis/yAxis);
+        float inputAngle = CalculateInputAngle(xAxis, yAxis);
+        inputAngleDebug = inputAngle;
+        headAngleDebug = lookAngle;
 
-        if(inputAngle < rightMiddleAngle && inputAngle > leftMiddleAngle)
+        float lMidAngle = Clamp0360(lookAngle - middleAngle);
+        float rMidAngle = Clamp0360(lookAngle + middleAngle);
+        float lLocalCutoff = Clamp0360(lookAngle - extremeAngleCutoff);
+        float rLocalCutoff = Clamp0360(lookAngle + extremeAngleCutoff);
+        lmid = lMidAngle;
+        lcutoff = lLocalCutoff;
+        rmid = rMidAngle;
+
+        rcutoff = rLocalCutoff;
+
+        //Fire Left
+        if (lLocalCutoff > (360 - extremeAngleCutoff)) //this line is correct
         {
-            //Do middleAttack
-            HighlightSelectedDeflectAngle(1);
+            if (inputAngle < lMidAngle && inputAngle > 0)
+            {
+                HighlightSelectedDeflectAngle(0);
+            }
+            else if(inputAngle > lLocalCutoff && inputAngle < 360)
+            {
+                HighlightSelectedDeflectAngle(0);
+            }
+        }
+        else if (inputAngle < lMidAngle && inputAngle > lLocalCutoff)
+        {
+
+            HighlightSelectedDeflectAngle(0);
         }
 
-        else if (inputAngle < leftMiddleAngle)
+        //Fire Right
+        else if (rLocalCutoff < extremeAngleCutoff )
+        {
+            if (inputAngle > rMidAngle && inputAngle < 360)
+            {
+                HighlightSelectedDeflectAngle(2);
+            }
+            else if (inputAngle > 0 && inputAngle < extremeAngleCutoff)
+            {
+                HighlightSelectedDeflectAngle(2);
+            }
+        }
+        else if (inputAngle > rMidAngle && inputAngle < rLocalCutoff)
+        {
+            HighlightSelectedDeflectAngle(2);
+        }
+        
+        //Fire Centre
+        else
+        {
+            HighlightSelectedDeflectAngle(1);
+        }  
+        
+
+
+    }private void CalculateDeflectAngle2(float xAxis, float yAxis, float lookAngle)
+    {
+        float inputAngle = CalculateInputAngle(xAxis, yAxis);
+        inputAngleDebug = inputAngle;
+        headAngleDebug = lookAngle;
+
+        float lClose = Clamp0360(lookAngle - middleAngle);
+        float rClose = Clamp0360(lookAngle + middleAngle);
+        float lFar = Clamp0360(lookAngle - extremeAngleCutoff);
+        float rFar = Clamp0360(lookAngle + extremeAngleCutoff);
+        lmid = lClose;
+        lcutoff = lFar;
+        rmid = rClose;
+
+        rcutoff = rFar;
+
+        //Fire Left
+
+        //if difference between lmidAngle and llocalCutoff is > (extremeAngleCutoff-middleAngle)
+
+        if (DegreeDistance(lClose, lFar) > (extremeAngleCutoff - middleAngle))
+        {
+            if (lFar > (360 - extremeAngleCutoff) && inputAngle > lFar) //this line is correct
+            {
+                HighlightSelectedDeflectAngle(0);                
+            }
+
+            else if (inputAngle < lClose && inputAngle > 0)
+            {
+                HighlightSelectedDeflectAngle(0);
+            }
+        }
+        else if (inputAngle < lClose && inputAngle > lFar)
         {
             HighlightSelectedDeflectAngle(0);
         }
 
-        else if(inputAngle > rightMiddleAngle)
+        //Fire Right
+
+        if(DegreeDistance(rClose, rFar) > (extremeAngleCutoff - middleAngle))
+        {
+            if (rFar < extremeAngleCutoff && inputAngle < extremeAngleCutoff)
+            {
+                HighlightSelectedDeflectAngle(2);
+            }
+
+            else if(inputAngle > rClose && inputAngle < 361)
+            {
+                HighlightSelectedDeflectAngle(2);
+            }
+        }
+        else if (inputAngle > rClose && inputAngle < rFar)
         {
             HighlightSelectedDeflectAngle(2);
         }
+
+        //Fire Centre
+        else
+        {
+            HighlightSelectedDeflectAngle(1);
+        }  
+        
+
+
+    }
+
+    private void DotProductCalculateDeflectAngle(float xAxis, float yAxis, float lookAngle)
+    {
+        Vector2 dir = Quaternion.Euler(0, 0, lookAngle) * Vector2.up;
+        Vector2 inputDirection = new Vector2(xAxis, yAxis);
+        Debug.Log(Vector2.Distance(dir.normalized, inputDirection.normalized));
+    }
+
+    private float CalculateInputAngle(float x, float y)
+    {
+        float angle = 0;
+
+        if (x < 0)
+        {
+            return angle = 360 + Vector2.SignedAngle(new Vector2(x, y), Vector2.up);
+        }
+        else
+        {
+            return angle = Vector2.Angle(new Vector2(x, y), Vector2.up);
+        }
+    }
+
+    private float DegreeDistance(float angleA, float angleB)
+    {
+        float phi = Mathf.Abs(angleB - angleA) % 360;
+        float distance = phi > 180 ? 360 - phi : phi;
+        return distance;
+    }
+
+    private float Clamp0360(float eulerAngles)
+    {
+        float result = eulerAngles - Mathf.CeilToInt(eulerAngles / 360f) * 360f;
+        if (result < 0)
+        {
+            result += 360f;
+        }
+        return result;
     }
 }

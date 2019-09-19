@@ -202,40 +202,10 @@ public class CH_Movement2 : MonoBehaviour {
             HeadDirection(inputVector);
         }
 
-        PositionAutoCorrectOLD(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
+        PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
     }  
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)
-    {
-        //if player is too close to a wall, push them away a little till they're not too close
-        float f = front - transform.position.z ;
-        float b = back + transform.position.z;
-        float l = left + transform.position.x ;
-        float r = right - transform.position.x ;
-
-        //front
-        if (f <= autoCorrectDistance && Mathf.Abs(rawinputVector.y) < autoCorrectDeadZone)
-        {
-            transform.position -= new Vector3(0, 0, autoCorrectAmount) * Time.deltaTime;
-        }
-        //back
-        if (transform.position.z <= (back + autoCorrectDistance) && Mathf.Abs(rawinputVector.y) < autoCorrectDeadZone)
-        {
-            transform.position += new Vector3(0, 0, autoCorrectAmount) * Time.deltaTime;
-        }
-        //left
-        if (transform.position.x <= (left + autoCorrectDistance) && Mathf.Abs(rawinputVector.x) < autoCorrectDeadZone)
-        {
-            transform.position += new Vector3(autoCorrectAmount, 0, 0) * Time.deltaTime;
-        }
-        //right
-        if (r <= autoCorrectDistance && Mathf.Abs(rawinputVector.x) < autoCorrectDeadZone)
-        {
-            transform.position -= new Vector3(autoCorrectAmount, 0, 0) * Time.deltaTime;
-        }
-    }
-
-    void PositionAutoCorrectOLD(float front, float back, float left, float right, Vector2 rawinputVector)
     {
         //if player is too close to a wall, push them away a little till they're not too close
         float f = front - transform.position.z;

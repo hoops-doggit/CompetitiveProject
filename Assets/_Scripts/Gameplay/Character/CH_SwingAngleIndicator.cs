@@ -17,11 +17,13 @@ public class CH_SwingAngleIndicator : MonoBehaviour
 
     public void AngleSelected()
     {
-        mr.material = mats[1];
+        //mr.material = mats[1];
+        mr.enabled = true;
     }
 
     public void AngleDeselected()
     {
-        mr.material = mats[0];
+        mr.enabled = false;
+       // mr.material = mats[0];
     }
 }
