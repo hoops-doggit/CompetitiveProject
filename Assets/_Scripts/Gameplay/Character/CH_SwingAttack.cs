@@ -99,8 +99,7 @@ public class CH_SwingAttack : MonoBehaviour
 
         if (currentlySwinging)
         {
-            CalculateDeflectAngle2(Input.GetAxisRaw(chi.xAxis), Input.GetAxisRaw(chi.yAxis),GetComponentInParent<Transform>().eulerAngles.y);
-            //DotProductCalculateDeflectAngle(Input.GetAxisRaw(chi.xAxis), Input.GetAxisRaw(chi.yAxis),GetComponentInParent<Transform>().eulerAngles.y);
+            DotProductCalculateDeflectAngle(Input.GetAxisRaw(chi.xAxis), Input.GetAxisRaw(chi.yAxis),GetComponentInParent<Transform>().eulerAngles.y);
         }
 
        
@@ -375,7 +374,9 @@ public class CH_SwingAttack : MonoBehaviour
         
 
 
-    }private void CalculateDeflectAngle2(float xAxis, float yAxis, float lookAngle)
+    }
+
+    private void CalculateDeflectAngle2(float xAxis, float yAxis, float lookAngle)
     {
         float inputAngle = CalculateInputAngle(xAxis, yAxis);
         inputAngleDebug = inputAngle;
@@ -443,9 +444,88 @@ public class CH_SwingAttack : MonoBehaviour
 
     private void DotProductCalculateDeflectAngle(float xAxis, float yAxis, float lookAngle)
     {
-        Vector2 dir = Quaternion.Euler(0, 0, lookAngle) * Vector2.up;
-        Vector2 inputDirection = new Vector2(xAxis, yAxis);
-        Debug.Log(Vector2.Distance(dir.normalized, inputDirection.normalized));
+        Vector2 lookDir = Quaternion.Euler(0, 0, lookAngle) * Vector2.up;
+        Vector2 inputV2 = new Vector2(xAxis, yAxis);
+        float inputAngle = CalculateInputAngle(xAxis, yAxis);
+        float distance = Vector2.Angle(lookDir.normalized, inputV2.normalized);
+        Debug.Log(distance);
+
+        float lMidAngle = Clamp0360(lookAngle - middleAngle);
+        float rMidAngle = Clamp0360(lookAngle + middleAngle);
+        float lLocalCutoff = Clamp0360(lookAngle - extremeAngleCutoff);
+        float rLocalCutoff = Clamp0360(lookAngle + extremeAngleCutoff);
+        lmid = lMidAngle;
+        lcutoff = lLocalCutoff;
+        rmid = rMidAngle;
+
+        rcutoff = rLocalCutoff;
+
+
+        if(AngleDir2D(lookDir, inputV2) > 0)
+        {
+            HighlightSelectedDeflectAngle(2);
+        }
+        else if(AngleDir2D(lookDir, inputV2) < 0)
+        {
+            HighlightSelectedDeflectAngle(0);
+        }
+
+
+        //if (distance > middleAngle && distance < extremeAngleCutoff)
+        //{
+        //    if (inputAngle < lookAngle)
+        //    {
+        //        HighlightSelectedDeflectAngle(0);
+        //    }
+        //    else if (inputAngle > lookAngle)
+        //    {
+        //        HighlightSelectedDeflectAngle(2);
+        //    }
+        //}
+
+        //else if (inputAngle < lMidAngle && inputAngle > lLocalCutoff)
+        //{
+        //    HighlightSelectedDeflectAngle(0);
+        //}
+
+        //else if (inputAngle > rMidAngle && inputAngle < rLocalCutoff)
+        //{
+        //    HighlightSelectedDeflectAngle(2);
+        //}
+
+        //else if(inputAngle < rMidAngle && inputAngle > lMidAngle)
+        //{
+        //    HighlightSelectedDeflectAngle(1);
+        //}
+
+
+        //else { HighlightSelectedDeflectAngle(1); }
+        
+    }
+
+    float AngleDir2D(Vector2 A, Vector2 B)
+    {
+        //returns negative if b is left of a or postitve if b is right of a
+        return -A.x * B.y + A.y * B.x;
+    }
+
+    float AngleDir3D(Vector3 fwd, Vector3 targetDir, Vector3 up)
+    {
+        Vector3 perp = Vector3.Cross(fwd, targetDir);
+        float dir = Vector3.Dot(perp, up);
+
+        if (dir > 0f)
+        {
+            return 1f;
+        }
+        else if (dir < 0f)
+        {
+            return -1f;
+        }
+        else
+        {
+            return 0f;
+        }
     }
 
     private float CalculateInputAngle(float x, float y)
