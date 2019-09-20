@@ -31,12 +31,31 @@ public class CH_SwingAttack : MonoBehaviour
     public GameObject lCutoff;
     public GameObject rMid;
     public GameObject rCutoff;
+    public GameObject facingDirection;
+    public GameObject inputDirection;
+    public GameObject[] guides;
+    public bool debug;
 
     Vector3 savedVelocity;
     Vector3 savedAngularVelocity;
 
     private void Start()
     {
+        if (!debug)
+        {
+            lMid.SetActive(false);
+            lCutoff.SetActive(false);
+            rMid.SetActive(false);
+            rCutoff.SetActive(false);
+            facingDirection.SetActive(false);
+            inputDirection.SetActive(false);
+
+            foreach(GameObject go in guides)
+            {
+                go.SetActive(false);
+            }
+
+        }
         rb = GetComponentInParent<Rigidbody>();
         chs = GetComponentInParent<CH_Styling>();
         chm = GetComponentInParent<CH_Movement2>();
@@ -393,7 +412,6 @@ public class CH_SwingAttack : MonoBehaviour
         lmid = lClose;
         lcutoff = lFar;
         rmid = rClose;
-
         rcutoff = rFar;
 
         //Fire Left
@@ -452,59 +470,99 @@ public class CH_SwingAttack : MonoBehaviour
         Vector2 inputV2 = new Vector2(xAxis, yAxis);
         float inputAngle = CalculateInputAngle(xAxis, yAxis);
         float distance = Vector2.Angle(lookDir.normalized, inputV2.normalized);
-        Debug.Log(distance);
 
         float lMidAngle = JamesesClamp0360(lookAngle - middleAngle);
         float rMidAngle = JamesesClamp0360(lookAngle + middleAngle);
-        float lLocalCutoff = JamesesClamp0360(lookAngle - extremeAngleCutoff);
-        float rLocalCutoff = JamesesClamp0360(lookAngle + extremeAngleCutoff);
+        float lCutoff = JamesesClamp0360(lookAngle - extremeAngleCutoff);
+        float rCutoff = JamesesClamp0360(lookAngle + extremeAngleCutoff);
+        inputAngleDebug = inputAngle;
+        headAngleDebug = lookAngle;
         lmid = lMidAngle;
-        lcutoff = lLocalCutoff;
+        lcutoff = lCutoff;
         rmid = rMidAngle;
-        rcutoff = rLocalCutoff;
+        rcutoff = rCutoff;
 
-        rMid.transform.localRotation = Quaternion.Euler(0, rmid, 0);
-        lMid.transform.localRotation = Quaternion.Euler(0, lmid, 0);
-        lCutoff.transform.localRotation = Quaternion.Euler(0, lcutoff, 0);
-        rCutoff.transform.localRotation = Quaternion.Euler(0, rcutoff, 0);
+        #region debug
+        rMid.transform.rotation = Quaternion.Euler(0, rMidAngle, 0);
+        lMid.transform.rotation = Quaternion.Euler(0, lMidAngle, 0);
+        this.lCutoff.transform.rotation = Quaternion.Euler(0, lCutoff, 0);
+        this.rCutoff.transform.rotation = Quaternion.Euler(0, rCutoff, 0);
+        inputDirection.transform.rotation = Quaternion.Euler(0, inputAngle, 0);
+        facingDirection.transform.rotation = Quaternion.Euler(0, lookAngle, 0);
+        #endregion
 
-        if(AngleDir2D(lookDir, inputV2) > 0)
+        //if ideal circumstances
+        if(lMidAngle > lCutoff && rMidAngle < rCutoff)
         {
-            HighlightSelectedDeflectAngle(2);
-        }
-        else if(AngleDir2D(lookDir, inputV2) < 0)
-        {
-            HighlightSelectedDeflectAngle(0);
-        }
-
-
-        if (distance > middleAngle && distance < extremeAngleCutoff)
-        {
-            if (inputAngle < lookAngle)
+            //Debug.Log("ideal");
+            if(inputAngle < lMidAngle && inputAngle > lCutoff)
             {
                 HighlightSelectedDeflectAngle(0);
             }
-            else if (inputAngle > lookAngle)
+            else if(inputAngle > rMidAngle && inputAngle < rCutoff)
             {
                 HighlightSelectedDeflectAngle(2);
             }
+            else
+            {
+                HighlightSelectedDeflectAngle(1);
+            }
         }
 
-        else if (inputAngle < lMidAngle && inputAngle > lLocalCutoff)
+        //if left quadrant is straddling 0/360
+        else if (lMidAngle < lCutoff)
         {
-            HighlightSelectedDeflectAngle(0);
+            //Debug.Log("left");
+            //if IA is between lmid angle and rmidAngle eg, in the centre
+            if (inputAngle > lMidAngle && inputAngle < rMidAngle)
+            {
+                HighlightSelectedDeflectAngle(1);
+            }
+            //if IA is in the right quadrant
+            else if(inputAngle > rMidAngle && inputAngle < rCutoff)
+            {
+                HighlightSelectedDeflectAngle(2);
+            }
+            //if IA is in the back quadrant
+            else if(inputAngle > rCutoff && inputAngle < lCutoff)
+            {
+                HighlightSelectedDeflectAngle(1);
+            }
+            else
+            {
+                HighlightSelectedDeflectAngle(0);
+            }
         }
 
-        else if (inputAngle > rMidAngle && inputAngle < rLocalCutoff)
+        //if right quadrant is straddling 0/360
+        else if (rMidAngle > rCutoff)
         {
-            HighlightSelectedDeflectAngle(2);
-        }
-
-        if (inputAngle < rMidAngle && inputAngle > lMidAngle)
-        {
-            HighlightSelectedDeflectAngle(1);
-        }
-        //else { HighlightSelectedDeflectAngle(1); }
+            //Debug.Log("right");
+            //if IA is in the front quadrant
+            if (inputAngle > lMidAngle && inputAngle < rMidAngle)
+            {
+                //Debug.Log("propperFront");
+                HighlightSelectedDeflectAngle(1);
+            }
+            //if IA is in the left quadrant
+            else if (inputAngle < lMidAngle && inputAngle > lCutoff)
+            {
+                //Debug.Log("propperLeft");
+                HighlightSelectedDeflectAngle(0);
+            }
+            //if IA is in the back quadrant
+            else if (inputAngle < lCutoff && inputAngle > rCutoff)
+            {
+                //Debug.Log("back");
+                HighlightSelectedDeflectAngle(1);
+            }
+            //Its in the right quadrant
+            else
+            {
+                //Debug.Log("else right");
+                HighlightSelectedDeflectAngle(2);
+            }
+        }        
     }
 
     float AngleDir2D(Vector2 A, Vector2 B)
@@ -570,7 +628,7 @@ public class CH_SwingAttack : MonoBehaviour
         }
         else if (eulerAngles > 360.0f)
         {
-            return eulerAngles - Mathf.Ceil(eulerAngles / 360.0f) * 360.0f;
+            return eulerAngles - Mathf.Floor(eulerAngles / 360.0f) * 360.0f;
         }
         else
         {
