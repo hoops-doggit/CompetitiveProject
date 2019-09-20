@@ -27,6 +27,10 @@ public class CH_SwingAttack : MonoBehaviour
     private CH_Movement2 chm;
     private Rigidbody rb;
     private CH_Input chi;
+    public GameObject lMid;
+    public GameObject lCutoff;
+    public GameObject rMid;
+    public GameObject rCutoff;
 
     Vector3 savedVelocity;
     Vector3 savedAngularVelocity;
@@ -450,16 +454,19 @@ public class CH_SwingAttack : MonoBehaviour
         float distance = Vector2.Angle(lookDir.normalized, inputV2.normalized);
         Debug.Log(distance);
 
-        float lMidAngle = Clamp0360(lookAngle - middleAngle);
-        float rMidAngle = Clamp0360(lookAngle + middleAngle);
-        float lLocalCutoff = Clamp0360(lookAngle - extremeAngleCutoff);
-        float rLocalCutoff = Clamp0360(lookAngle + extremeAngleCutoff);
+        float lMidAngle = JamesesClamp0360(lookAngle - middleAngle);
+        float rMidAngle = JamesesClamp0360(lookAngle + middleAngle);
+        float lLocalCutoff = JamesesClamp0360(lookAngle - extremeAngleCutoff);
+        float rLocalCutoff = JamesesClamp0360(lookAngle + extremeAngleCutoff);
         lmid = lMidAngle;
         lcutoff = lLocalCutoff;
         rmid = rMidAngle;
-
         rcutoff = rLocalCutoff;
 
+        rMid.transform.localRotation = Quaternion.Euler(0, rmid, 0);
+        lMid.transform.localRotation = Quaternion.Euler(0, lmid, 0);
+        lCutoff.transform.localRotation = Quaternion.Euler(0, lcutoff, 0);
+        rCutoff.transform.localRotation = Quaternion.Euler(0, rcutoff, 0);
 
         if(AngleDir2D(lookDir, inputV2) > 0)
         {
@@ -471,36 +478,33 @@ public class CH_SwingAttack : MonoBehaviour
         }
 
 
-        //if (distance > middleAngle && distance < extremeAngleCutoff)
-        //{
-        //    if (inputAngle < lookAngle)
-        //    {
-        //        HighlightSelectedDeflectAngle(0);
-        //    }
-        //    else if (inputAngle > lookAngle)
-        //    {
-        //        HighlightSelectedDeflectAngle(2);
-        //    }
-        //}
+        if (distance > middleAngle && distance < extremeAngleCutoff)
+        {
+            if (inputAngle < lookAngle)
+            {
+                HighlightSelectedDeflectAngle(0);
+            }
+            else if (inputAngle > lookAngle)
+            {
+                HighlightSelectedDeflectAngle(2);
+            }
+        }
 
-        //else if (inputAngle < lMidAngle && inputAngle > lLocalCutoff)
-        //{
-        //    HighlightSelectedDeflectAngle(0);
-        //}
+        else if (inputAngle < lMidAngle && inputAngle > lLocalCutoff)
+        {
+            HighlightSelectedDeflectAngle(0);
+        }
 
-        //else if (inputAngle > rMidAngle && inputAngle < rLocalCutoff)
-        //{
-        //    HighlightSelectedDeflectAngle(2);
-        //}
+        else if (inputAngle > rMidAngle && inputAngle < rLocalCutoff)
+        {
+            HighlightSelectedDeflectAngle(2);
+        }
 
-        //else if(inputAngle < rMidAngle && inputAngle > lMidAngle)
-        //{
-        //    HighlightSelectedDeflectAngle(1);
-        //}
-
-
+        if (inputAngle < rMidAngle && inputAngle > lMidAngle)
+        {
+            HighlightSelectedDeflectAngle(1);
+        }
         //else { HighlightSelectedDeflectAngle(1); }
-        
     }
 
     float AngleDir2D(Vector2 A, Vector2 B)
@@ -557,5 +561,20 @@ public class CH_SwingAttack : MonoBehaviour
             result += 360f;
         }
         return result;
+    }
+    private float JamesesClamp0360(float eulerAngles)
+    {
+        if (eulerAngles < 0.0f)
+        {
+            return eulerAngles + (Mathf.Ceil(Mathf.Abs(eulerAngles) / 360.0f)) * 360.0f;
+        }
+        else if (eulerAngles > 360.0f)
+        {
+            return eulerAngles - Mathf.Ceil(eulerAngles / 360.0f) * 360.0f;
+        }
+        else
+        {
+            return eulerAngles;
+        }
     }
 }
