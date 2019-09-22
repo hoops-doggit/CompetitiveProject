@@ -6,10 +6,9 @@ using UnityEngine;
 public class CH_Movement2 : MonoBehaviour {
 
     private float lastx, lasty, lastAngle, movementAmount;
-    public float speed, runningWithBallSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, runningWithBallSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool stunned, shotBullet, playerMovementDisabled;
     public Vector2 movementDirection;
-    public float acc;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
     public float autoCorrectAmount= 0.01f;
@@ -28,15 +27,15 @@ public class CH_Movement2 : MonoBehaviour {
 
     private float xRemainder;
     private float yRemainder;
-    private Vector2 inputVector;
+    private Vector2 inputVector, inputDirection;
     private CH_Collisions chCol;
     public float magnitude;
-    [SerializeField]
-    private List<float> clampValues = new List<float>(4);
+    [SerializeField] private List<float> clampValues = new List<float>(4);
 
     private string xAxis, yAxis, throwButton, hold;
 
     private int joystickInvert;
+    private bool playerInput;
 
 
     // Use this for initialization
@@ -94,17 +93,31 @@ public class CH_Movement2 : MonoBehaviour {
             }
         }
 
+        //this checks if player is inputing any movement
+        if (Input.GetAxisRaw(xAxis) != 0 || Input.GetAxisRaw(yAxis) !=0)
+        {
+            playerInput = true;
+        }
+        else
+        {
+            playerInput = false;
+        }
+
         if (!playerMovementDisabled)
         {
             if (!stunned && !shotBullet)
             {
                 if (Input.GetAxisRaw(hold) > 0)
                 {
+                    AccDec();
+                    playerInput = false;
+                    Move2(inputDirection.x, inputDirection.y, 1);
                     HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
                 }
                 else
                 {
-                    Move(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 0);
+                    AccDec();
+                    Move2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 0);
                     HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
                 }
             }
@@ -201,7 +214,110 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
+    }
+
+    public void Move2(float x, float y, int mode)
+    {
+        bool front = chCol.front; bool back = chCol.back; bool left = chCol.left; bool right = chCol.right;
+        List<float> collisionPoints = chCol.collisionPoints;
+
+        inputVector = new Vector2(x, y);
+
+        Vector2 rawInputVector = inputVector;
+        magnitude = inputVector.magnitude;
+
+        if (inputVector.magnitude > 1)
+        {
+            inputVector/= inputVector.magnitude;            
+        }
+
+        newPos = transform.position;
+
+        if (playerInput)
+        {
+            //input direction is used to store player input direction
+            //I use it below for recalling the last inputed direction when the player isn't inputing a direction
+            inputDirection = inputVector.normalized;
+            if (mode == 0) //normal movement
+            {
+                newPos.z += inputVector.y * speed;
+                newPos.x += inputVector.x * speed;
+            }
+            else if (mode == 1) //moves the player against their will
+            {
+                newPos.z += inputVector.y * movementAmount;
+                newPos.x += inputVector.x * movementAmount;
+            }
+        }
+        else if(!playerInput)
+        {
+            if (mode == 0) //normal movement
+            {
+                newPos.z += inputDirection.y * speed;
+                newPos.x += inputDirection.x * speed;
+            }
+            else if (mode == 1) //moves the player against their will
+            {
+                newPos.z += inputDirection.y * movementAmount;
+                newPos.x += inputDirection.x * movementAmount;
+            }
+
+        }
+        
+        newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
+        newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
+        clampValues = collisionPoints;
+        
+
+        gameObject.transform.position = newPos;
+
+        if (stunned || shotBullet) { }
+        else
+        {
+            HeadDirection(inputVector);
+        }
+
+        PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
     }  
+
+    public void AccDec()
+    {
+        if (playerInput)
+        {
+            if(speed < maxSpeed)
+            {
+                if(speed < minSpeed)
+                {
+                    speed = minSpeed;
+                }
+                else if( speed < midSpeed)
+                {
+                    speed *= accSpeed;
+                }
+                else if(speed > midSpeed)
+                {
+                    speed *= midAccSpeed;
+                }
+                
+            }
+            else
+            {
+                speed = maxSpeed;
+            }
+        }
+        else
+        {
+            if(speed > 0)
+            {
+                speed -= decSpeed;
+            }
+            if(speed < 0)
+            {
+                speed = 0;
+            }
+            
+        }
+    }
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)
     {
