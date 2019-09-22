@@ -17,13 +17,11 @@ public class CH_Movement2 : MonoBehaviour {
     public float headTurnTolerance;
     public Transform head;
     public Vector2 tempHeadRotation = new Vector2 (0,0);
-    public float headAngle;    
-
-
+    public float headAngle;
+    
     public Transform gunEnd;
     public GameObject bullet;
     public float bulletSpeed;
-
 
     private Vector3 currentPos;
     private Vector3 newPos;
