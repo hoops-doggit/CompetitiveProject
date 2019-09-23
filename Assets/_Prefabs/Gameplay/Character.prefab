@@ -932,6 +932,7 @@ MonoBehaviour:
   shootKey: 0
   throwKey: 0
   swingKey: 0
+  dashKey: 0
   owner: 
 --- !u!114 &114412149405729196
 MonoBehaviour:
@@ -1006,6 +1007,7 @@ MonoBehaviour:
   decSpeed: 0.005
   ballCarryAcc: 1.01
   ballCarryMaxSpeed: 0.11
+  dashMovement: 5
   bulletStunMovement: 0.4
   batStunMovement: 0.5
   shotBulletMovement: 0.3

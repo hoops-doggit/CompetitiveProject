@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CH_Movement2 : MonoBehaviour {
-
-
-    
+public class CH_Movement2 : MonoBehaviour {    
     private float lastx, lasty, lastAngle, movementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, ballCarryAcc , ballCarryMaxSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, ballCarryAcc , ballCarryMaxSpeed, dashMovement, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool stunned, shotBullet, playerMovementDisabled, carryingBall;
     public Vector2 movementDirection;
     public float skinDepth;
@@ -35,9 +32,10 @@ public class CH_Movement2 : MonoBehaviour {
     [SerializeField] private List<float> clampValues = new List<float>(4);
 
     private string xAxis, yAxis, throwButton, hold;
+    private KeyCode dashKey;
 
     private int joystickInvert;
-    private bool playerInput;
+    private bool playerInput, dashing;
 
 
     // Use this for initialization
@@ -51,6 +49,7 @@ public class CH_Movement2 : MonoBehaviour {
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
         hold = chi.hold;
+        dashKey = chi.dashKey;
 
         if (chi.joystick)
         {
@@ -95,6 +94,20 @@ public class CH_Movement2 : MonoBehaviour {
             }
         }
 
+        else if (dashing)
+        {
+            Move(movementDirection.x, movementDirection.y, 1); //direction of impact
+            if (movementAmount > 0)
+            {
+                movementAmount /= 1.1f;
+                if (movementAmount < 0.01f)
+                {
+                    movementAmount = 0;
+                    dashing = false;
+                }
+            }
+        }
+
         //this checks if player is inputing any movement
         if (Input.GetAxisRaw(xAxis) != 0 || Input.GetAxisRaw(yAxis) !=0)
         {
@@ -124,6 +137,11 @@ public class CH_Movement2 : MonoBehaviour {
                 }
             }
         }
+
+        if (Input.GetKeyDown(dashKey))
+        {
+            MoveYouJustDashed();
+        }
     }
 
     public void MoveYouGotShot(Vector3 velocity)
@@ -140,6 +158,16 @@ public class CH_Movement2 : MonoBehaviour {
         shotBullet = true;
         movementAmount = shotBulletMovement;
     }
+
+    public void MoveYouJustDashed()
+    {
+        movementDirection = inputDirection;
+        dashing = true;
+        movementAmount = shotBulletMovement;
+    }
+
+
+
 
     public void MoveYouGotWhackedByABat(Vector3 positionOfHitter)
     {

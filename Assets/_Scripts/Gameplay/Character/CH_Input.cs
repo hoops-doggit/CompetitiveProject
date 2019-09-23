@@ -13,6 +13,7 @@ public class CH_Input : MonoBehaviour {
     public KeyCode shootKey;
     public KeyCode throwKey;
     public KeyCode swingKey;
+    public KeyCode dashKey;
     public string owner;
 
 
@@ -32,6 +33,7 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick1Button0;
                 throwKey = KeyCode.Joystick1Button1;
                 swingKey = KeyCode.Joystick1Button2;
+                dashKey = KeyCode.Joystick1Button3;
                 owner = "p1";
                 break;
 
@@ -42,8 +44,9 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick2Button0;
                 throwKey = KeyCode.Joystick2Button1;
                 swingKey = KeyCode.Joystick2Button2;
-                //swingKey = KeyCode.Space;
+                dashKey = KeyCode.Joystick2Button3;
                 owner = "p2";
+                //swingKey = KeyCode.Space;
                 break;
 
             case PlayerNumber.player3:
@@ -53,6 +56,7 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick3Button0;
                 throwKey = KeyCode.Joystick3Button1;
                 swingKey = KeyCode.Joystick3Button2;
+                dashKey = KeyCode.Joystick3Button3;
                 owner = "p3";
                 break;
 
@@ -63,6 +67,7 @@ public class CH_Input : MonoBehaviour {
                 shootKey = KeyCode.Joystick4Button0;
                 throwKey = KeyCode.Joystick4Button1;
                 swingKey = KeyCode.Joystick4Button2;
+                dashKey = KeyCode.Joystick4Button3;
                 owner = "p4";
                 break;
         }
