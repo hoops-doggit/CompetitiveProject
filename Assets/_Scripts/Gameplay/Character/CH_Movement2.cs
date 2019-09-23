@@ -16,6 +16,7 @@ public class CH_Movement2 : MonoBehaviour {
     public Transform head;
     public Vector2 tempHeadRotation = new Vector2 (0,0);
     public float headAngle;
+    public Vector2 dashAngleDebug;
     
     public Transform gunEnd;
     public GameObject bullet;
@@ -161,9 +162,20 @@ public class CH_Movement2 : MonoBehaviour {
 
     public void MoveYouJustDashed()
     {
-        movementDirection = inputDirection;
+        float y = 0;
+        if (transform.rotation.eulerAngles.y > 0)
+        {
+            y = 1;
+        }
+        else if(transform.rotation.eulerAngles.y < 0)
+        {
+            y = -1;
+        }
+        movementDirection = DegreeToVector2(head.eulerAngles.y);
+        dashAngleDebug = movementDirection;
+
         dashing = true;
-        movementAmount = shotBulletMovement;
+        movementAmount = dashMovement;
     }
 
 
@@ -463,6 +475,17 @@ public class CH_Movement2 : MonoBehaviour {
     public void PlayerReleasedBall()
     {
         carryingBall = false;
+    }
+
+    public static Vector2 RadianToVecor2(float radian)
+    {
+        return new Vector2(-Mathf.Cos(radian), Mathf.Sin(radian));
+    }
+
+    public static Vector2 DegreeToVector2(float degree)
+    {
+        float angle = degree + 90;
+        return RadianToVecor2(angle * Mathf.Deg2Rad);
     }
 	
 	

@@ -1024,6 +1024,7 @@ MonoBehaviour:
   head: {fileID: 4543207619290032}
   tempHeadRotation: {x: 0, y: 0}
   headAngle: 0
+  dashAngleDebug: {x: 0, y: 0}
   gunEnd: {fileID: 4789697194395470}
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 3}
   bulletSpeed: 200
