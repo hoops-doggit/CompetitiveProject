@@ -522,8 +522,8 @@ MonoBehaviour:
   swingCooldown: 0
   owner: 
   ownerT: {fileID: 0}
-  extremeAngleCutoff: 110
-  middleAngle: 20
+  extremeAngleCutoff: 170
+  middleAngle: 22
   inputAngleDebug: 0
   headAngleDebug: 0
   lmid: 0
@@ -997,16 +997,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4ad652103f4314b856a76eba90f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.12
-  runningWithBallSpeed: 0.8
+  speed: 0
+  minSpeed: 0.02
+  midSpeed: 0.1
+  maxSpeed: 0.15
+  accSpeed: 1.05
+  midAccSpeed: 1.03
+  decSpeed: 0.005
+  ballCarryAcc: 1.01
+  ballCarryMaxSpeed: 0.11
   bulletStunMovement: 0.4
   batStunMovement: 0.5
   shotBulletMovement: 0.3
   stunned: 0
   shotBullet: 0
   playerMovementDisabled: 0
+  carryingBall: 0
   movementDirection: {x: 0, y: 0}
-  acc: 1
   skinDepth: 0.251
   autoCorrectDistance: 0.23
   autoCorrectAmount: 1.01

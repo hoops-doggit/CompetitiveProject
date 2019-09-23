@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {
 
+
+    
     private float lastx, lasty, lastAngle, movementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, runningWithBallSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
-    public bool stunned, shotBullet, playerMovementDisabled;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, ballCarryAcc , ballCarryMaxSpeed, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public bool stunned, shotBullet, playerMovementDisabled, carryingBall;
     public Vector2 movementDirection;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
@@ -278,31 +280,54 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
-    }  
+    }
 
     public void AccDec()
     {
-        if (playerInput)
+        if (playerInput && !carryingBall)
         {
-            if(speed < maxSpeed)
+            if (speed < maxSpeed)
             {
-                if(speed < minSpeed)
+                if (speed < minSpeed)
                 {
                     speed = minSpeed;
                 }
-                else if( speed < midSpeed)
+                else if (speed < midSpeed)
                 {
                     speed *= accSpeed;
                 }
-                else if(speed > midSpeed)
+                else if (speed > midSpeed)
                 {
                     speed *= midAccSpeed;
                 }
-                
+
             }
             else
             {
                 speed = maxSpeed;
+            }
+        }
+        else if (playerInput && carryingBall)
+        {
+            if (speed < ballCarryMaxSpeed)
+            {
+                if (speed < minSpeed)
+                {
+                    speed = minSpeed;
+                }
+                else if (speed < ballCarryMaxSpeed)
+                {
+                    speed *= ballCarryAcc;
+                }
+                else if (speed > midSpeed)
+                {
+                    speed *= midAccSpeed;
+                }
+
+            }
+            else
+            {
+                speed = ballCarryMaxSpeed;
             }
         }
         else
@@ -400,6 +425,16 @@ public class CH_Movement2 : MonoBehaviour {
                 lastAngle = angle;
             }
         }
+    }
+
+    public void PlayerHoldingBall()
+    {
+        carryingBall = true;
+    }
+
+    public void PlayerReleasedBall()
+    {
+        carryingBall = false;
     }
 	
 	

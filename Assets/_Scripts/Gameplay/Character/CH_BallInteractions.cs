@@ -12,12 +12,14 @@ public class CH_BallInteractions : MonoBehaviour
     public bool holdingBall;
     private KeyCode throwKey;
     [SerializeField]private Rigidbody my_rb;
+    private CH_Movement2 chm;
     
 
     private void Start()
     {
         CH_Input chi = GetComponent<CH_Input>();
         throwKey = chi.throwKey;
+        chm = GetComponent<CH_Movement2>();
     }
 
     private void Update()
@@ -40,6 +42,7 @@ public class CH_BallInteractions : MonoBehaviour
                 this.ballScript = ballScript;
                 this.ball = ball;
                 holdingBall = true;
+                chm.PlayerHoldingBall();
                 ball.transform.parent = ballHeldPos.transform;
                 ball.transform.localPosition = new Vector3(0, 0, 0);
                 ballScript.BallPickedUp(my_rb);
@@ -76,6 +79,7 @@ public class CH_BallInteractions : MonoBehaviour
         ballScript = null;
         ball = null;
         holdingBall = false;
+        chm.PlayerReleasedBall();
     }
 
     
