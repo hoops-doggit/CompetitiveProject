@@ -20,6 +20,7 @@ public class CH_Input : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         SetupInput(playerNumber);
+        GM_MatchMaster.instance.AddPlayer(gameObject);
 	}
 
     private void SetupInput(PlayerNumber pn)

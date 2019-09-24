@@ -140,7 +140,7 @@ public class CH_Movement2 : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(dashKey))
+        if (Input.GetAxisRaw(hold) > 0)
         {
             if (dashCooldown == 0)
             {

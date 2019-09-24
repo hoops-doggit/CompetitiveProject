@@ -34,6 +34,11 @@ public class GM_MatchMaster : MonoBehaviour
         }
     }
 
+    public void AddPlayer(GameObject player)
+    {
+        players.Add(player);
+    }
+
 
 
     public void ResetRound()
