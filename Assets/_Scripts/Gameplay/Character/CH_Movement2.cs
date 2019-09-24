@@ -101,8 +101,8 @@ public class CH_Movement2 : MonoBehaviour {
             HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
             if (movementAmount > 0)
             {
-                movementAmount /= 1.1f;
-                if (movementAmount < 0.05f)
+                movementAmount /= 1.05f;
+                if (movementAmount < 0.1f)
                 {
                     dashing = false;
                     movementAmount = 0;                    
@@ -298,15 +298,6 @@ public class CH_Movement2 : MonoBehaviour {
 
     public void Dash()
     {
-        float y = 0;
-        if (transform.rotation.eulerAngles.y > 0)
-        {
-            y = 1;
-        }
-        else if (transform.rotation.eulerAngles.y < 0)
-        {
-            y = -1;
-        }
         movementDirection = DegreeToVector2(head.eulerAngles.y);
         dashAngleDebug = movementDirection;
 
