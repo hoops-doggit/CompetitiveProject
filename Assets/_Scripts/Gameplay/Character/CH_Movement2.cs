@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {    
     private float lastx, lasty, lastAngle, movementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, ballCarryAcc , ballCarryMaxSpeed, dashMovement, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldown, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool stunned, shotBullet, playerMovementDisabled, carryingBall;
     public Vector2 movementDirection;
     public float skinDepth;
@@ -69,7 +69,7 @@ public class CH_Movement2 : MonoBehaviour {
 
         if (stunned)
         {
-            Move(movementDirection.x, movementDirection.y, 1); //direction of impact
+            Move2(movementDirection.x, movementDirection.y, 1); //direction of impact
             if (movementAmount > 0)
             {
                 movementAmount /= 1.25f;
@@ -83,11 +83,11 @@ public class CH_Movement2 : MonoBehaviour {
 
         else if (shotBullet)
         {
-            Move(movementDirection.x, movementDirection.y, 1); //direction of impact
+            Move2(movementDirection.x, movementDirection.y, 1); //direction of impact
             if (movementAmount > 0)
             {
                 movementAmount /= 1.25f;
-                if (movementAmount < 0.01f)
+                if (movementAmount < 0.05f)
                 {
                     movementAmount = 0;
                     shotBullet = false;
@@ -97,14 +97,15 @@ public class CH_Movement2 : MonoBehaviour {
 
         else if (dashing)
         {
-            Move(movementDirection.x, movementDirection.y, 1); //direction of impact
+            Move2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 2); //direction of impact
+            HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
             if (movementAmount > 0)
             {
                 movementAmount /= 1.1f;
-                if (movementAmount < 0.01f)
+                if (movementAmount < 0.05f)
                 {
-                    movementAmount = 0;
                     dashing = false;
+                    movementAmount = 0;                    
                 }
             }
         }
@@ -121,13 +122,13 @@ public class CH_Movement2 : MonoBehaviour {
 
         if (!playerMovementDisabled)
         {
-            if (!stunned && !shotBullet)
+            if (!stunned && !shotBullet && !dashing)
             {
                 if (Input.GetAxisRaw(hold) > 0)
                 {
-                    AccDec();
                     playerInput = false;
-                    Move2(inputDirection.x, inputDirection.y, 1);
+                    AccDec();                    
+                    Move2(inputDirection.x, inputDirection.y, 0);
                     HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
                 }
                 else
@@ -141,56 +142,14 @@ public class CH_Movement2 : MonoBehaviour {
 
         if (Input.GetKeyDown(dashKey))
         {
-            MoveYouJustDashed();
+            if (dashCooldown == 0)
+            {
+                Dash();
+            }
         }
     }
 
-    public void MoveYouGotShot(Vector3 velocity)
-    {
-        //Vector3 forward = t.rotation * Vector3.back;
-        movementDirection = new Vector2(velocity.x, velocity.z).normalized;
-        movementAmount = bulletStunMovement;
-        stunned = true;
-    }
-
-    public void MoveYouJustShot(Vector3 bulletDirection)
-    {
-        movementDirection = new Vector2(bulletDirection.x, bulletDirection.z).normalized * -1;
-        shotBullet = true;
-        movementAmount = shotBulletMovement;
-    }
-
-    public void MoveYouJustDashed()
-    {
-        float y = 0;
-        if (transform.rotation.eulerAngles.y > 0)
-        {
-            y = 1;
-        }
-        else if(transform.rotation.eulerAngles.y < 0)
-        {
-            y = -1;
-        }
-        movementDirection = DegreeToVector2(head.eulerAngles.y);
-        dashAngleDebug = movementDirection;
-
-        dashing = true;
-        movementAmount = dashMovement;
-    }
-
-
-
-
-    public void MoveYouGotWhackedByABat(Vector3 positionOfHitter)
-    {
-        //stunned direction is used for calculating the direction the player who got hit should move
-        movementDirection.x =  (positionOfHitter.x - transform.position.x) *-1;
-        movementDirection.y = (positionOfHitter.z - transform.position.z) * -1;
-        movementDirection = movementDirection.normalized;
-        GetComponent<CH_BallInteractions>().DropBall(positionOfHitter, "bat");        
-        movementAmount = batStunMovement;
-        stunned = true;
-    }
+    
 
     public void Move2(float x, float y, int mode)
     {
@@ -198,7 +157,6 @@ public class CH_Movement2 : MonoBehaviour {
         List<float> collisionPoints = chCol.collisionPoints;
 
         inputVector = new Vector2(x, y);
-
         Vector2 rawInputVector = inputVector;
         magnitude = inputVector.magnitude;
 
@@ -211,9 +169,6 @@ public class CH_Movement2 : MonoBehaviour {
 
         if (playerInput)
         {
-            //input direction is used to store player input direction
-            //I use it below for recalling the last inputed direction when the player isn't inputing a direction
-            inputDirection = inputVector.normalized;
             if (mode == 0) //normal movement
             {
                 newPos.z += inputVector.y * speed;
@@ -224,7 +179,19 @@ public class CH_Movement2 : MonoBehaviour {
                 newPos.z += inputVector.y * movementAmount;
                 newPos.x += inputVector.x * movementAmount;
             }
+            else if(mode == 2) //moves player
+            {
+                movementDirection = Vector2.Lerp(movementDirection, inputVector, 0.01f);
+
+                newPos.z += movementDirection.y * movementAmount;
+                newPos.x += movementDirection.x * movementAmount;
+            }
+            
+            inputDirection = inputVector;
+            //input direction is used to store player input direction
+            //I use it below for recalling the last inputed direction when the player isn't inputing a direction
         }
+
         else if(!playerInput)
         {
             if (mode == 0) //normal movement
@@ -274,13 +241,13 @@ public class CH_Movement2 : MonoBehaviour {
                 {
                     speed *= midAccSpeed;
                 }
-
             }
             else
             {
                 speed = maxSpeed;
             }
         }
+        //if player is carrying ball, speed and acceleration are different
         else if (playerInput && carryingBall)
         {
             if (speed < ballCarryMaxSpeed)
@@ -291,7 +258,7 @@ public class CH_Movement2 : MonoBehaviour {
                 }
                 else if (speed < ballCarryMaxSpeed)
                 {
-                    speed *= ballCarryAcc;
+                    speed *= accSpeed;
                 }
                 else if (speed > midSpeed)
                 {
@@ -304,18 +271,85 @@ public class CH_Movement2 : MonoBehaviour {
                 speed = ballCarryMaxSpeed;
             }
         }
-        else
+        else //else decelerate
         {
-            if(speed > 0)
+            if(Input.GetAxis(hold) > 0)
             {
-                speed -= decSpeed;
+                if (speed > 0)
+                {
+                    speed -= decSpeed/2;
+                }
             }
-            if(speed < 0)
+            else
+            {
+                if (speed > 0)
+                {
+                    speed -= decSpeed;
+                }                
+            }
+            if (speed < 0)
             {
                 speed = 0;
             }
-            
+
+
         }
+    }
+
+    public void Dash()
+    {
+        float y = 0;
+        if (transform.rotation.eulerAngles.y > 0)
+        {
+            y = 1;
+        }
+        else if (transform.rotation.eulerAngles.y < 0)
+        {
+            y = -1;
+        }
+        movementDirection = DegreeToVector2(head.eulerAngles.y);
+        dashAngleDebug = movementDirection;
+
+        dashing = true;
+        movementAmount = dashMovement;
+        dashCooldown = dashCooldownTime;
+        StartCoroutine("DashCoolDown");
+    }
+
+    public void MoveYouGotShot(Vector3 velocity)
+    {
+        movementDirection = DegreeToVector2(head.eulerAngles.y).normalized;
+        movementAmount = bulletStunMovement;
+        stunned = true;
+    }
+
+    public void MoveYouJustShot(Vector3 bulletDirection)
+    {
+        movementDirection = new Vector2(bulletDirection.x, bulletDirection.z).normalized * -1;
+        shotBullet = true;
+        movementAmount = shotBulletMovement;
+    }
+
+    public void MoveYouGotWhackedByABat(Vector3 positionOfHitter)
+    {
+        //stunned direction is used for calculating the direction the player who got hit should move
+        movementDirection.x = (positionOfHitter.x - transform.position.x) * -1;
+        movementDirection.y = (positionOfHitter.z - transform.position.z) * -1;
+        movementDirection = movementDirection.normalized;
+        GetComponent<CH_BallInteractions>().DropBall(positionOfHitter, "bat");
+        movementAmount = batStunMovement;
+        stunned = true;
+    }
+
+    
+
+    public IEnumerator DashCoolDown()
+    {
+        while(dashCooldown > 0)
+        {
+            dashCooldown -= 0.25f;
+            yield return new WaitForSeconds(0.25f);
+        }        
     }
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)

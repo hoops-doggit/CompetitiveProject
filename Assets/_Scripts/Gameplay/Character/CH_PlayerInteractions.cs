@@ -26,6 +26,6 @@ public class CH_PlayerInteractions : MonoBehaviour
     {
         //takes source of stun and moves character away in that direction
         Vector2 direction = new Vector2(player2.position.x, player2.position.z).normalized;
-        movement.Move(direction.x, direction.y, 1);
+        movement.Move2(direction.x, direction.y, 1);
     }
 }
