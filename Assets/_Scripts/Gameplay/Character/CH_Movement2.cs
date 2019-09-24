@@ -102,7 +102,7 @@ public class CH_Movement2 : MonoBehaviour {
             if (movementAmount > 0)
             {
                 movementAmount /= 1.05f;
-                if (movementAmount < 0.1f)
+                if (movementAmount < 0.07f)
                 {
                     dashing = false;
                     movementAmount = 0;                    
@@ -111,7 +111,7 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         //this checks if player is inputing any movement
-        if (Input.GetAxisRaw(xAxis) != 0 || Input.GetAxisRaw(yAxis) !=0)
+        if (Input.GetAxisRaw(xAxis) != 0 || Input.GetAxisRaw(yAxis) != 0)
         {
             playerInput = true;
         }
@@ -167,46 +167,33 @@ public class CH_Movement2 : MonoBehaviour {
 
         newPos = transform.position;
 
-        if (playerInput)
+        if (mode == 0) //normal movement
         {
-            if (mode == 0) //normal movement
+            if (playerInput)
             {
                 newPos.z += inputVector.y * speed;
                 newPos.x += inputVector.x * speed;
+                inputDirection = inputVector;
             }
-            else if (mode == 1) //moves the player against their will
-            {
-                newPos.z += inputVector.y * movementAmount;
-                newPos.x += inputVector.x * movementAmount;
-            }
-            else if(mode == 2) //moves player
-            {
-                movementDirection = Vector2.Lerp(movementDirection, inputVector, 0.01f);
-
-                newPos.z += movementDirection.y * movementAmount;
-                newPos.x += movementDirection.x * movementAmount;
-            }
-            
-            inputDirection = inputVector;
-            //input direction is used to store player input direction
-            //I use it below for recalling the last inputed direction when the player isn't inputing a direction
-        }
-
-        else if(!playerInput)
-        {
-            if (mode == 0) //normal movement
+            else if (!playerInput)
             {
                 newPos.z += inputDirection.y * speed;
                 newPos.x += inputDirection.x * speed;
             }
-            else if (mode == 1) //moves the player against their will
-            {
-                newPos.z += inputDirection.y * movementAmount;
-                newPos.x += inputDirection.x * movementAmount;
-            }
-
         }
-        
+        else if (mode == 1) //moves the player against their will
+        {
+            newPos.z += movementDirection.y * movementAmount;
+            newPos.x += movementDirection.x * movementAmount;
+        }
+        else if(mode == 2) //Dash
+        {
+            //rather than lerp vector, check angle input is at and return vector with slight adjustment;
+            movementDirection = Vector2.Lerp(movementDirection, inputVector, 0.02f);
+            newPos.z += movementDirection.y * movementAmount;
+            newPos.x += movementDirection.x * movementAmount;
+        }
+
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
         clampValues = collisionPoints;
@@ -309,7 +296,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     public void MoveYouGotShot(Vector3 velocity)
     {
-        movementDirection = DegreeToVector2(head.eulerAngles.y).normalized;
+        movementDirection = DegreeToVector2(head.eulerAngles.y).normalized * -1;
         movementAmount = bulletStunMovement;
         stunned = true;
     }
