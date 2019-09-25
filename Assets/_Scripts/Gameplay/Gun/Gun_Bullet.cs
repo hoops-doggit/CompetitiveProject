@@ -83,6 +83,11 @@ public class Gun_Bullet : MonoBehaviour {
         {
             //HitAnotherBullet(ownerT, go.GetComponent<Gun_Bullet>().owner);
         }
+        if (collision.gameObject.tag == "ball")
+        {
+            DestroyBullet();
+        }
+
 
         deflectNumber++;
         if(deflectNumber <= 1)
