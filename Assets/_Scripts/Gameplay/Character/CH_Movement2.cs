@@ -31,6 +31,7 @@ public class CH_Movement2 : MonoBehaviour {
     private CH_Collisions chCol;
     public float magnitude;
     [SerializeField] private List<float> clampValues = new List<float>(4);
+    [SerializeField] private List<CH_Trails> trails = new List<CH_Trails>(2);
 
     private string xAxis, yAxis, throwButton, hold;
     private KeyCode dashKey;
@@ -100,13 +101,14 @@ public class CH_Movement2 : MonoBehaviour {
             }
 
             if (dashing)
-            {
+            {                
                 Move2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 2); //direction of impact
                 HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
                 if (dashMovementAmount > 0)
                 {
                     if (carryingBall)
                     {
+                        
                         dashMovementAmount /= 1.2f;
                     }
                     dashMovementAmount /= 1.05f;
@@ -114,6 +116,8 @@ public class CH_Movement2 : MonoBehaviour {
                     {
                         dashing = false;
                         dashMovementAmount = 0;
+                        StartCoroutine("DashCoolDown");
+
                     }
                 }
                 speed = maxSpeed/2;
@@ -158,6 +162,10 @@ public class CH_Movement2 : MonoBehaviour {
             if (dashCooldown == 0)
             {
                 Dash();
+                foreach (CH_Trails t in trails)
+                {
+                    t.Dashing();
+                }
             }
             holdHeld = true;
         }
@@ -319,7 +327,6 @@ public class CH_Movement2 : MonoBehaviour {
         dashing = true;
         dashMovementAmount = dashMovement;
         dashCooldown = dashCooldownTime;
-        StartCoroutine("DashCoolDown");
     }
 
     public void MoveYouGotShot(Vector3 velocity)
@@ -351,11 +358,19 @@ public class CH_Movement2 : MonoBehaviour {
 
     public IEnumerator DashCoolDown()
     {
-        while(dashCooldown > 0)
+        foreach (CH_Trails t in trails)
+        {
+            t.CoolingDown();
+        }
+        while (dashCooldown > 0)
         {
             dashCooldown -= 0.25f;
             yield return new WaitForSeconds(0.25f);
-        }        
+        }
+        foreach (CH_Trails t in trails)
+        {
+            t.Ready();
+        }
     }
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)

@@ -22,7 +22,7 @@ public class CH_BallInteractions : MonoBehaviour
         chm = GetComponent<CH_Movement2>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (holdingBall)
         {
