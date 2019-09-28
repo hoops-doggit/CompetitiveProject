@@ -218,7 +218,7 @@ public class CH_Movement2 : MonoBehaviour {
         else if(mode == 2) //Dash
         {
             //rather than lerp vector, check angle input is at and return vector with slight adjustment;
-            dashDirection = Vector2.Lerp(dashDirection, inputVector, 0.02f);
+            dashDirection = Vector2.Lerp(dashDirection, inputVector, 0.03f);
             newPos.z += dashDirection.y * dashMovementAmount;
             newPos.x += dashDirection.x * dashMovementAmount;
         }
