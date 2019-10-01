@@ -141,16 +141,16 @@ public class CH_SwingAttack : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        //adds object 
         if (currentlySwinging)
         {
             CheckIfObjectIsInSwingZoneList(other);
-        }
-        
+        }        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (objectsInSwingZone.Contains(other.gameObject) && !currentlySwinging)
+        if (objectsInSwingZone.Contains(other.gameObject))
         {
             objectsInSwingZone.Remove(other.gameObject);
         }
