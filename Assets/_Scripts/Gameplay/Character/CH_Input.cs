@@ -15,12 +15,13 @@ public class CH_Input : MonoBehaviour {
     public KeyCode swingKey;
     public KeyCode dashKey;
     public string owner;
+    private float xFloat, yFloat, deadzone = 0.1f;
+    public float xInput, yInput;
 
 
     // Use this for initialization
     void Awake () {
-        SetupInput(playerNumber);
-        
+        SetupInput(playerNumber);        
 	}
 
     private void Start()
@@ -29,6 +30,28 @@ public class CH_Input : MonoBehaviour {
         {
             GM_MatchMaster.instance.AddPlayer(this.gameObject);
         }        
+    }
+
+    private void FixedUpdate()
+    {
+        xInput = CalculateDeadZone(Input.GetAxisRaw(xAxis));
+        yInput = CalculateDeadZone(Input.GetAxisRaw(yAxis));
+    }
+
+    private float CalculateDeadZone(float input)
+    {
+        float thing;
+        input -= deadzone;
+        if (input < 0)
+        {
+            thing = 0;
+        }
+        else
+        {
+            thing = input / (input - deadzone);
+        }
+        
+        return thing;
     }
 
     private void SetupInput(PlayerNumber pn)

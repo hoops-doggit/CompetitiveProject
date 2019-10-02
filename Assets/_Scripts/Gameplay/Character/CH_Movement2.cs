@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {    
     private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldown, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldown, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool stunned, shotBullet, playerMovementDisabled, carryingBall;
     public Vector2 movementDirection;
     public float skinDepth;
@@ -27,8 +27,9 @@ public class CH_Movement2 : MonoBehaviour {
 
     private float xRemainder;
     private float yRemainder;
-    public Vector2 inputVector, inputDirection, stunDirection, shotDirection, dashDirection;
+    public Vector2 inputVector, inputDirection, stunDirection, shotDirection, dashDirection, previousInputVector;
     private CH_Collisions chCol;
+    private CH_Input chi;
     public float magnitude;
     [SerializeField] private List<float> clampValues = new List<float>(4);
     [SerializeField] private List<CH_Trails> trails = new List<CH_Trails>(2);
@@ -47,7 +48,7 @@ public class CH_Movement2 : MonoBehaviour {
         lasty = 0;
         lastAngle = 0;
         
-        CH_Input chi = GetComponent<CH_Input>();    
+        chi = GetComponent<CH_Input>();    
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
         hold = chi.hold;
@@ -102,8 +103,8 @@ public class CH_Movement2 : MonoBehaviour {
 
             if (dashing)
             {                
-                Move2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 2); //direction of impact
-                HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+                Move2(chi.xInput, chi.yInput, 2); //direction of impact
+                HeadDirection(new Vector2(chi.xInput, chi.yInput));
                 if (dashMovementAmount > 0)
                 {
                     if (carryingBall)
@@ -123,10 +124,9 @@ public class CH_Movement2 : MonoBehaviour {
                 speed = maxSpeed/2;
             }
         }
-        
 
         //this checks if player is inputing any movement
-        if (Input.GetAxisRaw(xAxis) != 0 || Input.GetAxisRaw(yAxis) != 0)
+        if (chi.xInput != 0 || chi.yInput != 0)
         {
             playerInput = true;
         }
@@ -138,27 +138,15 @@ public class CH_Movement2 : MonoBehaviour {
         if (!playerMovementDisabled)
         {
             if (!stunned && !shotBullet && !dashing)
-            {
-                if (Input.GetAxisRaw(hold) > 0)
-                {
-                    //playerInput = false;
-                    //AccDec();                    
-                    //Move2(inputDirection.x, inputDirection.y, 0);
-                    //HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
-                }
-                else
-                {
-                    
-                }
+            {                
                 AccDec();
-                Move2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis), 0);
-                HeadDirection(new Vector2(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis)));
+                Move2(chi.xInput, chi.yInput, 0);
+                HeadDirection(new Vector2(chi.xInput, chi.yInput));
             }
         }
 
         if (Input.GetAxisRaw(hold) > 0 &! holdHeld)
-        {
-            
+        {            
             if (dashCooldown == 0)
             {
                 Dash();
@@ -174,9 +162,7 @@ public class CH_Movement2 : MonoBehaviour {
         {
             holdHeld = false;
         }
-    }
-
-    
+    }    
 
     public void Move2(float x, float y, int mode)
     {
@@ -184,7 +170,10 @@ public class CH_Movement2 : MonoBehaviour {
         List<float> collisionPoints = chCol.collisionPoints;
 
         inputVector = new Vector2(x, y);
+        inputVector = Vector2.Lerp(previousInputVector, inputVector, Time.deltaTime * minInputVector);
+        previousInputVector = inputVector;
         Vector2 rawInputVector = inputVector;
+
         magnitude = inputVector.magnitude;
 
         if (inputVector.magnitude > 1)
@@ -313,8 +302,6 @@ public class CH_Movement2 : MonoBehaviour {
             {
                 speed = 0;
             }
-
-
         }
     }
 
@@ -351,9 +338,7 @@ public class CH_Movement2 : MonoBehaviour {
         GetComponent<CH_BallInteractions>().DropBall(positionOfHitter, "bat");
         stunMovementAmount = batStunMovement;
         stunned = true;
-    }
-
-    
+    }    
 
     public IEnumerator DashCoolDown()
     {
