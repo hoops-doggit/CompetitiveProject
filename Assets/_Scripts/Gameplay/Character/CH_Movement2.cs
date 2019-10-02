@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {    
     private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldown, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldown, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool stunned, shotBullet, playerMovementDisabled, carryingBall;
     public Vector2 movementDirection;
     public float skinDepth;
@@ -232,8 +232,7 @@ public class CH_Movement2 : MonoBehaviour {
 
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
-        clampValues = collisionPoints;
-        
+        clampValues = collisionPoints;        
 
         gameObject.transform.position = newPos;
 
@@ -454,6 +453,17 @@ public class CH_Movement2 : MonoBehaviour {
                 lastAngle = angle;
             }
         }
+    }
+
+    void HeadDirection2(Vector2 rawInput)
+    {
+        //float angleCutoff = 20;
+        float x = rawInput.x;
+        float y = rawInput.y;
+        Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
+        Quaternion rotation = Quaternion.LookRotation(relPos, Vector3.up);
+        Quaternion tr = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * minRotationSpeed);
+        head.rotation = tr;
     }
 
     public void PlayerHoldingBall()

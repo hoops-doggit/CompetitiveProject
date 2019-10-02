@@ -25,7 +25,10 @@ public class CH_Input : MonoBehaviour {
 
     private void Start()
     {
-        GM_MatchMaster.instance.AddPlayer(this.gameObject);
+        if(GM_MatchMaster.instance != null)
+        {
+            GM_MatchMaster.instance.AddPlayer(this.gameObject);
+        }        
     }
 
     private void SetupInput(PlayerNumber pn)
