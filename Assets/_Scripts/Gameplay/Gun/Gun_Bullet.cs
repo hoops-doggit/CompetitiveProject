@@ -41,11 +41,6 @@ public class Gun_Bullet : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        //age++;
-        //if (age > maxAge)
-        //{
-        //    Death();
-        //}
 
         if (i < 1)
         {
@@ -76,8 +71,8 @@ public class Gun_Bullet : MonoBehaviour {
     {
         GameObject go = collision.gameObject;
 
-        owner = "";
-        gameObject.layer = 20;
+        //owner = "";
+        //gameObject.layer = 20;
 
         if (collision.gameObject.tag == "bullet")
         {
@@ -87,8 +82,6 @@ public class Gun_Bullet : MonoBehaviour {
         {
             DestroyBullet();
         }
-
-
         deflectNumber++;
         if(deflectNumber <= 1)
         {
@@ -114,6 +107,14 @@ public class Gun_Bullet : MonoBehaviour {
         ownerT = t;
         rb.velocity = transform.forward * rb.velocity.magnitude * 1.5f;
         //rb.AddForce((transform.forward * -1) * rb.velocity.magnitude, ForceMode.Acceleration);
+        owner = newOwner;
+        gameObject.layer = LayerMask.NameToLayer(newOwner);
+    }
+
+    public void GotHitByOwner(Transform lookDirection, float hitStrength, string newOwner)
+    {
+        transform.rotation = lookDirection.rotation;
+        rb.velocity = transform.forward * rb.velocity.magnitude * 1.5f;
         owner = newOwner;
         gameObject.layer = LayerMask.NameToLayer(newOwner);
     }

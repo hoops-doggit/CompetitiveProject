@@ -8,7 +8,7 @@ public class CH_Input : MonoBehaviour {
     public string xAxis;
     public string yAxis;
     public string swingButton;
-    public string hold;
+    public string hold, brake;
 
     public KeyCode shootKey;
     public KeyCode throwKey;
@@ -18,9 +18,8 @@ public class CH_Input : MonoBehaviour {
     private float xFloat, yFloat, deadzone = 0.1f;
     public float xInput, yInput;
 
-
-    // Use this for initialization
-    void Awake () {
+    void Awake ()
+    {
         SetupInput(playerNumber);        
 	}
 
@@ -34,24 +33,22 @@ public class CH_Input : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        xInput = CalculateDeadZone(Input.GetAxisRaw(xAxis));
-        yInput = CalculateDeadZone(Input.GetAxisRaw(yAxis));
+        CalculateDeadZone(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis));
     }
 
-    private float CalculateDeadZone(float input)
+    private void CalculateDeadZone(float horizontal, float vertical)
     {
-        float thing;
-        input -= deadzone;
-        if (input < 0)
+        Vector2 stickInput = new Vector2(horizontal, vertical);
+        if (stickInput.magnitude < deadzone)
         {
-            thing = 0;
+            stickInput = Vector2.zero;
         }
         else
         {
-            thing = input / (input - deadzone);
+            stickInput = stickInput.normalized * ((stickInput.magnitude - deadzone) / (1 - deadzone));
         }
-        
-        return thing;
+        xInput = stickInput.x;
+        yInput = stickInput.y;
     }
 
     private void SetupInput(PlayerNumber pn)
@@ -62,6 +59,7 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal1";
                 yAxis = "vertical1";
                 hold = "hold1";
+                brake = "brake1";
                 shootKey = KeyCode.Joystick1Button0;
                 throwKey = KeyCode.Joystick1Button1;
                 swingKey = KeyCode.Joystick1Button2;
@@ -73,6 +71,7 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal2";
                 yAxis = "vertical2";
                 hold = "hold2";
+                brake = "brake2";
                 shootKey = KeyCode.Joystick2Button0;
                 throwKey = KeyCode.Joystick2Button1;
                 swingKey = KeyCode.Joystick2Button2;
@@ -85,6 +84,7 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal3";
                 yAxis = "vertical3";
                 hold = "hold3";
+                brake = "brake3";
                 shootKey = KeyCode.Joystick3Button0;
                 throwKey = KeyCode.Joystick3Button1;
                 swingKey = KeyCode.Joystick3Button2;
@@ -96,6 +96,7 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal4";
                 yAxis = "vertical4";
                 hold = "hold4";
+                brake = "brake4";
                 shootKey = KeyCode.Joystick4Button0;
                 throwKey = KeyCode.Joystick4Button1;
                 swingKey = KeyCode.Joystick4Button2;

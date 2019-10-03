@@ -6184,11 +6184,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
-      propertyPath: trails.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
       propertyPath: trails.Array.data[0]
       value: 
       objectReference: {fileID: 1789211343}
@@ -6199,29 +6194,9 @@ PrefabInstance:
       objectReference: {fileID: 620460147}
     - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
         type: 3}
-      propertyPath: dashCooldownTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
-      propertyPath: ballCarryMaxSpeed
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
-      propertyPath: maxSpeed
-      value: 0.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
       propertyPath: trails.Array.data[2]
       value: 
       objectReference: {fileID: 298895299}
-    - target: {fileID: 114746917423204440, guid: c5e99694659c3b84cbad00ce1ade85de,
-        type: 3}
-      propertyPath: minRotationSpeed
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
 --- !u!4 &367994505 stripped
@@ -6927,6 +6902,10 @@ PrefabInstance:
     - target: {fileID: 1052164874464912, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_Name
       value: Character (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052164874464912, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4878228158558918, guid: c5e99694659c3b84cbad00ce1ade85de, type: 3}
       propertyPath: m_LocalPosition.x
