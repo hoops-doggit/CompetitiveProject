@@ -57,6 +57,7 @@ public class CH_Movement2 : MonoBehaviour {
         chCol.CalculateRays();
         chi = GetComponent<CH_Input>();
 
+        #region player states
         if (stunned)
         {
             Move2(stunDirection.x, stunDirection.y, 1); //direction of impact
@@ -107,6 +108,7 @@ public class CH_Movement2 : MonoBehaviour {
                 speed = maxSpeed/2;
             }
         }
+        #endregion
 
         //this checks if player is inputing any movement
         if (chi.xInput != 0 || chi.yInput != 0)
@@ -124,18 +126,19 @@ public class CH_Movement2 : MonoBehaviour {
             {
                 if (Input.GetAxisRaw(brake) < -0.05)
                 {
-                    //playerInput = false;
+                    playerInput = false;
                     //Debug.Log("deccelerate");
-                    //AccDec();
-                    //Move2(chi.xInput, chi.yInput, 0);
+                    AccDec();
+                    Move2(chi.xInput, chi.yInput, 0);
                     /////////////HeadDirection(new Vector2(chi.xInput, chi.yInput));                    
                 }
                 else
                 {
                     AccDec();
                     Move2(chi.xInput, chi.yInput, 0);
-                    //HeadDirection(new Vector2(chi.xInput, chi.yInput));
-                }                
+                    HeadDirection(new Vector2(chi.xInput, chi.yInput));
+                }
+                
             }
         }
 

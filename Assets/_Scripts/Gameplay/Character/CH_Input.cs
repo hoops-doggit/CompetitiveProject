@@ -15,7 +15,7 @@ public class CH_Input : MonoBehaviour {
     public KeyCode swingKey;
     public KeyCode dashKey;
     public string owner;
-    private float xFloat, yFloat, deadzone = 0.1f;
+    private float deadzone = 0.1f;
     public float xInput, yInput;
 
     void Awake ()
