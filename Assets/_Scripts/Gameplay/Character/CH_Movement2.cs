@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CH_Movement2 : MonoBehaviour {    
-    private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldown, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
+    private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount, dashCooldown;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool stunned, shotBullet, playerMovementDisabled, carryingBall;
     public Vector2 movementDirection;
     public float skinDepth;
@@ -25,19 +25,14 @@ public class CH_Movement2 : MonoBehaviour {
     private Vector3 currentPos;
     private Vector3 newPos;
 
-    private float xRemainder;
-    private float yRemainder;
+    private float xRemainder, yRemainder, magnitude;
     public Vector2 inputVector, inputDirection, stunDirection, shotDirection, dashDirection, previousInputVector;
     private CH_Collisions chCol;
     private CH_Input chi;
-    public float magnitude;
     [SerializeField] private List<float> clampValues = new List<float>(4);
     [SerializeField] private List<CH_Trails> trails = new List<CH_Trails>(2);
-
-    private string xAxis, yAxis, throwButton, hold;
+    private string xAxis, yAxis, throwButton, hold, brake;
     private KeyCode dashKey;
-
-    private int joystickInvert;
     public bool playerInput, dashing, holdHeld;
 
 
@@ -52,26 +47,18 @@ public class CH_Movement2 : MonoBehaviour {
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
         hold = chi.hold;
-        dashKey = chi.dashKey;
-
-        if (chi.joystick)
-        {
-            joystickInvert = -1;
-        }
-        else
-        {
-            joystickInvert = 1;
-        }        
+        brake = chi.brake;
+        dashKey = chi.dashKey;       
 	}
 
     void FixedUpdate()
     {
         chCol = GetComponent<CH_Collisions>();
-        chCol.CalculateRays();        
+        chCol.CalculateRays();
+        chi = GetComponent<CH_Input>();
 
         if (stunned)
         {
-
             Move2(stunDirection.x, stunDirection.y, 1); //direction of impact
             if (stunMovementAmount > 0)
             {
@@ -87,9 +74,8 @@ public class CH_Movement2 : MonoBehaviour {
         else
         {
             if (shotBullet)
-            {
-                
-                Move2(shotDirection.x, shotDirection.y, 3); //direction of impact
+            {                
+                Move2(shotDirection.x, shotDirection.y, 3);
                 if (shotMovementAmount > 0)
                 {
                     shotMovementAmount /= 1.25f;
@@ -100,16 +86,14 @@ public class CH_Movement2 : MonoBehaviour {
                     }
                 }
             }
-
             if (dashing)
             {                
-                Move2(chi.xInput, chi.yInput, 2); //direction of impact
+                Move2(chi.xInput, chi.yInput, 2);
                 HeadDirection(new Vector2(chi.xInput, chi.yInput));
                 if (dashMovementAmount > 0)
                 {
                     if (carryingBall)
-                    {
-                        
+                    {                        
                         dashMovementAmount /= 1.2f;
                     }
                     dashMovementAmount /= 1.05f;
@@ -118,7 +102,6 @@ public class CH_Movement2 : MonoBehaviour {
                         dashing = false;
                         dashMovementAmount = 0;
                         StartCoroutine("DashCoolDown");
-
                     }
                 }
                 speed = maxSpeed/2;
@@ -138,27 +121,34 @@ public class CH_Movement2 : MonoBehaviour {
         if (!playerMovementDisabled)
         {
             if (!stunned && !shotBullet && !dashing)
-            {                
-                AccDec();
-                Move2(chi.xInput, chi.yInput, 0);
-                HeadDirection(new Vector2(chi.xInput, chi.yInput));
+            {
+                if (Input.GetAxisRaw(brake) < -0.05)
+                {
+                    //playerInput = false;
+                    //Debug.Log("deccelerate");
+                    //AccDec();
+                    //Move2(chi.xInput, chi.yInput, 0);
+                    /////////////HeadDirection(new Vector2(chi.xInput, chi.yInput));                    
+                }
+                else
+                {
+                    AccDec();
+                    Move2(chi.xInput, chi.yInput, 0);
+                    //HeadDirection(new Vector2(chi.xInput, chi.yInput));
+                }                
             }
         }
 
-        if (Input.GetAxisRaw(hold) > 0 &! holdHeld)
-        {            
-            if (dashCooldown == 0)
+        if (Input.GetAxisRaw(hold) > 0 && dashCooldown == 0 &! holdHeld)
+        {
+            Dash();
+            foreach (CH_Trails t in trails)
             {
-                Dash();
-                foreach (CH_Trails t in trails)
-                {
-                    t.Dashing();
-                }
-            }
+                t.Dashing();
+            }            
             holdHeld = true;
         }
-
-        if(Input.GetAxisRaw(hold) < 0.05)
+        if(Input.GetAxisRaw(hold) < 0.1f)
         {
             holdHeld = false;
         }
@@ -221,14 +211,13 @@ public class CH_Movement2 : MonoBehaviour {
 
         newPos.z = Mathf.Clamp(newPos.z, chCol.collisionPoints[1], chCol.collisionPoints[0]);
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
-        clampValues = collisionPoints;        
-
+        clampValues = collisionPoints;
         gameObject.transform.position = newPos;
 
-        if (stunned || shotBullet) { }
+        if (stunned || shotBullet || !playerInput) { }
         else
         {
-            HeadDirection(inputVector);
+            HeadDirection2(inputVector);
         }
 
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
@@ -402,6 +391,7 @@ public class CH_Movement2 : MonoBehaviour {
             if (x < 0)
             {
                 angle = 360 + Vector2.SignedAngle(new Vector2(x, y), Vector2.up);
+                #region
                 //if (angle>lastAngle-360)
                 //{
 
@@ -414,14 +404,14 @@ public class CH_Movement2 : MonoBehaviour {
                 //{
                 //    angle = lastAngle - angleCutoff;
                 //}
-                
+                #endregion
                 head.eulerAngles = new Vector3(0, angle, 0);
                 lastAngle = angle;
             }
             else
             {
-
                 angle = Vector2.Angle(new Vector2(x, y), Vector2.up);
+                #region
                 //if (angle > lastAngle - 360)
                 //{
 
@@ -434,6 +424,7 @@ public class CH_Movement2 : MonoBehaviour {
                 //{
                 //    angle = lastAngle - angleCutoff;
                 //}
+                #endregion
                 head.eulerAngles = new Vector3(0, angle, 0);
                 lastAngle = angle;
             }
@@ -442,12 +433,11 @@ public class CH_Movement2 : MonoBehaviour {
 
     void HeadDirection2(Vector2 rawInput)
     {
-        //float angleCutoff = 20;
         float x = rawInput.x;
         float y = rawInput.y;
         Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
         Quaternion rotation = Quaternion.LookRotation(relPos, Vector3.up);
-        Quaternion tr = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * minRotationSpeed);
+        Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minRotationSpeed);
         head.rotation = tr;
     }
 
