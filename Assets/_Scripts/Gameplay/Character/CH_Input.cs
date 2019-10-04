@@ -59,7 +59,7 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal1";
                 yAxis = "vertical1";
                 hold = "hold1";
-                brake = "brake1";
+                brake = "hold1";
                 shootKey = KeyCode.Joystick1Button0;
                 throwKey = KeyCode.Joystick1Button1;
                 swingKey = KeyCode.Joystick1Button2;
@@ -71,7 +71,7 @@ public class CH_Input : MonoBehaviour {
                 xAxis = "horizontal2";
                 yAxis = "vertical2";
                 hold = "hold2";
-                brake = "brake2";
+                brake = "hold2";
                 shootKey = KeyCode.Joystick2Button0;
                 throwKey = KeyCode.Joystick2Button1;
                 swingKey = KeyCode.Joystick2Button2;

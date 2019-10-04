@@ -1008,7 +1008,7 @@ MonoBehaviour:
   accSpeed: 1.05
   midAccSpeed: 1.03
   decSpeed: 0.005
-  minRotationSpeed: 20
+  minRotationSpeed: 40
   minInputVector: 25
   ballCarryAcc: 1.01
   ballCarryMaxSpeed: 0.09
@@ -3045,7 +3045,7 @@ GameObject:
   - component: {fileID: 8016290776272026854}
   - component: {fileID: 6827565987506947276}
   m_Layer: 19
-  m_Name: DashTrail (2)
+  m_Name: DashTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

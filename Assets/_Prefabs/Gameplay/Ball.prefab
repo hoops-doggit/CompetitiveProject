@@ -234,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropForce: 1200
   dropUpForce: 800
+  bulletForce: 15
   free: 1
   heldBy: {fileID: 0}
   magnitude: 0

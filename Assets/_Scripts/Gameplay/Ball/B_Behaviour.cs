@@ -8,7 +8,7 @@ public class B_Behaviour : MonoBehaviour
     private Rigidbody rb;
     private bool ballHeld;
     [SerializeField]private float dropForce;
-    [SerializeField]private float dropUpForce;
+    [SerializeField]private float dropUpForce, bulletForce;
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
@@ -24,10 +24,7 @@ public class B_Behaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!rb.IsSleeping())
-        {
-            magnitude = rb.velocity.magnitude;
-        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,11 +34,21 @@ public class B_Behaviour : MonoBehaviour
             rb.WakeUp();
             UnfreezeAllRigidbodyConstraints();
         }
+        else
+        {
+            magnitude = rb.velocity.magnitude;
+        }
 
         if (collision.gameObject.tag == "player" && free)
         {
             collision.gameObject.GetComponentInParent<CH_BallInteractions>().PickUpBall(gameObject, this);
-        }        
+        }
+        
+        if(collision.gameObject.tag == "bullet")
+        {
+            rb.velocity = rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce);
+            collision.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
+        }
     }
 
    
@@ -63,8 +70,7 @@ public class B_Behaviour : MonoBehaviour
             Debug.Log("prepausemagnitude = " + prePauseMagnitude);
             Debug.Log("magnitude = " + magnitude);
             if(magnitude < 20)
-            {
-                
+            {                
                 rb.velocity = playerT.forward * 30;
                 //rb.AddForce(playerT.forward * 1500, ForceMode.Acceleration);
             }

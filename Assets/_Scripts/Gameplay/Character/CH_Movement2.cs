@@ -83,12 +83,13 @@ public class CH_Movement2 : MonoBehaviour {
                     if (shotMovementAmount < 0.05f)
                     {
                         shotMovementAmount = 0;
+                        speed = minSpeed*4;
                         shotBullet = false;
                     }
                 }
             }
             if (dashing)
-            {                
+            {
                 Move2(chi.xInput, chi.yInput, 2);
                 HeadDirection(new Vector2(chi.xInput, chi.yInput));
                 if (dashMovementAmount > 0)
@@ -124,13 +125,13 @@ public class CH_Movement2 : MonoBehaviour {
         {
             if (!stunned && !shotBullet && !dashing)
             {
-                if (Input.GetAxisRaw(brake) < -0.05)
+                if (Input.GetAxisRaw(hold) < 0)
                 {
                     playerInput = false;
                     //Debug.Log("deccelerate");
                     AccDec();
                     Move2(chi.xInput, chi.yInput, 0);
-                    /////////////HeadDirection(new Vector2(chi.xInput, chi.yInput));                    
+                    HeadDirection(new Vector2(chi.xInput, chi.yInput));                    
                 }
                 else
                 {
@@ -267,7 +268,6 @@ public class CH_Movement2 : MonoBehaviour {
                 {
                     speed *= midAccSpeed;
                 }
-
             }
             else
             {
@@ -282,6 +282,18 @@ public class CH_Movement2 : MonoBehaviour {
                 {
                     speed -= decSpeed/2;
                 }
+            }
+            else if (Input.GetAxis(hold) < 0)
+            {
+                if (speed > 0)
+                {
+                    speed -= decSpeed * 2;
+                }
+                else
+                {
+                    speed = 0;
+                }
+                Debug.Log("slowing");
             }
             else
             {

@@ -25,7 +25,7 @@ public class Gun_Bullet : MonoBehaviour {
     {
         GetComponent<MeshRenderer>().material = bulletMats[SetupMaterial()];
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * initialSpeed, ForceMode.Acceleration);
+        rb.AddForce(transform.forward * initialSpeed, ForceMode.VelocityChange);
     }
 
     private int SetupMaterial()
@@ -41,7 +41,10 @@ public class Gun_Bullet : MonoBehaviour {
     }
 
     void FixedUpdate () {
-
+        if(i == 0)
+        {
+            direction = transform.forward;
+        }
         if (i < 1)
         {
             i++;
@@ -71,17 +74,6 @@ public class Gun_Bullet : MonoBehaviour {
     {
         GameObject go = collision.gameObject;
 
-        //owner = "";
-        //gameObject.layer = 20;
-
-        if (collision.gameObject.tag == "bullet")
-        {
-            //HitAnotherBullet(ownerT, go.GetComponent<Gun_Bullet>().owner);
-        }
-        if (collision.gameObject.tag == "ball")
-        {
-            DestroyBullet();
-        }
         deflectNumber++;
         if(deflectNumber <= 1)
         {
