@@ -34,6 +34,9 @@ public class CH_Movement2 : MonoBehaviour {
     private string xAxis, yAxis, throwButton, hold, brake;
     private KeyCode dashKey;
     public bool playerInput, dashing, holdHeld;
+    [SerializeField] Gun_Lazer gunLazer;
+
+    
 
 
     // Use this for initialization
