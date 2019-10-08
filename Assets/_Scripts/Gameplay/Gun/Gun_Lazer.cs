@@ -8,6 +8,7 @@ public class Gun_Lazer : MonoBehaviour
     [SerializeField] Transform startPoint;
     [SerializeField] LayerMask layerMask;
     private LineRenderer lineR;
+    private bool fireLazer;
 
     void Start()
     {
@@ -15,15 +16,8 @@ public class Gun_Lazer : MonoBehaviour
     }
 
     public void FirinMaLazer()
-    {        
-        RaycastHit hit;
-        if(Physics.Raycast(startPoint.position, startPoint.forward, out hit, Mathf.Infinity, layerMask))
-        {
-            Debug.DrawRay(startPoint.position, startPoint.forward * hit.distance, Color.green);
-            lineR.enabled = true;
-            lineR.SetPosition(0, startPoint.position);
-            lineR.SetPosition(1, hit.point);
-        }
+    {
+        fireLazer = true;
     }
 
     public void StopFiringLazer()
@@ -33,7 +27,22 @@ public class Gun_Lazer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FirinMaLazer();
+        if (fireLazer)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(startPoint.position, startPoint.forward, out hit, Mathf.Infinity, layerMask))
+            {
+                Debug.DrawRay(startPoint.position, startPoint.forward * hit.distance, Color.green);
+                lineR.enabled = true;
+                lineR.SetPosition(0, startPoint.position);
+                lineR.SetPosition(1, hit.point);
+            }
+        }
+        else
+        {
+            StopFiringLazer();
+        }
+        fireLazer = false;
     }
 
 

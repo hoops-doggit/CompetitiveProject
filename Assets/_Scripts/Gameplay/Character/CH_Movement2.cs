@@ -109,7 +109,11 @@ public class CH_Movement2 : MonoBehaviour {
                         StartCoroutine("DashCoolDown");
                     }
                 }
-                speed = maxSpeed/2;
+                if(Input.GetAxis(hold) < 0)
+                {
+                    gunLazer.FirinMaLazer();
+                }
+                speed = 0.02f;
             }
         }
         #endregion
@@ -134,13 +138,14 @@ public class CH_Movement2 : MonoBehaviour {
                     //Debug.Log("deccelerate");
                     AccDec();
                     Move2(chi.xInput, chi.yInput, 0);
-                    HeadDirection(new Vector2(chi.xInput, chi.yInput));                    
+                    HeadDirection2(new Vector2(chi.xInput, chi.yInput));
+                    gunLazer.FirinMaLazer();
                 }
                 else
                 {
                     AccDec();
                     Move2(chi.xInput, chi.yInput, 0);
-                    HeadDirection(new Vector2(chi.xInput, chi.yInput));
+                    HeadDirection2(new Vector2(chi.xInput, chi.yInput));
                 }
                 
             }
@@ -451,12 +456,15 @@ public class CH_Movement2 : MonoBehaviour {
 
     void HeadDirection2(Vector2 rawInput)
     {
-        float x = rawInput.x;
-        float y = rawInput.y;
-        Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
-        Quaternion rotation = Quaternion.LookRotation(relPos, Vector3.up);
-        Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minRotationSpeed);
-        head.rotation = tr;
+        if (rawInput.magnitude > 0.1)
+        {
+            float x = rawInput.x;
+            float y = rawInput.y;
+            Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
+            Quaternion rotation = Quaternion.LookRotation(relPos, Vector3.up);
+            Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minRotationSpeed);
+            head.rotation = tr;
+        }
     }
 
     public void PlayerHoldingBall()

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33955787281634334}
   - component: {fileID: 23268319390705558}
   - component: {fileID: 7040437252410840392}
+  - component: {fileID: 387154752}
   m_Layer: 11
   m_Name: ChargeIndicator
   m_TagString: bullet
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237491444415750}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.17, y: 0.35, z: -2.9962263}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
@@ -94,3 +95,22 @@ MonoBehaviour:
   charged:
   - {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
   - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
+--- !u!95 &387154752
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237491444415750}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99a15601542c72b428ca4d5bbcebcf7b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

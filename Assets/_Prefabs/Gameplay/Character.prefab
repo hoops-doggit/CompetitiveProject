@@ -1396,13 +1396,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  minSpeed: 0.02
+  minSpeed: 0.05
   midSpeed: 0.1
   maxSpeed: 0.18
   accSpeed: 1.05
   midAccSpeed: 1.03
   decSpeed: 0.005
-  minRotationSpeed: 40
+  minRotationSpeed: 25
   minInputVector: 25
   ballCarryAcc: 1.01
   ballCarryMaxSpeed: 0.09
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   dashCooldownTime: 0.5
   bulletStunMovement: 0.4
   batStunMovement: 0.5
-  shotBulletMovement: 0.3
+  shotBulletMovement: 0.5
   stunned: 0
   shotBullet: 0
   playerMovementDisabled: 0

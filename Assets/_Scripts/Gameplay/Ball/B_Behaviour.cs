@@ -46,8 +46,9 @@ public class B_Behaviour : MonoBehaviour
         
         if(collision.gameObject.tag == "bullet")
         {
-            rb.velocity = rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce);
+            rb.AddForce(rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce), ForceMode.VelocityChange);
             collision.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
+            Debug.Log("collidedWithbullet");
         }
     }
 

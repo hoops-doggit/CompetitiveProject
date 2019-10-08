@@ -70,20 +70,26 @@ public class Gun_Bullet : MonoBehaviour {
         }
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
         GameObject go = collision.gameObject;
 
         deflectNumber++;
-        if(deflectNumber <= 1)
+
+        if(collision.gameObject.tag != "ball")
         {
-            //start hashing out bullet secondary bounce here; 
-            //go.GetComponent<Rigidbody>().AddRelativeForce();
+            if (deflectNumber <= 1)
+            {
+                //start hashing out bullet secondary bounce here; 
+                //go.GetComponent<Rigidbody>().AddRelativeForce();
+            }
+            else
+            {
+                DestroyBullet();
+            }
         }
-        else
-        {
-            DestroyBullet();
-        }       
+             
     }
 
     public void DestroyBullet()
