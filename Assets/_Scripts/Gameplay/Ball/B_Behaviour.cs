@@ -165,6 +165,12 @@ public class B_Behaviour : MonoBehaviour
         StartCoroutine("StunCooldown");
     }
 
+    public void BallDroppedDash()
+    {
+        ballHeld = false;
+        transform.parent = null;
+    }
+
     private IEnumerator StunCooldown()
     {
         //this is to stop the player who just got stunned from picking up the ball while they're stunned

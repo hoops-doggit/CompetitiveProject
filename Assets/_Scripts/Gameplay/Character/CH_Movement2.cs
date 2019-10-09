@@ -28,6 +28,7 @@ public class CH_Movement2 : MonoBehaviour {
     private float xRemainder, yRemainder, magnitude;
     public Vector2 inputVector, inputDirection, stunDirection, shotDirection, dashDirection, previousInputVector;
     private CH_Collisions chCol;
+    private CH_BallInteractions chball;
     private CH_Input chi;
     [SerializeField] private List<float> clampValues = new List<float>(4);
     [SerializeField] private List<CH_Trails> trails = new List<CH_Trails>(2);
@@ -41,6 +42,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        chball = GetComponent<CH_BallInteractions>();
 
         lastx = 0;
         lasty = 0;
@@ -98,8 +100,9 @@ public class CH_Movement2 : MonoBehaviour {
                 if (dashMovementAmount > 0)
                 {
                     if (carryingBall)
-                    {                        
-                        dashMovementAmount /= 1.2f;
+                    {
+                        chball.DropBall(Vector3.zero,"dash");
+                        //dashMovementAmount /= 1.2f;
                     }
                     dashMovementAmount /= 1.05f;
                     if (dashMovementAmount < 0.1f)

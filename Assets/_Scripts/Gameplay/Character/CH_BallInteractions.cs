@@ -67,11 +67,17 @@ public class CH_BallInteractions : MonoBehaviour
             ballScript.BallDroppedBullet(stunPosition);
             ResetRelationshipToBall();
         }
-        if (holdingBall && reason == "bat")
+        else if (holdingBall && reason == "bat")
         {
             ballScript.BallDroppedBat(stunPosition);
             ResetRelationshipToBall();
         }
+        else if(holdingBall && reason == "dash")
+        {
+            ballScript.BallDroppedDash();
+            ResetRelationshipToBall();
+        }
+
     }
 
     public void ResetRelationshipToBall()
