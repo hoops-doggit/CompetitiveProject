@@ -97,13 +97,13 @@ public class CH_Movement2 : MonoBehaviour {
             {
                 Move2(chi.xInput, chi.yInput, 2);
                 HeadDirection(new Vector2(chi.xInput, chi.yInput));
+                if (carryingBall)
+                {
+                    dashMovementAmount /= 1.2f;
+                }
                 if (dashMovementAmount > 0)
                 {
-                    if (carryingBall)
-                    {
-                        chball.DropBall(Vector3.zero,"dash");
-                        //dashMovementAmount /= 1.2f;
-                    }
+                    
                     dashMovementAmount /= 1.05f;
                     if (dashMovementAmount < 0.1f)
                     {
@@ -322,6 +322,11 @@ public class CH_Movement2 : MonoBehaviour {
 
     public void Dash()
     {
+        if (carryingBall)
+        {
+            chball.DropBall(Vector3.zero, "dash");
+            carryingBall = false;
+        }
         dashDirection = DegreeToVector2(head.eulerAngles.y);
         dashAngleDebug = dashDirection;
 

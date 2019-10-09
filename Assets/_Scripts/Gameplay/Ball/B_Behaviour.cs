@@ -8,7 +8,7 @@ public class B_Behaviour : MonoBehaviour
     private Rigidbody rb;
     private bool ballHeld;
     [SerializeField]private float dropForce;
-    [SerializeField]private float dropUpForce, bulletForce;
+    [SerializeField]private float dropUpForce, dashDropForce, bulletForce;
     public bool free;
     public Rigidbody heldBy;
     private float ballThrowCooldown = 0.025f;
@@ -41,6 +41,7 @@ public class B_Behaviour : MonoBehaviour
 
         if (collision.gameObject.tag == "player" && free)
         {
+            Debug.Log("pick me up");
             collision.gameObject.GetComponentInParent<CH_BallInteractions>().PickUpBall(gameObject, this);
         }
         
@@ -48,7 +49,7 @@ public class B_Behaviour : MonoBehaviour
         {
             rb.AddForce(rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce), ForceMode.VelocityChange);
             collision.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
-            Debug.Log("collidedWithbullet");
+            Debug.Log("ball collided With bullet");
         }
     }
 
@@ -169,6 +170,11 @@ public class B_Behaviour : MonoBehaviour
     {
         ballHeld = false;
         transform.parent = null;
+        UnfreezeAllRigidbodyConstraints();
+        free = true;
+        col.enabled = true;
+        rb.AddForce(Vector3.up * dashDropForce, ForceMode.VelocityChange);
+        StartCoroutine("ThrowCooldown");
     }
 
     private IEnumerator StunCooldown()
