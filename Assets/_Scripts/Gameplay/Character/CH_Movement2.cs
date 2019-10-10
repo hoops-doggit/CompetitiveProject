@@ -80,7 +80,8 @@ public class CH_Movement2 : MonoBehaviour {
         else
         {
             if (shotBullet)
-            {                
+            {
+                
                 Move2(shotDirection.x, shotDirection.y, 3);
                 if (shotMovementAmount > 0)
                 {
@@ -133,19 +134,21 @@ public class CH_Movement2 : MonoBehaviour {
 
         if (!playerMovementDisabled)
         {
-            if (!stunned && !shotBullet && !dashing)
+            if (!stunned || !shotBullet || !dashing)
             {
                 if (Input.GetAxisRaw(hold) < 0)
                 {
+
                     playerInput = false;
                     //Debug.Log("deccelerate");
-                    AccDec();
+                    AccDec();//acc dec calculates the value of speed but not direction
                     Move2(chi.xInput, chi.yInput, 0);
                     HeadDirection2(new Vector2(chi.xInput, chi.yInput));
                     gunLazer.FirinMaLazer();
                 }
                 else
                 {
+
                     AccDec();
                     Move2(chi.xInput, chi.yInput, 0);
                     HeadDirection2(new Vector2(chi.xInput, chi.yInput));
@@ -304,7 +307,6 @@ public class CH_Movement2 : MonoBehaviour {
                 {
                     speed = 0;
                 }
-                Debug.Log("slowing");
             }
             else
             {

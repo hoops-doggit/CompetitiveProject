@@ -22,11 +22,6 @@ public class B_Behaviour : MonoBehaviour
         SetupBall();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (rb.IsSleeping())
@@ -41,19 +36,14 @@ public class B_Behaviour : MonoBehaviour
 
         if (collision.gameObject.tag == "player" && free)
         {
-            Debug.Log("pick me up");
             collision.gameObject.GetComponentInParent<CH_BallInteractions>().PickUpBall(gameObject, this);
-        }
-        
-        if(collision.gameObject.tag == "bullet")
+        }        
+        else if(collision.gameObject.tag == "bullet")
         {
             rb.AddForce(rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce), ForceMode.VelocityChange);
             collision.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
-            Debug.Log("ball collided With bullet");
         }
-    }
-
-   
+    }   
 
     public void SetupBall()
     {
@@ -138,8 +128,6 @@ public class B_Behaviour : MonoBehaviour
         stunnedDirection.z *= dropForce;
         stunnedDirection.y *= dropUpForce;
 
-
-
         rb.AddForce(stunnedDirection, ForceMode.Acceleration);
         StartCoroutine("StunCooldown");
     }
@@ -161,7 +149,6 @@ public class B_Behaviour : MonoBehaviour
         stunnedDirection.x *= dropForce;
         stunnedDirection.z *= dropForce;
 
-
         rb.AddForce(stunnedDirection, ForceMode.Acceleration);
         StartCoroutine("StunCooldown");
     }
@@ -173,7 +160,7 @@ public class B_Behaviour : MonoBehaviour
         UnfreezeAllRigidbodyConstraints();
         free = true;
         col.enabled = true;
-        rb.AddForce(Vector3.up * dashDropForce + (headDirection.normalized * 1.1f), ForceMode.VelocityChange);
+        rb.AddForce(Vector3.up * dashDropForce + (headDirection.normalized * 2f), ForceMode.VelocityChange);
         StartCoroutine("ThrowCooldown");
     }
 
