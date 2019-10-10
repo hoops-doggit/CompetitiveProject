@@ -166,14 +166,14 @@ public class B_Behaviour : MonoBehaviour
         StartCoroutine("StunCooldown");
     }
 
-    public void BallDroppedDash()
+    public void BallDroppedDash(Vector3 headDirection)
     {
         ballHeld = false;
         transform.parent = null;
         UnfreezeAllRigidbodyConstraints();
         free = true;
         col.enabled = true;
-        rb.AddForce(Vector3.up * dashDropForce, ForceMode.VelocityChange);
+        rb.AddForce(Vector3.up * dashDropForce + (headDirection.normalized * 1.1f), ForceMode.VelocityChange);
         StartCoroutine("ThrowCooldown");
     }
 

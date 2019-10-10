@@ -74,7 +74,7 @@ public class CH_BallInteractions : MonoBehaviour
         }
         else if(holdingBall && reason == "dash")
         {
-            ballScript.BallDroppedDash();
+            ballScript.BallDroppedDash(stunPosition);
             ResetRelationshipToBall();
         }
 

@@ -324,7 +324,7 @@ public class CH_Movement2 : MonoBehaviour {
     {
         if (carryingBall)
         {
-            chball.DropBall(Vector3.zero, "dash");
+            chball.DropBall(head.forward, "dash");
             carryingBall = false;
         }
         dashDirection = DegreeToVector2(head.eulerAngles.y);
