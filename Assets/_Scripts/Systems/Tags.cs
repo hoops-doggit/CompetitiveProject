@@ -8,12 +8,12 @@ using UnityEngine;
 [System.Flags]
 public enum TileTags
 {
-    Wall = 0x01,
-    CanBeHeld = 0x02,
-    Bullet = 0x04,
-    Player = 0x08,
-    Enemy = 0x10,
-    Friendly = 0x20,
+    Idle = 0x01,
+    Moving = 0x02,
+    Deccelerating = 0x04,
+    Dashing = 0x08,
+    SwingAttacking = 0x10,
+    Stunned = 0x20,
     Weapon = 0x40,
     Exit = 0x80,
     Consumable = 0x100,
@@ -28,13 +28,10 @@ public enum TileTags
 }
 
 
-public class Tags : MonoBehaviour {
-
-    
+public class Tags : MonoBehaviour {   
 
     [SerializeField]
     [EnumFlags]
     public TileTags tags = 0;
-
 
 }

@@ -223,7 +223,7 @@ public class CH_SwingAttack : MonoBehaviour
         {
             TurnOnDeflectAngles();
             currentlySwinging = true;
-            chm.playerMovementDisabled = true;
+            chm.SetState(State.SwingAttack);
             MeshRenderer batMeshRend = bathitZone.GetComponent<MeshRenderer>();
             batMeshRend.enabled = true;
             batMeshRend.material = mats[2];
@@ -310,7 +310,7 @@ public class CH_SwingAttack : MonoBehaviour
         batMeshRend.enabled = false;
         objectsThatHaveBeenHit.Clear();
         ignoreBall = false;
-        chm.playerMovementDisabled = false;
+        chm.SetState(chm.preState);
         TurnOffDeflectAngles();
     }
 
