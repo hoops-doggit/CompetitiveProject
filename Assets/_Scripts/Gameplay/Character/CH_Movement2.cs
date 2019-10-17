@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { Normal, Stunned, FiredGun, Dashing, SwingAttack} 
+public enum State { Normal, Stunned, FiredGun, Dashing, SwingAttack}
+public enum StateSpeed { Accelerating, Deccelerating, Dashing, Aiming }
 
 public class CH_Movement2 : MonoBehaviour {
     public Tags states;
     public State preState, curState;
+    public StateSpeed speedState;
     private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount, dashCooldown;
     public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
-    public bool playerMovementDisabled, carryingBall, playerInput, rightTrigger;
+    public bool playerMovementDisabled, carryingBall, directionInput, rightTrigger, leftTrigger;
     public Vector2 movementDirection, lerpedInputVector;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
@@ -68,27 +70,28 @@ public class CH_Movement2 : MonoBehaviour {
         //this checks if player is inputing any movement
         if (chi.xInput != 0 || chi.yInput != 0)
         {
-            playerInput = true;
+            directionInput = true;
         }
         else
         {
-            playerInput = false;
+            directionInput = false;
         }
 
         #region movement states
 
         if (curState == State.Normal)
         {
-            if (Input.GetAxisRaw(hold) < 0)
+            if (leftTrigger) //Aiming
             {
-                playerInput = false;
-                AccDec();
+                //directionInput = false;
+                Speed(StateSpeed.Aiming);
                 Move2(chi.xInput, chi.yInput, 0);
                 gunLazer.FirinMaLazer();
             }
             else
             {
-                AccDec();
+                if (directionInput) { Speed(StateSpeed.Accelerating); }
+                else { Speed(StateSpeed.Deccelerating); }
                 Move2(chi.xInput, chi.yInput, 0);
             }
         }
@@ -123,6 +126,7 @@ public class CH_Movement2 : MonoBehaviour {
         }
         else if (curState == State.Dashing)
         {
+            Speed(StateSpeed.Dashing);
             Move2(chi.xInput, chi.yInput, State.Dashing);
             HeadDirection(new Vector2(chi.xInput, chi.yInput));
             if (dashMovementAmount > 0)
@@ -170,7 +174,6 @@ public class CH_Movement2 : MonoBehaviour {
 
                     if (dashMovementAmount < 0.1f)
                     {
-
                         StartCoroutine("DashCoolDown");
                         speed = 0.02f;
                         SetState(State.Normal);
@@ -188,7 +191,7 @@ public class CH_Movement2 : MonoBehaviour {
             {
                 //deccelerate in last direction 
                 //ignore direction input
-                playerInput = false;
+                directionInput = false;
                 AccDec();
                 Move2(chi.xInput, chi.yInput, 0);
             }
@@ -201,8 +204,7 @@ public class CH_Movement2 : MonoBehaviour {
         {
             Dash();          
             rightTrigger = true;
-        }
-        
+        }        
 
         //Right trigger
         if (Input.GetAxisRaw(hold) < 0.1f)
@@ -211,10 +213,16 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         #endregion
+        #region left trigger stuff
+        if (Input.GetAxisRaw(hold) < 0)
+        {
+            leftTrigger = true;
+        }
+        else { leftTrigger = false; }
 
-    }
+        #endregion
 
-   
+    }   
 
     public void Move2(float x, float y, State mode)
     {
@@ -223,31 +231,27 @@ public class CH_Movement2 : MonoBehaviour {
 
         rawInputVector = new Vector2(x, y);
         lerpedInputVector = Vector2.Lerp(previousInputVector, rawInputVector, Time.deltaTime * minInputVector);
-        if (playerInput)
+        if (directionInput)
         {
             previousInputVector = lerpedInputVector;
         }
-        
-
+        newPos = transform.position;
         magnitude = lerpedInputVector.magnitude;
-
         if (magnitude > 1)
         {
             lerpedInputVector /= magnitude;            
         }
 
-        newPos = transform.position;
-
         if (mode == State.Normal) //normal movement
         {
-            if (playerInput)
+            if (directionInput)
             {
                 newPos.z += lerpedInputVector.y * speed;
                 newPos.x += lerpedInputVector.x * speed;
                 inputDirection = lerpedInputVector;
                 HeadDirection2(lerpedInputVector);
             }
-            else if (!playerInput)
+            else if (!directionInput)
             {
                 newPos.z += inputDirection.y * speed;
                 newPos.x += inputDirection.x * speed;
@@ -297,7 +301,7 @@ public class CH_Movement2 : MonoBehaviour {
         clampValues = collisionPoints;
         gameObject.transform.position = newPos;
 
-        if (curState == State.Stunned || curState == State.FiredGun|| !playerInput) { }
+        if (curState == State.Stunned || curState == State.FiredGun|| !directionInput) { }
         else
         {
             HeadDirection2(rawInputVector);
@@ -308,7 +312,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     public void AccDec()
     {
-        if (playerInput && !carryingBall)
+        if (directionInput && !carryingBall)
         {
             if (speed < maxSpeed)
             {
@@ -331,7 +335,7 @@ public class CH_Movement2 : MonoBehaviour {
             }
         }
         //if player is carrying ball, speed and acceleration are different
-        else if (playerInput && carryingBall)
+        else if (directionInput && carryingBall)
         {
             if (speed < ballCarryMaxSpeed)
             {
@@ -385,6 +389,95 @@ public class CH_Movement2 : MonoBehaviour {
                 speed = 0;
             }
         }
+    }
+
+    public void Speed(StateSpeed state)
+    {
+        speedState = state;
+
+        if(state == StateSpeed.Accelerating)
+        {
+            if (!carryingBall)
+            {
+                if (speed < maxSpeed)
+                {
+                    if (speed < minSpeed)
+                    {
+                        speed = minSpeed;
+                    }
+                    else if (speed < midSpeed)
+                    {
+                        speed *= accSpeed;
+                    }
+                    else if (speed > midSpeed)
+                    {
+                        speed *= midAccSpeed;
+                    }
+                }
+                else
+                {
+                    speed = maxSpeed;
+                }
+            }
+
+            else if (carryingBall)
+            {
+                if (speed < ballCarryMaxSpeed)
+                {
+                    if (speed < minSpeed)
+                    {
+                        speed = minSpeed;
+                    }
+                    else if (speed < ballCarryMaxSpeed)
+                    {
+                        speed *= accSpeed;
+                    }
+                    else if (speed > midSpeed)
+                    {
+                        speed *= midAccSpeed;
+                    }
+                }
+                else
+                {
+                    speed = ballCarryMaxSpeed;
+                }
+            }
+        }
+
+        else if(state == StateSpeed.Deccelerating)
+        { 
+            if (speed > 0)
+            {
+                speed -= decSpeed;
+            }            
+            else
+            {
+                speed = 0;
+            }
+        }
+
+        else if(state == StateSpeed.Dashing)
+        {
+            //deccelerate only 
+            //if (speed > 0)
+            //{
+            //    speed -= decSpeed / 2;
+            //}
+        }
+
+        else if(state == StateSpeed.Aiming)
+        {
+            //deccelerate only
+            if (speed > 0)
+            {
+                speed -= decSpeed * 2;
+            }
+            else
+            {
+                speed = 0;
+            }            
+        }
+
     }
 
     public void Dash()
@@ -457,9 +550,7 @@ public class CH_Movement2 : MonoBehaviour {
         GetComponent<CH_BallInteractions>().DropBall(positionOfHitter, "bat");
         stunMovementAmount = batStunMovement;
         SetState(State.Stunned);
-    }    
-
-   
+    }   
 
     void PositionAutoCorrect(float front, float back, float left, float right, Vector2 rawinputVector)
     {
