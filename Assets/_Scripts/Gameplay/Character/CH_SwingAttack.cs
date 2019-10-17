@@ -27,6 +27,7 @@ public class CH_SwingAttack : MonoBehaviour
     private CH_Movement2 chm;
     private Rigidbody rb;
     private CH_Input chi;
+
     public GameObject lMid;
     public GameObject lCutoff;
     public GameObject rMid;
@@ -123,9 +124,7 @@ public class CH_SwingAttack : MonoBehaviour
         if (currentlySwinging)
         {
             DotProductCalculateDeflectAngle(Input.GetAxisRaw(chi.xAxis), Input.GetAxisRaw(chi.yAxis),GetComponentInParent<Transform>().eulerAngles.y);
-        }
-
-       
+        }   
 
     }
 
@@ -312,6 +311,7 @@ public class CH_SwingAttack : MonoBehaviour
         ignoreBall = false;
         chm.SetState(chm.preState);
         TurnOffDeflectAngles();
+        chm.SetState(State.Normal);
     }
 
     private void TurnOffDeflectAngles()
