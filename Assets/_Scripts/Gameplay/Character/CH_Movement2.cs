@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum State { Normal, Stunned, FiredGun, Dashing, SwingAttack}
-public enum StateSpeed { Accelerating, Deccelerating, Dashing, Aiming }
+public enum StateSpeed { Accelerating, Deccelerating, Dashing, Aiming}
 
 public class CH_Movement2 : MonoBehaviour {
     public Tags states;
@@ -126,7 +126,8 @@ public class CH_Movement2 : MonoBehaviour {
         }
         else if (curState == State.Dashing)
         {
-            Speed(StateSpeed.Dashing);
+            if (leftTrigger) { Speed(StateSpeed.Aiming); }
+            else { Speed(StateSpeed.Dashing); }            
             Move2(chi.xInput, chi.yInput, State.Dashing);
             HeadDirection(new Vector2(chi.xInput, chi.yInput));
             if (dashMovementAmount > 0)
@@ -192,8 +193,8 @@ public class CH_Movement2 : MonoBehaviour {
                 //deccelerate in last direction 
                 //ignore direction input
                 directionInput = false;
-                AccDec();
-                Move2(chi.xInput, chi.yInput, 0);
+                Speed(StateSpeed.Deccelerating);
+                Move2(chi.xInput, chi.yInput, State.SwingAttack);
             }
         }
         #endregion
@@ -285,7 +286,7 @@ public class CH_Movement2 : MonoBehaviour {
                 //standard decceleration
                 newPos.z += previousInputVector.y * speed;
                 newPos.x += previousInputVector.x * speed;
-                HeadDirection2(rawInputVector);
+                //HeadDirection2(rawInputVector);
             }            
         }
 
@@ -445,14 +446,28 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         else if(state == StateSpeed.Deccelerating)
-        { 
-            if (speed > 0)
+        {
+            if (curState == State.Normal)
             {
-                speed -= decSpeed;
-            }            
-            else
+                if (speed > 0)
+                {
+                    speed -= decSpeed;
+                }
+                else
+                {
+                    speed = 0;
+                }
+            }
+            else if(curState == State.SwingAttack)
             {
-                speed = 0;
+                if (speed > 0)
+                {
+                    speed -= decSpeed*5;
+                }
+                else
+                {
+                    speed = 0;
+                }
             }
         }
 
@@ -477,6 +492,7 @@ public class CH_Movement2 : MonoBehaviour {
                 speed = 0;
             }            
         }
+
 
     }
 
