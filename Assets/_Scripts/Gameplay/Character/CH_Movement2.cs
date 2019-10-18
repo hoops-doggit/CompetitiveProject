@@ -7,11 +7,10 @@ public enum State { Normal, Stunned, FiredGun, Dashing, SwingAttack}
 public enum StateSpeed { Accelerating, Deccelerating, Dashing, Aiming}
 
 public class CH_Movement2 : MonoBehaviour {
-    public Tags states;
     public State preState, curState;
     public StateSpeed speedState;
-    private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount, dashCooldown;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldownTime, bulletStunMovement, batStunMovement, shotBulletMovement;
+    private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldownTime, dashCooldown, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool playerMovementDisabled, carryingBall, directionInput, rightTrigger, leftTrigger;
     public Vector2 movementDirection, lerpedInputVector;
     public float skinDepth;
@@ -42,17 +41,13 @@ public class CH_Movement2 : MonoBehaviour {
     private KeyCode dashKey;
     [SerializeField] Gun_Lazer gunLazer;
 
-    
-
 
     // Use this for initialization
     void Start () {
         chball = GetComponent<CH_BallInteractions>();
-
         lastx = 0;
         lasty = 0;
-        lastAngle = 0;
-        
+        lastAngle = 0;        
         chi = GetComponent<CH_Input>();    
         xAxis = chi.xAxis;
         yAxis = chi.yAxis;
@@ -111,7 +106,7 @@ public class CH_Movement2 : MonoBehaviour {
             speed = 0;
         }
         else if (curState == State.FiredGun)
-        {                
+        {
             Move2(shotDirection.x, shotDirection.y, State.FiredGun);
             if (shotMovementAmount > 0)
             {
@@ -122,7 +117,7 @@ public class CH_Movement2 : MonoBehaviour {
                     speed = minSpeed*4;
                     SetState(State.Normal);
                 }
-            }
+            }            
         }
         else if (curState == State.Dashing)
         {
@@ -142,8 +137,7 @@ public class CH_Movement2 : MonoBehaviour {
                 }
                 
                 if (dashMovementAmount < 0.1f)
-                {
-                    
+                {                    
                     StartCoroutine("DashCoolDown");
                     speed = 0.02f;
                     SetState(State.Normal);
@@ -161,6 +155,7 @@ public class CH_Movement2 : MonoBehaviour {
         {
             if (preState == State.Dashing)
             {
+                Speed(StateSpeed.Deccelerating);
                 Move2(chi.xInput, chi.yInput, State.SwingAttack);
                 if (dashMovementAmount > 0)
                 {
@@ -186,7 +181,6 @@ public class CH_Movement2 : MonoBehaviour {
                 {
                     gunLazer.FirinMaLazer();
                 }
-
             }
             else
             {
@@ -200,7 +194,6 @@ public class CH_Movement2 : MonoBehaviour {
         #endregion
 
         #region right trigger stuff
-
         if (Input.GetAxisRaw(hold) > 0 && dashCooldown == 0 &! rightTrigger)
         {
             Dash();          
@@ -212,15 +205,14 @@ public class CH_Movement2 : MonoBehaviour {
         {
             rightTrigger = false;
         }
-
         #endregion
+
         #region left trigger stuff
         if (Input.GetAxisRaw(hold) < 0)
         {
             leftTrigger = true;
         }
         else { leftTrigger = false; }
-
         #endregion
 
     }   
@@ -243,7 +235,7 @@ public class CH_Movement2 : MonoBehaviour {
             lerpedInputVector /= magnitude;            
         }
 
-        if (mode == State.Normal) //normal movement
+        if (mode == State.Normal)
         {
             if (directionInput)
             {
@@ -260,13 +252,13 @@ public class CH_Movement2 : MonoBehaviour {
             }            
         }
 
-        else if (mode == State.Stunned) //Stun
+        else if (mode == State.Stunned) 
         {
             newPos.z += stunDirection.y * stunMovementAmount;
             newPos.x += stunDirection.x * stunMovementAmount;
         }
 
-        else if(mode == State.Dashing) //Dash
+        else if(mode == State.Dashing) 
         {
             //rather than lerp vector, check angle input is at and return vector with slight adjustment;
             dashDirection = Vector2.Lerp(dashDirection, lerpedInputVector, 0.03f).normalized;
@@ -278,19 +270,20 @@ public class CH_Movement2 : MonoBehaviour {
         {
             if(preState == State.Dashing)
             {
-                newPos.z += dashDirection.y * dashMovementAmount;
-                newPos.x += dashDirection.x * dashMovementAmount;
+                HeadDirection2(lerpedInputVector);
+                newPos.z += previousInputVector.y * speed;
+                newPos.x += previousInputVector.x * speed;
+                //newPos.z += dashDirection.y * dashMovementAmount;
+                //newPos.x += dashDirection.x * dashMovementAmount;
             }
             else
             {
-                //standard decceleration
                 newPos.z += previousInputVector.y * speed;
                 newPos.x += previousInputVector.x * speed;
-                //HeadDirection2(rawInputVector);
             }            
         }
 
-        else if(mode == State.FiredGun) //Shot a bullet
+        else if(mode == State.FiredGun) 
         {
             //rather than lerp vector, check angle input is at and return vector with slight adjustment;
             newPos.z += shotDirection.y * shotMovementAmount;
@@ -301,12 +294,6 @@ public class CH_Movement2 : MonoBehaviour {
         newPos.x = Mathf.Clamp(newPos.x, chCol.collisionPoints[2], chCol.collisionPoints[3]);
         clampValues = collisionPoints;
         gameObject.transform.position = newPos;
-
-        if (curState == State.Stunned || curState == State.FiredGun|| !directionInput) { }
-        else
-        {
-            HeadDirection2(rawInputVector);
-        }
 
         PositionAutoCorrect(chCol.frontColPoint, chCol.backColPoint, chCol.leftColPoint, chCol.rightColPoint, rawInputVector);               
     }
@@ -420,7 +407,6 @@ public class CH_Movement2 : MonoBehaviour {
                     speed = maxSpeed;
                 }
             }
-
             else if (carryingBall)
             {
                 if (speed < ballCarryMaxSpeed)
@@ -460,14 +446,29 @@ public class CH_Movement2 : MonoBehaviour {
             }
             else if(curState == State.SwingAttack)
             {
-                if (speed > 0)
+                if(preState == State.Dashing)
                 {
-                    speed -= decSpeed*5;
+                    if (speed > 0)
+                    {
+                        speed -= decSpeed/2;
+                    }
+                    else
+                    {
+                        speed = 0;
+                    }
                 }
                 else
                 {
-                    speed = 0;
+                    if (speed > 0)
+                    {
+                        speed -= decSpeed * 8;
+                    }
+                    else
+                    {
+                        speed = 0;
+                    }
                 }
+                
             }
         }
 
@@ -536,11 +537,12 @@ public class CH_Movement2 : MonoBehaviour {
 
     private void CancelDash()
     {
+        StartCoroutine("DashCoolDown");
+        dashMovementAmount = 0;
         foreach (CH_Trails t in trails)
         {
             t.Ready();
-        }
-        dashCooldown = 0;
+        }        
     }
 
     public void MoveYouGotShot(Vector3 velocity)
@@ -689,6 +691,11 @@ public class CH_Movement2 : MonoBehaviour {
         preState = curState;
         curState = _to;
 
+        if (preState == State.Dashing)
+        {
+            CancelDash();
+        }
+
         // do anything else?
         switch (_to)
         {
@@ -699,7 +706,7 @@ public class CH_Movement2 : MonoBehaviour {
 
                 break;
             case State.FiredGun:
-
+                
                 break;
             case State.Dashing:                
 
