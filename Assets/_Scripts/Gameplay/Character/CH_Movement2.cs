@@ -9,8 +9,8 @@ public enum StateSpeed { Accelerating, Deccelerating, Dashing, Aiming}
 public class CH_Movement2 : MonoBehaviour {
     public State preState, curState;
     public StateSpeed speedState;
-    private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount, dashMovementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashMovement, dashCooldownTime, dashCooldown, bulletStunMovement, batStunMovement, shotBulletMovement;
+    private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashSpeed, dashDecSpeed, swingDashDecSpeed, dashCooldownTime, dashCooldown, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool playerMovementDisabled, carryingBall, directionInput, rightTrigger, leftTrigger;
     public Vector2 movementDirection, lerpedInputVector;
     public float skinDepth;
@@ -124,59 +124,18 @@ public class CH_Movement2 : MonoBehaviour {
             if (leftTrigger) { Speed(StateSpeed.Aiming); }
             else { Speed(StateSpeed.Dashing); }            
             Move2(chi.xInput, chi.yInput, State.Dashing);
-            HeadDirection(new Vector2(chi.xInput, chi.yInput));
-            if (dashMovementAmount > 0)
-            {
-                if (carryingBall)
-                {
-                    dashMovementAmount /= 1.2f;
-                }
-                else
-                {
-                    dashMovementAmount /= 1.05f;
-                }
-                
-                if (dashMovementAmount < 0.1f)
-                {                    
-                    StartCoroutine("DashCoolDown");
-                    speed = 0.02f;
-                    SetState(State.Normal);
-                    dashMovementAmount = 0;
-                }
-            }
-
-            if(Input.GetAxis(hold) < 0)
+            if (Input.GetAxis(hold) < 0)
             {
                 gunLazer.FirinMaLazer();
-            }            
+            }                                   
         }
 
         else if(curState == State.SwingAttack)
         {
             if (preState == State.Dashing)
             {
-                Speed(StateSpeed.Deccelerating);
+                Speed(StateSpeed.Dashing);
                 Move2(chi.xInput, chi.yInput, State.SwingAttack);
-                if (dashMovementAmount > 0)
-                {
-                    if (carryingBall)
-                    {
-                        dashMovementAmount /= 1.2f;
-                    }
-                    else
-                    {
-                        dashMovementAmount /= 1.3f;
-                    }
-
-                    if (dashMovementAmount < 0.1f)
-                    {
-                        StartCoroutine("DashCoolDown");
-                        speed = 0.02f;
-                        SetState(State.Normal);
-                        dashMovementAmount = 0;
-                    }
-                }
-
                 if (Input.GetAxis(hold) < 0)
                 {
                     gunLazer.FirinMaLazer();
@@ -242,7 +201,7 @@ public class CH_Movement2 : MonoBehaviour {
                 newPos.z += lerpedInputVector.y * speed;
                 newPos.x += lerpedInputVector.x * speed;
                 inputDirection = lerpedInputVector;
-                HeadDirection2(lerpedInputVector);
+                HeadDirection2(rawInputVector);
             }
             else if (!directionInput)
             {
@@ -262,17 +221,21 @@ public class CH_Movement2 : MonoBehaviour {
         {
             //rather than lerp vector, check angle input is at and return vector with slight adjustment;
             dashDirection = Vector2.Lerp(dashDirection, lerpedInputVector, 0.03f).normalized;
-            newPos.z += dashDirection.y * dashMovementAmount;
-            newPos.x += dashDirection.x * dashMovementAmount;
+            //newPos.z += dashDirection.y * dashMovementAmount;
+            //newPos.x += dashDirection.x * dashMovementAmount;
+            newPos.z += dashDirection.y * speed ;
+            newPos.x += dashDirection.x * speed ;
+            HeadDirection(lerpedInputVector);
         }
 
         else if(mode == State.SwingAttack)
         {
             if(preState == State.Dashing)
             {
-                HeadDirection2(lerpedInputVector);
+                
                 newPos.z += previousInputVector.y * speed;
                 newPos.x += previousInputVector.x * speed;
+                HeadDirection(rawInputVector);
                 //newPos.z += dashDirection.y * dashMovementAmount;
                 //newPos.x += dashDirection.x * dashMovementAmount;
             }
@@ -475,10 +438,15 @@ public class CH_Movement2 : MonoBehaviour {
         else if(state == StateSpeed.Dashing)
         {
             //deccelerate only 
-            //if (speed > 0)
-            //{
-            //    speed -= decSpeed / 2;
-            //}
+            if (speed > maxSpeed)
+            {
+                speed -= dashDecSpeed;
+            }
+            else
+            {
+                StartCoroutine("DashCoolDown");
+                SetState(State.Normal);
+            }
         }
 
         else if(state == StateSpeed.Aiming)
@@ -512,8 +480,7 @@ public class CH_Movement2 : MonoBehaviour {
 
         dashDirection = DegreeToVector2(head.eulerAngles.y);
         dashAngleDebug = dashDirection;
-
-        dashMovementAmount = dashMovement;
+        speed = dashSpeed;
         dashCooldown = dashCooldownTime;
         SetState(State.Dashing);
     }
@@ -538,7 +505,6 @@ public class CH_Movement2 : MonoBehaviour {
     private void CancelDash()
     {
         StartCoroutine("DashCoolDown");
-        dashMovementAmount = 0;
         foreach (CH_Trails t in trails)
         {
             t.Ready();
@@ -691,25 +657,21 @@ public class CH_Movement2 : MonoBehaviour {
         preState = curState;
         curState = _to;
 
-        if (preState == State.Dashing)
-        {
-            CancelDash();
-        }
+        //if (preState == State.Dashing)
+        //{
+        //    CancelDash();
+        //}
 
         // do anything else?
         switch (_to)
         {
             case State.Normal:
-
                 break;
             case State.Stunned:
-
                 break;
             case State.FiredGun:
-                
                 break;
-            case State.Dashing:                
-
+            case State.Dashing:
                 break;
             case State.SwingAttack:
                 break;
