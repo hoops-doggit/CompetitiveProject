@@ -647,7 +647,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     void HeadDirection2(Vector2 rawInput)
     {
-        if (rawInput.magnitude > 0.05)
+        if (rawInput.magnitude > 0.005)
         {
             float x = rawInput.x;
             float y = rawInput.y;
