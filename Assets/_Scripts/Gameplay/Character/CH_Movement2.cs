@@ -11,7 +11,7 @@ public class CH_Movement2 : MonoBehaviour {
     public StateSpeed speedState;
     private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount;
     public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashSpeed, dashDecSpeed, swingDashDecSpeed, dashCooldownTime, dashCooldown, bulletStunMovement, batStunMovement, shotBulletMovement;
-    public bool playerMovementDisabled, carryingBall, directionInput, rightTrigger, leftTrigger;
+    public bool playerMovementDisabled, carryingBall, directionInput, rightTrigger, leftTrigger, dashCooldownRunning;
     public Vector2 movementDirection, lerpedInputVector;
     public float skinDepth;
     public float autoCorrectDistance = 0.5f;
@@ -72,7 +72,7 @@ public class CH_Movement2 : MonoBehaviour {
             directionInput = false;
         }
 
-        #region movement states
+        #region states
 
         if (curState == State.Normal)
         {
@@ -80,20 +80,20 @@ public class CH_Movement2 : MonoBehaviour {
             {
                 //directionInput = false;
                 Speed(StateSpeed.Aiming);
-                Move2(chi.xInput, chi.yInput, 0);
+                Move(chi.xInput, chi.yInput, 0);
                 gunLazer.FirinMaLazer();
             }
             else
             {
                 if (directionInput) { Speed(StateSpeed.Accelerating); }
                 else { Speed(StateSpeed.Deccelerating); }
-                Move2(chi.xInput, chi.yInput, 0);
+                Move(chi.xInput, chi.yInput, State.Normal);
             }
         }
 
         else if (curState == State.Stunned)
         {
-            Move2(stunDirection.x, stunDirection.y, State.Stunned); //direction of impact
+            Move(stunDirection.x, stunDirection.y, State.Stunned); //direction of impact
             if (stunMovementAmount > 0)
             {
                 stunMovementAmount /= 1.25f;
@@ -107,27 +107,44 @@ public class CH_Movement2 : MonoBehaviour {
         }
         else if (curState == State.FiredGun)
         {
-            Move2(shotDirection.x, shotDirection.y, State.FiredGun);
-            if (shotMovementAmount > 0)
+            //if you shoot while dashing it should execute both dash and shoot movement
+            if(preState == State.Dashing)
             {
-                shotMovementAmount /= 1.25f;
-                if (shotMovementAmount < 0.05f)
+                if (leftTrigger) { Speed(StateSpeed.Aiming); gunLazer.FirinMaLazer(); }
+                else { Speed(StateSpeed.Dashing); }
+                Speed(StateSpeed.Dashing);
+                Move(chi.xInput, chi.yInput, State.Dashing);
+
+                Move(shotDirection.x, shotDirection.y, State.FiredGun);
+
+                if (shotMovementAmount > 0)
                 {
-                    shotMovementAmount = 0;
-                    speed = minSpeed*4;
-                    SetState(State.Normal);
+                    shotMovementAmount /= 1.25f;
+                    if (shotMovementAmount < 0.05f)
+                    {
+                        shotMovementAmount = 0;
+                    }
                 }
-            }            
+            }
+            else
+            {
+                Move(shotDirection.x, shotDirection.y, State.FiredGun);
+                if (shotMovementAmount > 0)
+                {
+                    shotMovementAmount /= 1.25f;
+                    if (shotMovementAmount < 0.05f)
+                    {
+                        shotMovementAmount = 0;
+                        SetState(State.Normal);
+                    }
+                }
+            }
         }
         else if (curState == State.Dashing)
         {
-            if (leftTrigger) { Speed(StateSpeed.Aiming); }
+            if (leftTrigger) { Speed(StateSpeed.Aiming); gunLazer.FirinMaLazer(); }
             else { Speed(StateSpeed.Dashing); }            
-            Move2(chi.xInput, chi.yInput, State.Dashing);
-            if (Input.GetAxis(hold) < 0)
-            {
-                gunLazer.FirinMaLazer();
-            }                                   
+            Move(chi.xInput, chi.yInput, State.Dashing);                                  
         }
 
         else if(curState == State.SwingAttack)
@@ -135,8 +152,8 @@ public class CH_Movement2 : MonoBehaviour {
             if (preState == State.Dashing)
             {
                 Speed(StateSpeed.Dashing);
-                Move2(chi.xInput, chi.yInput, State.SwingAttack);
-                if (Input.GetAxis(hold) < 0)
+                Move(chi.xInput, chi.yInput, State.SwingAttack);
+                if (leftTrigger)
                 {
                     gunLazer.FirinMaLazer();
                 }
@@ -147,15 +164,18 @@ public class CH_Movement2 : MonoBehaviour {
                 //ignore direction input
                 directionInput = false;
                 Speed(StateSpeed.Deccelerating);
-                Move2(chi.xInput, chi.yInput, State.SwingAttack);
+                Move(chi.xInput, chi.yInput, State.SwingAttack);
             }
         }
         #endregion
 
         #region right trigger stuff
-        if (Input.GetAxisRaw(hold) > 0 && dashCooldown == 0 &! rightTrigger)
+        if (Input.GetAxisRaw(hold) > 0)
         {
-            Dash();          
+            if (dashCooldown == 0 && !rightTrigger)
+            {// & !rightTrigger
+                Dash();
+            }
             rightTrigger = true;
         }        
 
@@ -176,13 +196,13 @@ public class CH_Movement2 : MonoBehaviour {
 
     }   
 
-    public void Move2(float x, float y, State mode)
+    public void Move(float x, float y, State mode)
     {
         bool front = chCol.front; bool back = chCol.back; bool left = chCol.left; bool right = chCol.right;
         List<float> collisionPoints = chCol.collisionPoints;
 
         rawInputVector = new Vector2(x, y);
-        lerpedInputVector = Vector2.Lerp(previousInputVector, rawInputVector, Time.deltaTime * minInputVector);
+        lerpedInputVector = Vector2.MoveTowards(previousInputVector, rawInputVector, Time.deltaTime * minInputVector);
         if (directionInput)
         {
             previousInputVector = lerpedInputVector;
@@ -225,17 +245,17 @@ public class CH_Movement2 : MonoBehaviour {
             //newPos.x += dashDirection.x * dashMovementAmount;
             newPos.z += dashDirection.y * speed ;
             newPos.x += dashDirection.x * speed ;
-            HeadDirection(lerpedInputVector);
+            HeadDirection2(lerpedInputVector);
         }
 
         else if(mode == State.SwingAttack)
         {
             if(preState == State.Dashing)
             {
-                
-                newPos.z += previousInputVector.y * speed;
-                newPos.x += previousInputVector.x * speed;
-                HeadDirection(rawInputVector);
+
+                newPos.z += dashDirection.y * speed;
+                newPos.x += dashDirection.x * speed;
+                HeadDirection2(rawInputVector);
                 //newPos.z += dashDirection.y * dashMovementAmount;
                 //newPos.x += dashDirection.x * dashMovementAmount;
             }
@@ -248,7 +268,6 @@ public class CH_Movement2 : MonoBehaviour {
 
         else if(mode == State.FiredGun) 
         {
-            //rather than lerp vector, check angle input is at and return vector with slight adjustment;
             newPos.z += shotDirection.y * shotMovementAmount;
             newPos.x += shotDirection.x * shotMovementAmount;
         }
@@ -436,15 +455,14 @@ public class CH_Movement2 : MonoBehaviour {
         }
 
         else if(state == StateSpeed.Dashing)
-        {
-            //deccelerate only 
+        {            
+            //speed gets set higher than max speed for the dash
             if (speed > maxSpeed)
             {
                 speed -= dashDecSpeed;
             }
             else
             {
-                StartCoroutine("DashCoolDown");
                 SetState(State.Normal);
             }
         }
@@ -461,8 +479,6 @@ public class CH_Movement2 : MonoBehaviour {
                 speed = 0;
             }            
         }
-
-
     }
 
     public void Dash()
@@ -471,44 +487,55 @@ public class CH_Movement2 : MonoBehaviour {
         {
             chball.DropBall(head.forward, "dash");
             carryingBall = false;
-        }
-
-        foreach (CH_Trails t in trails)
-        {
-            t.Dashing();
-        }
+        }       
 
         dashDirection = DegreeToVector2(head.eulerAngles.y);
         dashAngleDebug = dashDirection;
         speed = dashSpeed;
         dashCooldown = dashCooldownTime;
         SetState(State.Dashing);
+        if (!dashCooldownRunning)
+        {
+            StartCoroutine("DashCoolDown");
+        }
     }
 
     public IEnumerator DashCoolDown()
     {
+        dashCooldownRunning = true;
         foreach (CH_Trails t in trails)
         {
-            t.CoolingDown();
-        }
+            t.Dashing();
+        }       
+        
         while (dashCooldown > 0)
         {
-            dashCooldown -= 0.25f;
-            yield return new WaitForSeconds(0.25f);
+            dashCooldown -= 0.01f;
+            if(speed <= maxSpeed)
+            {
+                foreach (CH_Trails t in trails)
+                {
+                    t.CoolingDown();
+                }
+            }
+            yield return new WaitForSeconds(0.01f);
         }
-        foreach (CH_Trails t in trails)
-        {
-            t.Ready();
-        }
-    }
-
-    private void CancelDash()
-    {
-        StartCoroutine("DashCoolDown");
+        
         foreach (CH_Trails t in trails)
         {
             t.Ready();
         }        
+        dashCooldown = 0;
+        dashCooldownRunning = false;
+    }
+
+    private void CancelDash()
+    {
+        //StartCoroutine("DashCoolDown");
+        //foreach (CH_Trails t in trails)
+        //{
+        //    t.Ready();
+        //}        
     }
 
     public void MoveYouGotShot(Vector3 velocity)
@@ -620,7 +647,7 @@ public class CH_Movement2 : MonoBehaviour {
 
     void HeadDirection2(Vector2 rawInput)
     {
-        if (rawInput.magnitude > 0.1)
+        if (rawInput.magnitude > 0.05)
         {
             float x = rawInput.x;
             float y = rawInput.y;

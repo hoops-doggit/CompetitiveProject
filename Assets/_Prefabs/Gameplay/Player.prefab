@@ -1296,7 +1296,7 @@ GameObject:
   - component: {fileID: 482660140}
   - component: {fileID: 3331559993457418728}
   m_Layer: 14
-  m_Name: Character
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1400,9 +1400,18 @@ MonoBehaviour:
   backColPoint: 0
   leftColPoint: 0
   rightColPoint: 0
-  layerMask:
+  layerMask1:
     serializedVersion: 2
-    m_Bits: 14340
+    m_Bits: 47108
+  layerMask2:
+    serializedVersion: 2
+    m_Bits: 79876
+  layerMask3:
+    serializedVersion: 2
+    m_Bits: 145412
+  layerMask4:
+    serializedVersion: 2
+    m_Bits: 276484
 --- !u!114 &114746917423204440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1415,6 +1424,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4ad652103f4314b856a76eba90f0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  preState: 0
+  curState: 0
+  speedState: 0
   speed: 0
   minSpeed: 0.05
   midSpeed: 0.1
@@ -1426,16 +1438,22 @@ MonoBehaviour:
   minInputVector: 25
   ballCarryAcc: 1.01
   ballCarryMaxSpeed: 0.09
-  dashMovement: 0.5
+  dashSpeed: 0
+  dashDecSpeed: 0
+  swingDashDecSpeed: 0
   dashCooldownTime: 0.5
+  dashCooldown: 0
   bulletStunMovement: 0.4
   batStunMovement: 0.5
   shotBulletMovement: 0.5
-  stunned: 0
-  shotBullet: 0
   playerMovementDisabled: 0
   carryingBall: 0
+  directionInput: 0
+  rightTrigger: 0
+  leftTrigger: 0
+  dashCooldownRunning: 0
   movementDirection: {x: 0, y: 0}
+  lerpedInputVector: {x: 0, y: 0}
   skinDepth: 0.251
   autoCorrectDistance: 0.23
   autoCorrectAmount: 1.01
@@ -1448,7 +1466,7 @@ MonoBehaviour:
   gunEnd: {fileID: 4789697194395470}
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 3}
   bulletSpeed: 200
-  inputVector: {x: 0, y: 0}
+  rawInputVector: {x: 0, y: 0}
   inputDirection: {x: 0, y: 0}
   stunDirection: {x: 0, y: 0}
   shotDirection: {x: 0, y: 0}
@@ -1461,9 +1479,6 @@ MonoBehaviour:
   - 0
   trails:
   - {fileID: 6827565987506947276}
-  playerInput: 0
-  dashing: 0
-  holdHeld: 0
   gunLazer: {fileID: 0}
 --- !u!114 &114978605307332324
 MonoBehaviour:

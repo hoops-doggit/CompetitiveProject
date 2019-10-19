@@ -311,7 +311,15 @@ public class CH_SwingAttack : MonoBehaviour
         ignoreBall = false;
         chm.SetState(chm.preState);
         TurnOffDeflectAngles();
-        chm.SetState(State.Normal);
+        if(chm.preState == State.Dashing)
+        {
+            chm.SetState(State.Dashing);
+        }
+        else
+        {
+            chm.SetState(State.Normal);
+        }
+        
     }
 
     private void TurnOffDeflectAngles()

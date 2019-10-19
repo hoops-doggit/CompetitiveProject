@@ -42,6 +42,7 @@ public class CH_Collisions : MonoBehaviour {
     private RaycastHit left02Hit;
     private RaycastHit right01Hit;
     private RaycastHit right02Hit;
+    private CH_Input chi;
     public List<float> xFloatRaw = new List<float>();
     public List<float> xFloatList = new List<float>();
     public List<float> yFloatList = new List<float>();
@@ -52,12 +53,33 @@ public class CH_Collisions : MonoBehaviour {
 
 
     private float characterRadius = 0.43f;
-
-    public LayerMask layerMask;
+    public LayerMask layerMask1;
+    public LayerMask layerMask2;
+    public LayerMask layerMask3;
+    public LayerMask layerMask4;
+    private LayerMask layerMask;
 
     // Use this for initialization
     void Start()
     {
+        chi = GetComponent<CH_Input>();
+        if (chi.playerNumber == PlayerNumber.player1)
+        {
+            layerMask = layerMask1;
+        }
+        else if (chi.playerNumber == PlayerNumber.player2)
+        {
+            layerMask = layerMask1;
+        }
+        else if (chi.playerNumber == PlayerNumber.player3)
+        {
+            layerMask = layerMask3;
+        }
+        else if (chi.playerNumber == PlayerNumber.player4)
+        {
+            layerMask = layerMask4;
+        }
+
         layerMask = ~layerMask; 
     }
 
