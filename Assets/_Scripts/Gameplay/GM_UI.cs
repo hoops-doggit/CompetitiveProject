@@ -7,6 +7,24 @@ public class GM_UI : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject canvases;
+    public Text fpsText;
+
+    float deltaTime = 0.0f;
+
+    void Update()
+    {
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+
+    }
+
+    private void FixedUpdate()
+    {
+        float msec = deltaTime * 1000.0f;
+        float fps = 1.0f / deltaTime;
+        fpsText.text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps).ToString();
+    }
+
+
 
     private void Awake()
     {
@@ -14,6 +32,8 @@ public class GM_UI : MonoBehaviour
         {
             canvases.SetActive(true);
         }
+
+        Application.targetFrameRate = 60;
     }
 
 

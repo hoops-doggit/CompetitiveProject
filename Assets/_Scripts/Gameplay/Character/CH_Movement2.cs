@@ -10,7 +10,7 @@ public class CH_Movement2 : MonoBehaviour {
     public State preState, curState;
     public StateSpeed speedState;
     private float lastx, lasty, lastAngle, stunMovementAmount, shotMovementAmount;
-    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashSpeed, dashDecSpeed, swingDashDecSpeed, dashCooldownTime, dashCooldown, bulletStunMovement, batStunMovement, shotBulletMovement;
+    public float speed, minSpeed, midSpeed, maxSpeed, accSpeed, midAccSpeed, decSpeed, minRotationSpeed, minAimRotSpeed, minInputVector, ballCarryAcc , ballCarryMaxSpeed, dashSpeed, dashDecSpeed, swingDashDecSpeed, dashCooldownTime, dashCooldown, bulletStunMovement, batStunMovement, shotBulletMovement;
     public bool playerMovementDisabled, carryingBall, directionInput, rightTrigger, leftTrigger, dashCooldownRunning;
     public Vector2 movementDirection, lerpedInputVector;
     public float skinDepth;
@@ -649,12 +649,24 @@ public class CH_Movement2 : MonoBehaviour {
     {
         if (rawInput.magnitude > 0.005)
         {
+            
             float x = rawInput.x;
             float y = rawInput.y;
             Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
             Quaternion rotation = Quaternion.LookRotation(relPos, Vector3.up);
-            Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minRotationSpeed);
-            head.rotation = tr;
+            //float difference = Quaternion.Angle(rotation, head.rotation);
+            //Debug.Log(difference);
+            if (!gunLazer.fireLazer)
+            {
+                Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minRotationSpeed);
+                head.rotation = tr;
+            }
+            else
+            {
+                Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minAimRotSpeed);
+                head.rotation = tr;
+            }           
+            
         }
     }
 

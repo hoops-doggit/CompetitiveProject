@@ -8,7 +8,7 @@ public class Gun_Lazer : MonoBehaviour
     [SerializeField] Transform startPoint;
     [SerializeField] LayerMask layerMask;
     private LineRenderer lineR;
-    private bool fireLazer;
+    public bool fireLazer;
 
     void Start()
     {
