@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.hoopsdtoolsco.particularlypromptparenter": "https://github.com/hoops-doggit/ParticularlyPromptParenter.git#upm",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.3.2",
     "com.unity.collab-proxy": "1.2.16",
@@ -41,11 +40,5 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  },
-  "lock": {
-    "com.hoopsdtoolsco.particularlypromptparenter": {
-      "hash": "1e2a0b441760ebf286a0151c8b9978d2258e416b",
-      "revision": "upm"
-    }
   }
 }
