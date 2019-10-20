@@ -40,7 +40,14 @@ public class B_Behaviour : MonoBehaviour
         }        
         else if(collision.gameObject.tag == "bullet")
         {
-            rb.AddForce(rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce), ForceMode.VelocityChange);
+
+            Vector3 reflectDirection = transform.position - collision.transform.position;
+            reflectDirection.y = 0;
+            if (Vector3.Angle(rb.velocity.normalized, reflectDirection) > 90)
+            {
+                //rb.AddForce(rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce), ForceMode.VelocityChange);
+                rb.AddForce(Vector3.Reflect(rb.velocity.normalized, reflectDirection).normalized * rb.velocity.magnitude * 1.5f, ForceMode.VelocityChange);
+            }
             collision.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
         }
     }   

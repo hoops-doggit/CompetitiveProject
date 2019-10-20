@@ -50,12 +50,8 @@ public class Gun_Bullet : MonoBehaviour {
             i++;
             direction = rb.velocity;
         }
-    }
-
-    private void Update()
-    {
         direction = rb.velocity;
-        if(bulletTimer < 2)
+        if (bulletTimer < 2)
         {
             bulletTimer++;
             if (bulletTimer >= 2)
