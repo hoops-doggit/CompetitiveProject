@@ -26,7 +26,7 @@ public class GM_GoalBox : MonoBehaviour
         }
     }
 
-    private void GoalScored()
+    public void GoalScored()
     {
         GM_ScoreKeeper.instance.UpdateScore(gb);
         StartCoroutine("GoalScoredTimeRelatedStuff");
