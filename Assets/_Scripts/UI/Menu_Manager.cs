@@ -7,10 +7,11 @@ public class Menu_Manager : MonoBehaviour
 {
     public enum MenuStyles { Horizontal, Vertical, Grid };
     public MenuStyles menuStyles;
-    public int currentPosition;
+    private int currentPosition;
     public List<Menu_Asset> menuOptions;
-    [SearchableEnum]
-    public KeyCode confirmButton, backButton, forwardButton, leftButton, rightButton;
+
+    public Menu_Asset[] menus;
+    [SearchableEnum] public KeyCode confirmButton, backButton, forwardButton, leftButton, rightButton;
 
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class Menu_Manager : MonoBehaviour
         currentPosition--;
         if (currentPosition < 0)
         {
-            currentPosition = menuOptions.Count;
+            currentPosition = menuOptions.Count - 1;
         }
     }
 
@@ -54,7 +55,7 @@ public class Menu_Manager : MonoBehaviour
 
     public void RunCommand(int i)
     {
-        menuOptions[i].RunOption();
+        menuOptions[i].RunCommand();
     }
 
     void Update()

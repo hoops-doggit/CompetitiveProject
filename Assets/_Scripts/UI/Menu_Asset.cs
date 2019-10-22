@@ -8,10 +8,10 @@ using UnityEngine.Events;
 public class Menu_Asset : MonoBehaviour
 {
     public bool selected;
-    public TextMeshProUGUI text;
+    private TextMeshProUGUI text;
     private string textText;
     private int timer;
-    public UnityEvent optionCode;
+    public UnityEvent optionCommand;
 
 
     private void Start()
@@ -42,8 +42,8 @@ public class Menu_Asset : MonoBehaviour
         text.text = textText;
     }
 
-    public void RunOption()
+    public void RunCommand()
     {
-        optionCode.Invoke();
+        optionCommand.Invoke();
     }
 }
