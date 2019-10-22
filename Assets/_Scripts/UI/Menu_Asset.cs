@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
-public class MenuAsset : MonoBehaviour
+public class Menu_Asset : MonoBehaviour
 {
     public bool selected;
-    public int position;
-    public TextMeshPro text;
+    public TextMeshProUGUI text;
     private string textText;
     private int timer;
-    //menu assets have 
-    //visual representation eg text/image
-    //bool - selected or not
-    //int - 
+    public UnityEvent optionCode;
+
 
     private void Start()
     {
-        text = GetComponent<TextMeshPro>();
+        text = GetComponent<TextMeshProUGUI>();
         textText = text.text;
     }
-
 
     public void Selected()
     {
@@ -34,9 +31,19 @@ public class MenuAsset : MonoBehaviour
             }
             else
             {
-                text.text = textText;
+                text.text = "- "+textText+" -";
             }
             timer = 0;
         }
+    }
+
+    public void ResetState()
+    {
+        text.text = textText;
+    }
+
+    public void RunOption()
+    {
+        optionCode.Invoke();
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine;
 public class FloatVariable : ScriptableObject
 {
     public float Value;
-
 }
 
 public class DumbEnemy : MonoBehaviour
