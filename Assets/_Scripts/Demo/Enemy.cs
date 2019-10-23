@@ -4,50 +4,25 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int health;
-    public int armour;
-    public int gold;
+    public float health;
+    public int goldReward;
+    public float speed;
+    public Transform target;
 
-    private void Start()
+    public void Damaged(int damage)
     {
-        SetUpVariables();
-    }
+        health-=damage;
 
-    protected virtual void SetUpVariables()
-    {
-
-    }
-
-    public virtual void ImDead()
-    {
-        Destroy(this.gameObject);
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("oaksdf;laks");
-        if(other.gameObject.tag == "bullet")
-        {
-            GotHit();
-        }        
-    }
-
-    public virtual void GotHit()
-    {
-        health--;
-        CheckIfDead();
-    }
-
-    private void CheckIfDead()
-    {
-        if (health <= 0)
+        if(health <= 0)
         {
             ImDead();
         }
     }
 
-    public static void Dance()
+    public void ImDead()
     {
-        Debug.Log("you know its time to dance");
+        Destroy(gameObject);
     }
+
+
 }
