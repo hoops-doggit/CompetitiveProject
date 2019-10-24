@@ -54,8 +54,7 @@ public class GM_MatchMaster : MonoBehaviour
         }        
 
         SpawnBall();
-
-        Debug.Log("ResettingRound");        
+     
 
         foreach(GameObject go in players)
         {
@@ -67,7 +66,6 @@ public class GM_MatchMaster : MonoBehaviour
             b.RegenerateBlock();
         }
 
-        Debug.Log("Just reset players");
     }
 
     public void SpawnBall()

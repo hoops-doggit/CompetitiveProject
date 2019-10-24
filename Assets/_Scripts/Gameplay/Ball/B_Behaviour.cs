@@ -6,7 +6,7 @@ public class B_Behaviour : MonoBehaviour
 {
     private Collider col;
     private Rigidbody rb;
-    private bool ballHeld;
+    private bool ballHeld, bullet;
     [SerializeField]private float dropForce;
     [SerializeField]private float dropUpForce, dashDropForce, bulletForce;
     public bool free;
@@ -15,11 +15,21 @@ public class B_Behaviour : MonoBehaviour
     public float magnitude, prePauseMagnitude;
     [SerializeField]private float stunCooldown = 0.1f;
     private Vector3 prePauseDirection;
+    public Vector3 preVelocity, postVelocity;
     
 
     private void Start()
     {
         SetupBall();
+        bullet = false;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!bullet)
+        {
+            preVelocity = rb.velocity;
+        }   
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -40,17 +50,38 @@ public class B_Behaviour : MonoBehaviour
         }        
         else if(collision.gameObject.tag == "bullet")
         {
-
-            Vector3 reflectDirection = transform.position - collision.transform.position;
-            reflectDirection.y = 0;
-            if (Vector3.Angle(rb.velocity.normalized, reflectDirection) > 90)
-            {
-                //rb.AddForce(rb.velocity + (collision.gameObject.GetComponent<Gun_Bullet>().direction.normalized * bulletForce), ForceMode.VelocityChange);
-                rb.AddForce(Vector3.Reflect(rb.velocity.normalized, reflectDirection).normalized * rb.velocity.magnitude * 1.5f, ForceMode.VelocityChange);
-            }
-            collision.gameObject.GetComponent<Gun_Bullet>().DestroyBullet();
+            bullet = true;
+            StartCoroutine(BallSpeedCheck());
         }
-    }   
+    }
+
+    IEnumerator BallSpeedCheck()
+    {
+
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+
+        postVelocity = rb.velocity;
+
+        if (preVelocity.magnitude > postVelocity.magnitude)
+        {
+            rb.AddForce(rb.velocity.normalized * preVelocity.magnitude *1.1f, ForceMode.VelocityChange);
+            if(rb.velocity.magnitude < bulletForce)
+            {
+                rb.velocity = rb.velocity.normalized * 30;
+                Debug.Log("Did secondary ball v change");
+            }
+            else
+            {
+                Debug.Log("Did standard ball v change");
+            }
+            
+        }
+        bullet = false;
+    }
+
 
     public void SetupBall()
     {

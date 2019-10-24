@@ -5,9 +5,10 @@ using RoboRyanTron.SearchableEnum;
 
 public class Menu_Manager : MonoBehaviour
 {
+    public string MenuName;
     public enum MenuStyles { Horizontal, Vertical, Grid };
     public MenuStyles menuStyles;
-    private int currentPosition;
+    public int currentPosition;
     public List<Menu_Asset> menuOptions;
 
     public Menu_Asset[] menus;

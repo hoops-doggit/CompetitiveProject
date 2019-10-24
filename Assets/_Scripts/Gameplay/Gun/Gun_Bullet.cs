@@ -7,7 +7,7 @@ public class Gun_Bullet : MonoBehaviour {
 
     float age = 0;
     public float maxAge = 800;
-    public float initialSpeed = 200;
+    public float initialSpeed = 10000;
     private Rigidbody rb;
     public Vector3 direction;
     private int i = 0, deflectNumber;
@@ -73,17 +73,20 @@ public class Gun_Bullet : MonoBehaviour {
 
         deflectNumber++;
 
-        if(collision.gameObject.tag != "ball")
+        if(go.tag != "ball")
         {
             if (deflectNumber <= 1)
             {
-                //start hashing out bullet secondary bounce here; 
-                //go.GetComponent<Rigidbody>().AddRelativeForce();
+
             }
             else
             {
                 DestroyBullet();
             }
+        }
+        else
+        {
+            DestroyBullet();
         }
              
     }

@@ -28,7 +28,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
         this.owner = owner;
         this.ownerT = ownerT;
         this.chargeIndicatorPos = chargeIndicatorPos;
-        currentTime = cooldownTime;
+        currentTime = 1;
     }
 
     public override void Gupdate()
