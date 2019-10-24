@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [CreateAssetMenu]
-public class Menu_Commands : ScriptableObject
+public class System_initialisePlayers : ScriptableObject
 {
     public enum Players { Two, Four };
     public Players players;

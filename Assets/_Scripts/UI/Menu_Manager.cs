@@ -10,8 +10,6 @@ public class Menu_Manager : MonoBehaviour
     public MenuStyles menuStyles;
     public int currentPosition;
     public List<Menu_Asset> menuOptions;
-
-    public Menu_Asset[] menus;
     [SearchableEnum] public KeyCode confirmButton, backButton, forwardButton, leftButton, rightButton;
 
 
@@ -72,6 +70,14 @@ public class Menu_Manager : MonoBehaviour
                 if (Input.GetKeyDown(forwardButton))
                 {
                     NextOption();
+                }
+                if (Input.GetKeyDown(leftButton))
+                {
+                    menuOptions[currentPosition].LeftInteract();
+                }
+                if (Input.GetKeyDown(rightButton))
+                {
+                    menuOptions[currentPosition].RightInteract();
                 }
                 if (Input.GetKeyDown(confirmButton))
                 {

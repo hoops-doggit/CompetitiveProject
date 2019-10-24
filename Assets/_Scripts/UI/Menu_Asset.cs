@@ -7,17 +7,30 @@ using UnityEngine.Events;
 
 public class Menu_Asset : MonoBehaviour
 {
-    public bool selected;
-    private TextMeshProUGUI text;
-    private string textText;
+    public enum Style { HorizontalOptions }
+    public Style style;
+    [Tooltip("start text is what the option should look like when the game starts")]
+    public string startText;
+    private TextMeshProUGUI tmp;
+    public string[] options;
+    public int curOption;
+    
     private int timer;
     public UnityEvent optionCommand;
+ 
 
 
     private void Start()
     {
-        text = GetComponent<TextMeshProUGUI>();
-        textText = text.text;
+        tmp = GetComponent<TextMeshProUGUI>();
+        if (startText == null)
+        {
+            startText = tmp.text;
+        }
+        else
+        {
+            tmp.text = startText;
+        }
     }
 
     public void Selected()
@@ -25,21 +38,82 @@ public class Menu_Asset : MonoBehaviour
         timer++;
         if (timer > 5)
         {
-            if (text.text != "")
+            if(options.Length > 0)
             {
-                text.text = "";
+                if (tmp.text != "[ " + startText + options[curOption] + " ]")
+                {
+                    tmp.text = "[ " + startText + options[curOption] + " ]";
+                }
+                else
+                {
+                    tmp.text = "";
+                }
             }
             else
             {
-                text.text = "- "+textText+" -";
-            }
+                if (tmp.text != "[ " + startText + " ]")
+                {
+                    tmp.text = "[ " + startText + " ]";
+                }
+                else
+                {
+                    tmp.text = "";
+                }
+            }   
+
             timer = 0;
+        }
+    }
+
+    public void LeftInteract()
+    {
+        switch (style)
+        {
+            case Style.HorizontalOptions:
+                PreviousOption();
+                break;
+        }
+    }
+
+    public void RightInteract()
+    {
+        switch (style)
+        {
+            case Style.HorizontalOptions:
+                NextOption();
+                break;
+        }
+    }
+
+    public void NextOption()
+    {
+        curOption++;
+        if (curOption > options.Length - 1)
+        {
+            curOption = 0;
+        }
+
+    }
+
+    public void PreviousOption()
+    {
+        curOption--;
+        if (curOption < 0)
+        {
+            curOption = options.Length - 1;
         }
     }
 
     public void ResetState()
     {
-        text.text = textText;
+        if (options.Length > 0)
+        {
+            tmp.text = startText + options[curOption];
+        }
+        else
+        {
+            tmp.text = startText;
+        }
     }
 
     public void RunCommand()
