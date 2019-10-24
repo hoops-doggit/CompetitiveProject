@@ -208,6 +208,7 @@ MonoBehaviour:
   ballStartPos:
   - {fileID: 408698523}
   players: []
+  NumberOfPlayers: 0
   ball: {fileID: 1470256393434294, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
   centreBlocks: {fileID: 0}
   destructibleBlocks:
@@ -216,6 +217,11 @@ MonoBehaviour:
   - {fileID: 1290407512}
   - {fileID: 2113807691}
   ballClones: []
+  StartPlayerInitialisation:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1382665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5996,7 +6002,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 2 player
+  m_text: 'Players : '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 91755cee894a2bb498b9585598e94f62, type: 2}
   m_sharedMaterial: {fileID: -2554970496350133549, guid: 91755cee894a2bb498b9585598e94f62,
@@ -6066,10 +6072,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -66.34706, w: -1.0798137}
   m_textInfo:
     textComponent: {fileID: 385159025}
-    characterCount: 8
+    characterCount: 10
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 2
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -6119,7 +6125,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: c91f3b19e9d70bd43bffeb0eb2e0ac5f, type: 2}
-        m_MethodName: Start2PlayerGame
+        m_MethodName: UpdatePlayerNumber
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10946,7 +10952,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: c91f3b19e9d70bd43bffeb0eb2e0ac5f, type: 2}
-        m_MethodName: Start4PlayerGame
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

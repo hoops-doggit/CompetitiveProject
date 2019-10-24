@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -208,6 +208,7 @@ MonoBehaviour:
   ballStartPos:
   - {fileID: 408698523}
   players: []
+  NumberOfPlayers: 0
   ball: {fileID: 1470256393434294, guid: 9f4bc81f5dc519347ac34e168b83b9c4, type: 3}
   centreBlocks: {fileID: 0}
   destructibleBlocks:
@@ -216,6 +217,22 @@ MonoBehaviour:
   - {fileID: 1290407512}
   - {fileID: 2113807691}
   ballClones: []
+  StartPlayerInitialisation:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 74e2f074a5fc72248915556266d57d3b, type: 2}
+        m_MethodName: DebugPlayers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1382665
 MonoBehaviour:
   m_ObjectHideFlags: 0

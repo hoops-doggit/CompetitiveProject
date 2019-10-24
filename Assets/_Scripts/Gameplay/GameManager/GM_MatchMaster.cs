@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GM_MatchMaster : MonoBehaviour
 {
     public static GM_MatchMaster instance = null;
     [SerializeField] private List<GameObject> ballStartPos = new List<GameObject>();
     [SerializeField] private List<GameObject> players;
+    public int NumberOfPlayers;
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject centreBlocks;
     [SerializeField] private List<Block_Destructable> destructibleBlocks;
     private GameObject blocksClone;
     public List<GameObject> ballClones = new List<GameObject>();
+
+    public UnityEvent StartPlayerInitialisation;
 
 
     private void Awake()
@@ -32,7 +36,10 @@ public class GM_MatchMaster : MonoBehaviour
         {
             i.SetActive(false);
         }
+
+        StartPlayerInitialisation.Invoke();
     }
+
 
     public void AddPlayer(GameObject player)
     {

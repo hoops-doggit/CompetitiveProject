@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class Menu_Asset : MonoBehaviour
 {
-    public enum Style { HorizontalOptions }
+    public enum Style { HorizontalOptions, Button }
     public Style style;
     [Tooltip("start text is what the option should look like when the game starts")]
     public string startText;
@@ -113,6 +113,11 @@ public class Menu_Asset : MonoBehaviour
         else
         {
             tmp.text = startText;
+        }
+
+        if(style == Style.HorizontalOptions)
+        {
+            optionCommand.Invoke();
         }
     }
 

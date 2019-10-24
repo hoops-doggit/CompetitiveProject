@@ -8,14 +8,15 @@ public class Menu_Commands : ScriptableObject
 {
     public enum Players { Two, Four };
     public Players players;
+    public int playerNo;
+    public PlayerInitialiser pi;
 
-    public void StartGame(Players players)
+    public void StartGame()
     {
-
+        //get which number the players are set to
         switch (players)
         {
             case Players.Two:
-
                 Debug.Log("Load 2 player game");
                 SceneManager.LoadScene("GunnerSoccer2P");
                 
@@ -30,6 +31,11 @@ public class Menu_Commands : ScriptableObject
     private void InitialisePlayerPrefs()
     {
         
+    }
+
+    public void UpdatePlayerNumber()
+    {
+        pi.players = 
     }
 
     public void QuitGame()
