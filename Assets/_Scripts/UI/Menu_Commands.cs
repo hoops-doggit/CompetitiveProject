@@ -31,14 +31,19 @@ public class Menu_Commands : ScriptableObject
         }        
     }
 
-    private void InitialisePlayerPrefs()
+    private void TwoPlayers()
     {
-        
+        UpdatePlayerNumber(2);
+    }
+
+    public void FourPlayers()
+    {
+        UpdatePlayerNumber(4);
     }
 
     public void UpdatePlayerNumber(int i)
     {
-        //pi.players = 
+        pi.players = i;
     }
 
     public void QuitGame()

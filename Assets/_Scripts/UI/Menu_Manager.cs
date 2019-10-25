@@ -10,6 +10,7 @@ public class Menu_Manager : MonoBehaviour
     public MenuStyles menuStyles;
     public int currentPosition;
     public List<Menu_Asset> menuOptions;
+    public List<Menu_Asset> horizontalScrolling;
     [SearchableEnum] public KeyCode confirmButton, backButton, forwardButton, leftButton, rightButton;
 
 

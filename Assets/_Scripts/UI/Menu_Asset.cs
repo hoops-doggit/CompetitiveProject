@@ -12,11 +12,8 @@ public class Menu_Asset : MonoBehaviour
     [Tooltip("start text is what the option should look like when the game starts")]
     public string startText;
     private TextMeshProUGUI tmp;
-    public string[] options;
-    public int curOption;
-    
-    private int timer;
-    public UnityEvent optionCommand;
+    public int curOption;    
+    [HideInInspector] public int timer;
  
 
 
@@ -24,99 +21,41 @@ public class Menu_Asset : MonoBehaviour
     {
         tmp = GetComponent<TextMeshProUGUI>();
         tmp.text = startText;
+    }
+
+    //Use this for updating text
+    public virtual void Selected()
+    {
 
     }
 
-    public void Selected()
+    public virtual void LeftInteract()
     {
-        timer++;
-        if (timer > 5)
-        {
-            if(options.Length > 0)
-            {
-                if (tmp.text != "[ " + startText + options[curOption] + " ]")
-                {
-                    tmp.text = "[ " + startText + options[curOption] + " ]";
-                }
-                else
-                {
-                    tmp.text = "";
-                }
-            }
-            else
-            {
-                if (tmp.text != "[ " + startText + " ]")
-                {
-                    tmp.text = "[ " + startText + " ]";
-                }
-                else
-                {
-                    tmp.text = "";
-                }
-            }   
-
-            timer = 0;
-        }
-    }
-
-    public void LeftInteract()
-    {
-        switch (style)
-        {
-            case Style.HorizontalOptions:
-                PreviousOption();
-                break;
-        }
-    }
-
-    public void RightInteract()
-    {
-        switch (style)
-        {
-            case Style.HorizontalOptions:
-                NextOption();
-                break;
-        }
-    }
-
-    public void NextOption()
-    {
-        curOption++;
-        if (curOption > options.Length - 1)
-        {
-            curOption = 0;
-        }
 
     }
 
-    public void PreviousOption()
+    public virtual void RightInteract()
     {
-        curOption--;
-        if (curOption < 0)
-        {
-            curOption = options.Length - 1;
-        }
+
     }
 
-    public void ResetState()
+    public virtual void UpInterract()
     {
-        if (options.Length > 0)
-        {
-            tmp.text = startText + options[curOption];
-        }
-        else
-        {
-            tmp.text = startText;
-        }
 
-        if(style == Style.HorizontalOptions)
-        {
-            optionCommand.Invoke();
-        }
     }
 
-    public void RunCommand()
+    public virtual void DownInteract()
     {
-        optionCommand.Invoke();
+
+    }
+
+    public virtual void RunCommand()
+    {
+
+    }
+
+    public virtual void ResetState()
+    {
+        
     }
 }

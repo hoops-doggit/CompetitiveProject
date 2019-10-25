@@ -6112,7 +6112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 385159023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bc5802e1cd83e643b729a854d686c63, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f642a72ebbc11a4b94cba0fd23af8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   style: 0
@@ -6120,21 +6120,32 @@ MonoBehaviour:
   options:
   - 2
   - 4
-  curOption: 0
+  curOption: 2
   optionCommand:
     m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  options: []
+  curOption: 0
+  commands:
+  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: c91f3b19e9d70bd43bffeb0eb2e0ac5f, type: 2}
-        m_MethodName: UpdatePlayerNumber
-        m_Mode: 3
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  - m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &391621586
@@ -18579,11 +18590,12 @@ MonoBehaviour:
   menuStyles: 1
   currentPosition: 0
   menuOptions:
-  - {fileID: 385159027}
+  - {fileID: 0}
   - {fileID: 710679570}
   - {fileID: 282106575}
   - {fileID: 1982431521}
   - {fileID: 1141065930}
+  horizontalScrolling: []
   confirmButton: 13
   backButton: 273
   forwardButton: 274
