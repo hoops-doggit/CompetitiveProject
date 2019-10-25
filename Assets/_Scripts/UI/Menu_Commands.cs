@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu]
 public class Menu_Commands : ScriptableObject
 {
+    //this is just a container for holding code that will be run during menu events
+
+
     public enum Players { Two, Four };
     public Players players;
     public int playerNo;
@@ -33,9 +36,9 @@ public class Menu_Commands : ScriptableObject
         
     }
 
-    public void UpdatePlayerNumber()
+    public void UpdatePlayerNumber(int i)
     {
-        pi.players = 
+        //pi.players = 
     }
 
     public void QuitGame()

@@ -23,14 +23,8 @@ public class Menu_Asset : MonoBehaviour
     private void Start()
     {
         tmp = GetComponent<TextMeshProUGUI>();
-        if (startText == null)
-        {
-            startText = tmp.text;
-        }
-        else
-        {
-            tmp.text = startText;
-        }
+        tmp.text = startText;
+
     }
 
     public void Selected()
