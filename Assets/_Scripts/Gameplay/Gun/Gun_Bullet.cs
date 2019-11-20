@@ -56,7 +56,8 @@ public class Gun_Bullet : MonoBehaviour {
             bulletTimer++;
             if (bulletTimer >= 2)
             {
-                gameObject.layer = LayerMask.NameToLayer(owner);
+                //THIS NEEDS TO BE CHANGED
+                //gameObject.layer = LayerMask.NameToLayer(owner);
             }
         }
         if (tempOwner != null && ownerT != tempOwnerT)
@@ -77,7 +78,6 @@ public class Gun_Bullet : MonoBehaviour {
         {
             if (deflectNumber <= 1)
             {
-
             }
             else
             {
@@ -86,9 +86,16 @@ public class Gun_Bullet : MonoBehaviour {
         }
         else
         {
-            DestroyBullet();
-        }
-             
+            //go.GetComponent<B_Behaviour>().Bullet(new Vector2(rb.velocity.x, rb.velocity.z));
+            //DestroyBullet();
+        }             
+    }
+
+    public void HitBall(GameObject ball)
+    {
+        Debug.Log("Running hit ball");
+        ball.GetComponent<B_Behaviour>().Bullet(new Vector2(rb.velocity.x, rb.velocity.z));
+        DestroyBullet();
     }
 
     public void DestroyBullet()

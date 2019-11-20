@@ -580,8 +580,7 @@ public class CH_Movement2 : MonoBehaviour {
     void HeadDirection2(Vector2 rawInput)
     {
         if (rawInput.magnitude > 0.005)
-        {
-            
+        {            
             float x = rawInput.x;
             float y = rawInput.y;
             Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
@@ -597,8 +596,7 @@ public class CH_Movement2 : MonoBehaviour {
             {
                 Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minAimRotSpeed);
                 head.rotation = tr;
-            }           
-            
+            }
         }
     }
 

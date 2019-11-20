@@ -241,6 +241,10 @@ MonoBehaviour:
   magnitude: 0
   prePauseMagnitude: 0
   stunCooldown: 0.2
+  preVelocity: {x: 0, y: 0, z: 0}
+  postVelocity: {x: 0, y: 0, z: 0}
+  _preVel: {x: 0, y: 0, z: 0}
+  _postVel: {x: 0, y: 0, z: 0}
 --- !u!114 &7444372478252359363
 MonoBehaviour:
   m_ObjectHideFlags: 0

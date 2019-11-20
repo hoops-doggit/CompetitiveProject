@@ -15,7 +15,8 @@ public class B_Behaviour : MonoBehaviour
     public float magnitude, prePauseMagnitude;
     [SerializeField]private float stunCooldown = 0.1f;
     private Vector3 prePauseDirection;
-    public Vector3 preVelocity, postVelocity;
+    public Vector3 preVelocity, postVelocity, _preVel, _postVel;
+    private Vector2 ballV2, bulletV2;
     
 
     private void Start()
@@ -29,7 +30,9 @@ public class B_Behaviour : MonoBehaviour
         if (!bullet)
         {
             preVelocity = rb.velocity;
-        }   
+        }
+        _preVel = rb.velocity;
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -50,8 +53,9 @@ public class B_Behaviour : MonoBehaviour
         }        
         else if(collision.gameObject.tag == "bullet")
         {
-            bullet = true;
-            StartCoroutine(BallSpeedCheck());
+            //bullet = true;
+            //StartCoroutine(BallSpeedCheck());
+
         }
     }
 
@@ -82,6 +86,28 @@ public class B_Behaviour : MonoBehaviour
         bullet = false;
     }
 
+    public void Bullet(Vector2 bulletVector)
+    {
+        ballV2.x = _preVel.x;
+        ballV2.y = _preVel.z;
+
+        bulletV2 = bulletVector;
+
+        Vector2 testVector = new AngleMath().Vector2BetweenTwoVectors(ballV2, bulletV2);
+
+        if(testVector.magnitude > 2)
+        {
+            Debug.Log("ball velocity propper");
+            rb.AddForce(new Vector3(testVector.x, 0, testVector.y).normalized * bulletForce, ForceMode.VelocityChange);
+        }
+        else
+        {
+            Debug.Log("ball velocity else");
+            rb.AddForce(new Vector3(bulletV2.x, 0, bulletV2.y).normalized * bulletForce, ForceMode.VelocityChange);
+        }
+        
+    }
+
 
     public void SetupBall()
     {
@@ -97,8 +123,8 @@ public class B_Behaviour : MonoBehaviour
     {
         if (!ballHeld)
         {
-            Debug.Log("prepausemagnitude = " + prePauseMagnitude);
-            Debug.Log("magnitude = " + magnitude);
+            //Debug.Log("prepausemagnitude = " + prePauseMagnitude);
+            //Debug.Log("magnitude = " + magnitude);
             if(magnitude < 20)
             {                
                 rb.velocity = playerT.forward * 30;
