@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-guid: 22468552eea4a864286bc1746bdfc4a0
-=======
-guid: 56bfcb19de49ccf438d32ea56087fd44
->>>>>>> Stashed changes
+guid: f780527ad80209f488c55ec7dbb25e17
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
@@ -44,13 +40,8 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-<<<<<<< Updated upstream
     importCameras: 1
     importLights: 1
-=======
-    importCameras: 0
-    importLights: 0
->>>>>>> Stashed changes
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
