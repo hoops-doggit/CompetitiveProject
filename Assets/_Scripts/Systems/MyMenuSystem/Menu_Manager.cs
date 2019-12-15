@@ -53,9 +53,9 @@ public class Menu_Manager : MonoBehaviour
     }
 
 
-    public void RunCommand(int i)
+    public void RunCommand()
     {
-        menuOptions[i].RunEvent();
+        menuOptions[currentPosition].RunEvent();
     }
 
     void Update()

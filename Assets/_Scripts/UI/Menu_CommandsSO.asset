@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594dc49e180ecc44c98e55318fcec36b, type: 3}
   m_Name: Menu_CommandsSO
   m_EditorClassIdentifier: 
+  players: 0
+  playerNo: 0
+  pi: {fileID: 0}

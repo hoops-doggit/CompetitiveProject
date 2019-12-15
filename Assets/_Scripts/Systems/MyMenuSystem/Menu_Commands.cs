@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Players { Two, Four };
+
 [CreateAssetMenu]
 public class Menu_Commands : ScriptableObject
 {
     //this is just a container for holding code that will be run during menu events
 
-    public enum Players { Two, Four };
+    
     public Players players;
     public int playerNo;
     public PlayerInitialiser pi;
+    public bool controls = false;
+    public GameObject controlss;
+
 
     public void StartGame()
     {
@@ -33,11 +38,28 @@ public class Menu_Commands : ScriptableObject
     public void TwoPlayers()
     {
         players = Players.Two;
+        Debug.Log("players 2");
     }
 
     public void FourPlayers()
     {
         players = Players.Four;
+        Debug.Log("players 4");
+    }
+
+    public void DisplayControls()
+    {
+        if (!controls)
+        {
+            controlss.SetActive(true);
+            controls = true;
+        }
+        else
+        {
+            controlss.SetActive(false);
+            controls = false;
+        }
+
     }
 
     public void QuitGame()
