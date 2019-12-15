@@ -39,12 +39,12 @@ public class Menu_Manager : MonoBehaviour
 
     public void LeftOption()
     {
-
+        menuOptions[currentPosition].LeftInteract();
     }
 
     public void RightOption()
     {
-
+        menuOptions[currentPosition].RightInteract();
     }
 
     public void ResetSelectionState()
@@ -61,35 +61,35 @@ public class Menu_Manager : MonoBehaviour
     void Update()
     {
         menuOptions[currentPosition].Selected();
-        switch (menuStyles)
-        {
-            case MenuStyles.Vertical:
-                if (Input.GetKeyDown(backButton))
-                {
-                    PreviousOption();
-                }
-                if (Input.GetKeyDown(forwardButton))
-                {
-                    NextOption();
-                }
-                if (Input.GetKeyDown(leftButton))
-                {
-                    menuOptions[currentPosition].LeftInteract();
-                }
-                if (Input.GetKeyDown(rightButton))
-                {
-                    menuOptions[currentPosition].RightInteract();
-                }
-                if (Input.GetKeyDown(confirmButton))
-                {
-                    RunCommand(currentPosition);
-                }
-                break;
-            case MenuStyles.Horizontal:
-                break;
-            case MenuStyles.Grid:
-                break;
-        }
+        //switch (menuStyles)
+        //{
+        //    case MenuStyles.Vertical:
+        //        if (Input.GetKeyDown(backButton))
+        //        {
+        //            PreviousOption();
+        //        }
+        //        if (Input.GetKeyDown(forwardButton))
+        //        {
+        //            NextOption();
+        //        }
+        //        if (Input.GetKeyDown(leftButton))
+        //        {
+        //            menuOptions[currentPosition].LeftInteract();
+        //        }
+        //        if (Input.GetKeyDown(rightButton))
+        //        {
+        //            menuOptions[currentPosition].RightInteract();
+        //        }
+        //        if (Input.GetKeyDown(confirmButton))
+        //        {
+        //            RunCommand(currentPosition);
+        //        }
+        //        break;
+        //    case MenuStyles.Horizontal:
+        //        break;
+        //    case MenuStyles.Grid:
+        //        break;
+        //}
     }
 
 
