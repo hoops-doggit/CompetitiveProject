@@ -3,6 +3,7 @@
 public class GunControl : MonoBehaviour {
     public bool firegun;
     private Gun gun;
+    public bool gamePaused;
     [Header("Charged Shot Parameters")]
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject chargeIndicator;
@@ -69,50 +70,57 @@ public class GunControl : MonoBehaviour {
 
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate ()
+    {
+        if (!gamePaused)
+        {
+            gun.Gupdate();
 
-        gun.Gupdate();
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeToChargedShot();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeToArtillary();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeToMachineGun();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeToCooldownChargedShot();
-        }        
-
-        if (Input.GetKeyDown(shootButton))
-        {
-            if (chb.holdingBall)
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                chb.ThrowBall();
+                ChangeToChargedShot();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ChangeToArtillary();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ChangeToMachineGun();
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                ChangeToCooldownChargedShot();
             }
 
-            else if(!chb.holdingBall)
+            if (Input.GetKeyDown(shootButton))
+            {
+                if (chb.holdingBall)
+                {
+                    chb.ThrowBall();
+                }
+
+                else if (!chb.holdingBall)
+                {
+                    gun.TriggerPull();
+                }
+            }
+            else
+            {
+                gun.TriggerRelease();
+            }
+
+            //This is used for debugging etc
+            if (firegun)
             {
                 gun.TriggerPull();
-            }            
+            }
         }
-        else
-        {
-            gun.TriggerRelease();
-        }
+    }
 
-
-        //This is used for debugging etc
-        if (firegun)
-        {
-            gun.TriggerPull();
-        }
-
+    public void ToggleInputPause()
+    {
+        if (gamePaused) { gamePaused = false; }
+        else { gamePaused = true; }
     }
 }

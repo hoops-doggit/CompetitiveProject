@@ -14,9 +14,11 @@ public class CH_Input : MonoBehaviour {
     public KeyCode throwKey;
     public KeyCode swingKey;
     public KeyCode dashKey;
+    public KeyCode menuKey;
     public string owner;
     private float deadzone = 0.1f;
     public float xInput, yInput;
+
 
     void Awake ()
     {
@@ -35,6 +37,29 @@ public class CH_Input : MonoBehaviour {
     {
         CalculateDeadZone(Input.GetAxisRaw(xAxis), Input.GetAxisRaw(yAxis));
     }
+
+    private void Update()
+    {
+        if(playerNumber != PlayerNumber.player1)
+        {
+            if (Input.GetKeyDown(menuKey))
+            {
+                GM_MatchMaster.instance.TogglePause();
+            }            
+        }
+        else
+        {
+            if(Input.GetKeyDown(menuKey) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                GM_MatchMaster.instance.TogglePause();
+            }
+        }
+        
+    }
+
+
+
+
 
     private void CalculateDeadZone(float horizontal, float vertical)
     {
@@ -64,6 +89,7 @@ public class CH_Input : MonoBehaviour {
                 throwKey = KeyCode.Joystick1Button1;
                 swingKey = KeyCode.Joystick1Button2;
                 dashKey = KeyCode.Joystick1Button3;
+                menuKey = KeyCode.Joystick1Button7;
                 owner = "p1";
                 break;
 
@@ -76,6 +102,7 @@ public class CH_Input : MonoBehaviour {
                 throwKey = KeyCode.Joystick2Button1;
                 swingKey = KeyCode.Joystick2Button2;
                 dashKey = KeyCode.Joystick2Button3;
+                menuKey = KeyCode.Joystick2Button7;
                 owner = "p2";
                 //swingKey = KeyCode.Space;
                 break;
@@ -89,6 +116,7 @@ public class CH_Input : MonoBehaviour {
                 throwKey = KeyCode.Joystick3Button1;
                 swingKey = KeyCode.Joystick3Button2;
                 dashKey = KeyCode.Joystick3Button3;
+                menuKey = KeyCode.Joystick3Button7;
                 owner = "p3";
                 break;
 
@@ -101,6 +129,7 @@ public class CH_Input : MonoBehaviour {
                 throwKey = KeyCode.Joystick4Button1;
                 swingKey = KeyCode.Joystick4Button2;
                 dashKey = KeyCode.Joystick4Button3;
+                menuKey = KeyCode.Joystick4Button7;
                 owner = "p4";
                 break;
         }

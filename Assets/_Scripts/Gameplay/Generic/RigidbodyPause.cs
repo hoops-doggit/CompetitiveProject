@@ -18,7 +18,7 @@ public class RigidbodyPause : MonoBehaviour
         rb.Sleep();
     }
 
-    public void WakeRigidbody()
+    public void UnPauseRigidbody()
     {
         rb.WakeUp();
         rb.velocity = velocity;        

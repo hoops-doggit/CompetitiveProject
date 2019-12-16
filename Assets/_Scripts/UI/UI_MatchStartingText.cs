@@ -61,9 +61,6 @@ public class UI_MatchStartingText : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         startGameText.text = null;
     }
-    
-
-
 
     private IEnumerator RestartGame()
     {

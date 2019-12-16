@@ -26,6 +26,7 @@ public class Gun_Bullet : MonoBehaviour {
         GetComponent<MeshRenderer>().material = bulletMats[SetupMaterial()];
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * initialSpeed, ForceMode.VelocityChange);
+        GM_MatchMaster.instance.bullets.Add(gameObject);
     }
 
     private int SetupMaterial()
@@ -100,6 +101,7 @@ public class Gun_Bullet : MonoBehaviour {
 
     public void DestroyBullet()
     {
+        GM_MatchMaster.instance.bullets.Remove(gameObject);
         Destroy(gameObject);
     }
 
@@ -133,7 +135,6 @@ public class Gun_Bullet : MonoBehaviour {
         tempOwner = newOwner;
         gameObject.layer = LayerMask.NameToLayer(newOwner);
     }
-
     
 
 }

@@ -58,140 +58,145 @@ public class CH_Movement2 : MonoBehaviour {
 
     void FixedUpdate()
     {
-        chCol = GetComponent<CH_Collisions>();
-        chCol.CalculateRays();
-        chi = GetComponent<CH_Input>();
 
-        //this checks if player is inputing any movement
-        if (chi.xInput != 0 || chi.yInput != 0)
+        if (!playerMovementDisabled)
         {
-            directionInput = true;
-        }
-        else
-        {
-            directionInput = false;
-        }
+            chCol = GetComponent<CH_Collisions>();
+            chCol.CalculateRays();
+            chi = GetComponent<CH_Input>();
 
-        #region states
-
-        if (curState == State.Normal)
-        {
-            if (leftTrigger) //Aiming
+            //this checks if player is inputing any movement
+            if (chi.xInput != 0 || chi.yInput != 0)
             {
-                //directionInput = false;
-                Speed(StateSpeed.Aiming);
-                Move(chi.xInput, chi.yInput, 0);
-                gunLazer.FirinMaLazer();
+                directionInput = true;
             }
             else
             {
-                if (directionInput) { Speed(StateSpeed.Accelerating); }
-                else { Speed(StateSpeed.Deccelerating); }
-                Move(chi.xInput, chi.yInput, State.Normal);
+                directionInput = false;
             }
-        }
 
-        else if (curState == State.Stunned)
-        {
-            Move(stunDirection.x, stunDirection.y, State.Stunned); //direction of impact
-            if (stunMovementAmount > 0)
+            #region states
+
+            if (curState == State.Normal)
             {
-                stunMovementAmount /= 1.25f;
-                if (stunMovementAmount < 0.001f)
+                if (leftTrigger) //Aiming
                 {
-                    stunMovementAmount = 0;
-                    SetState(State.Normal);
+                    //directionInput = false;
+                    Speed(StateSpeed.Aiming);
+                    Move(chi.xInput, chi.yInput, 0);
+                    gunLazer.FirinMaLazer();
+                }
+                else
+                {
+                    if (directionInput) { Speed(StateSpeed.Accelerating); }
+                    else { Speed(StateSpeed.Deccelerating); }
+                    Move(chi.xInput, chi.yInput, State.Normal);
                 }
             }
-            speed = 0;
-        }
-        else if (curState == State.FiredGun)
-        {
-            //if you shoot while dashing it should execute both dash and shoot movement
-            if(preState == State.Dashing)
+
+            else if (curState == State.Stunned)
+            {
+                Move(stunDirection.x, stunDirection.y, State.Stunned); //direction of impact
+                if (stunMovementAmount > 0)
+                {
+                    stunMovementAmount /= 1.25f;
+                    if (stunMovementAmount < 0.001f)
+                    {
+                        stunMovementAmount = 0;
+                        SetState(State.Normal);
+                    }
+                }
+                speed = 0;
+            }
+            else if (curState == State.FiredGun)
+            {
+                //if you shoot while dashing it should execute both dash and shoot movement
+                if (preState == State.Dashing)
+                {
+                    if (leftTrigger) { gunLazer.FirinMaLazer(); }
+                    Speed(StateSpeed.Dashing);
+                    Move(chi.xInput, chi.yInput, State.Dashing);
+
+                    Move(shotDirection.x, shotDirection.y, State.FiredGun);
+
+                    if (shotMovementAmount > 0)
+                    {
+                        shotMovementAmount /= 1.25f;
+                        if (shotMovementAmount < 0.05f)
+                        {
+                            shotMovementAmount = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    Move(shotDirection.x, shotDirection.y, State.FiredGun);
+                    if (shotMovementAmount > 0)
+                    {
+                        shotMovementAmount /= 1.25f;
+                        if (shotMovementAmount < 0.05f)
+                        {
+                            shotMovementAmount = 0;
+                            SetState(State.Normal);
+                        }
+                    }
+                }
+            }
+            else if (curState == State.Dashing)
             {
                 if (leftTrigger) { gunLazer.FirinMaLazer(); }
                 Speed(StateSpeed.Dashing);
                 Move(chi.xInput, chi.yInput, State.Dashing);
+            }
 
-                Move(shotDirection.x, shotDirection.y, State.FiredGun);
-
-                if (shotMovementAmount > 0)
+            else if (curState == State.SwingAttack)
+            {
+                if (preState == State.Dashing)
                 {
-                    shotMovementAmount /= 1.25f;
-                    if (shotMovementAmount < 0.05f)
+                    Speed(StateSpeed.Dashing);
+                    Move(chi.xInput, chi.yInput, State.SwingAttack);
+                    if (leftTrigger)
                     {
-                        shotMovementAmount = 0;
+                        gunLazer.FirinMaLazer();
                     }
                 }
-            }
-            else
-            {
-                Move(shotDirection.x, shotDirection.y, State.FiredGun);
-                if (shotMovementAmount > 0)
+                else
                 {
-                    shotMovementAmount /= 1.25f;
-                    if (shotMovementAmount < 0.05f)
-                    {
-                        shotMovementAmount = 0;
-                        SetState(State.Normal);
-                    }
+                    //deccelerate in last direction 
+                    //ignore direction input
+                    directionInput = false;
+                    Speed(StateSpeed.Deccelerating);
+                    Move(chi.xInput, chi.yInput, State.SwingAttack);
                 }
             }
-        }
-        else if (curState == State.Dashing)
-        {
-            if (leftTrigger) {  gunLazer.FirinMaLazer(); }
-            Speed(StateSpeed.Dashing);
-            Move(chi.xInput, chi.yInput, State.Dashing);                                  
-        }
+            #endregion
 
-        else if(curState == State.SwingAttack)
-        {
-            if (preState == State.Dashing)
+            #region right trigger stuff
+            if (Input.GetAxisRaw(hold) > 0)
             {
-                Speed(StateSpeed.Dashing);
-                Move(chi.xInput, chi.yInput, State.SwingAttack);
-                if (leftTrigger)
-                {
-                    gunLazer.FirinMaLazer();
+                if (dashCooldown == 0 && !rightTrigger)
+                {// & !rightTrigger
+                    Dash();
                 }
+                rightTrigger = true;
             }
-            else
+
+            //Right trigger
+            if (Input.GetAxisRaw(hold) < 0.1f)
             {
-                //deccelerate in last direction 
-                //ignore direction input
-                directionInput = false;
-                Speed(StateSpeed.Deccelerating);
-                Move(chi.xInput, chi.yInput, State.SwingAttack);
+                rightTrigger = false;
             }
-        }
-        #endregion
+            #endregion
 
-        #region right trigger stuff
-        if (Input.GetAxisRaw(hold) > 0)
-        {
-            if (dashCooldown == 0 && !rightTrigger)
-            {// & !rightTrigger
-                Dash();
+            #region left trigger stuff
+            if (Input.GetAxisRaw(hold) < 0)
+            {
+                leftTrigger = true;
             }
-            rightTrigger = true;
-        }        
+            else { leftTrigger = false; }
+            #endregion
 
-        //Right trigger
-        if (Input.GetAxisRaw(hold) < 0.1f)
-        {
-            rightTrigger = false;
         }
-        #endregion
-
-        #region left trigger stuff
-        if (Input.GetAxisRaw(hold) < 0)
-        {
-            leftTrigger = true;
-        }
-        else { leftTrigger = false; }
-        #endregion
 
     }
 
@@ -645,6 +650,16 @@ public class CH_Movement2 : MonoBehaviour {
             case State.SwingAttack:
                 break;
         }
+    }
+
+    public void PausePlayer()
+    {
+        playerMovementDisabled = true;
+    }
+
+    public void UnPausePlayer()
+    {
+        playerMovementDisabled = false;
     }
 
 }

@@ -258,7 +258,7 @@ public class CH_SwingAttack : MonoBehaviour
                     {
                         GameManager.inst.TimeFreeze();
                         //objectsInSwingZone[i].GetComponent<B_Behaviour>().WakeBallSwing();
-                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().WakeRigidbody();
+                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().UnPauseRigidbody();
                         objectsInSwingZone[i].GetComponent<B_Behaviour>().HitBall(deflectAngle[selectedDeflectAngle].transform, hitBallStrength);
                         ignoreBall = true;
                     }
@@ -268,13 +268,13 @@ public class CH_SwingAttack : MonoBehaviour
                 {
                     if (objectsInSwingZone[i].GetComponent<Gun_Bullet>().owner != owner)
                     {
-                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().WakeRigidbody();
+                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().UnPauseRigidbody();
                         GameManager.inst.TimeFreeze();
                         objectsInSwingZone[i].GetComponent<Gun_Bullet>().HitByBat(ownerT, hitBallStrength, owner);
                     }
                     else
                     {
-                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().WakeRigidbody();
+                        objectsInSwingZone[i].GetComponent<RigidbodyPause>().UnPauseRigidbody();
                         GameManager.inst.TimeFreeze();
                         objectsInSwingZone[i].GetComponent<Gun_Bullet>().GotHitByOwner(deflectAngle[selectedDeflectAngle].transform, hitBallStrength, owner);
                     }
