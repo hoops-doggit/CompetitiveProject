@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276813, g: 0.21589187, b: 0.29782563, a: 1}
+  m_IndirectSpecularColor: {r: 0.1727681, g: 0.2158921, b: 0.29782575, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -599,17 +599,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 18053413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f642a72ebbc11a4b94cba0fd23af8ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a8bdcf33327daf4d9e6211edd1936cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startText: 'Player 1: '
-  curOption: 0
-  options:
-  - Gamepad
-  - Keyboard
-  commands: []
-  colours: []
-  highlighted: 0
+  startText: menu
+  colours:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 0, b: 0, a: 0}
+  buttonEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: c91f3b19e9d70bd43bffeb0eb2e0ac5f, type: 2}
+        m_MethodName: ReturnToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &18053416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27045,6 +27057,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1478442539}
+  - component: {fileID: 1478442541}
+  - component: {fileID: 1478442540}
   m_Layer: 8
   m_Name: UICanvases
   m_TagString: Untagged
@@ -27069,6 +27083,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1478442540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478442538}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f375be46ece5126419410e360e35a9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStates: 0
+  joy1In: {x: 0, y: 0}
+  joy2In: {x: 0, y: 0}
+  joy3In: {x: 0, y: 0}
+  joy4In: {x: 0, y: 0}
+  arrowIn: {x: 0, y: 0}
+  menuInput: {x: 0, y: 0}
+  menuBuffer: 0
+  inputDelay: 0
+--- !u!114 &1478442541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478442538}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b540f00590f864098c3cec0a52d009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuName: 
+  menuStyles: 1
+  currentPosition: 0
+  menuOptions:
+  - {fileID: 1931214160}
+  - {fileID: 18053415}
+  horizontalScrolling: []
+  confirmButton: 0
+  backButton: 0
+  forwardButton: 0
+  leftButton: 0
+  rightButton: 0
 --- !u!1 &1479333203
 GameObject:
   m_ObjectHideFlags: 0
@@ -33346,7 +33405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -0.000030517578}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1805316618
@@ -35312,17 +35371,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1931214158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f642a72ebbc11a4b94cba0fd23af8ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a8bdcf33327daf4d9e6211edd1936cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startText: 'Player 1: '
-  curOption: 0
-  options:
-  - Gamepad
-  - Keyboard
-  commands: []
-  colours: []
-  highlighted: 0
+  startText: resume
+  colours:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 0, b: 0, a: 0}
+  buttonEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1382664}
+        m_MethodName: TogglePause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1931214161
 MonoBehaviour:
   m_ObjectHideFlags: 0

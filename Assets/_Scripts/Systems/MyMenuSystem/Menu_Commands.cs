@@ -62,6 +62,12 @@ public class Menu_Commands : ScriptableObject
 
     }
 
+    public void ReturnToMenu()
+    {
+        //return to menu scene
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

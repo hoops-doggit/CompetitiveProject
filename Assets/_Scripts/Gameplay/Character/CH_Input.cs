@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CH_Input : MonoBehaviour {
+
+    public InputMethod inputMethod;
     public PlayerNumber playerNumber;
     public bool joystick;
     public string xAxis;
@@ -22,7 +24,7 @@ public class CH_Input : MonoBehaviour {
 
     void Awake ()
     {
-        SetupInput(playerNumber);        
+        SetupInput(playerNumber, inputMethod);        
 	}
 
     private void Start()
@@ -76,63 +78,99 @@ public class CH_Input : MonoBehaviour {
         yInput = stickInput.y;
     }
 
-    private void SetupInput(PlayerNumber pn)
+    private void SetupInput(PlayerNumber pn, InputMethod inm)
     {
-        switch (pn)
+        switch (inm)
         {
-            case PlayerNumber.player1:
-                xAxis = "horizontal1";
-                yAxis = "vertical1";
-                hold = "hold1";
-                brake = "hold1";
-                shootKey = KeyCode.Joystick1Button0;
-                throwKey = KeyCode.Joystick1Button1;
-                swingKey = KeyCode.Joystick1Button2;
-                dashKey = KeyCode.Joystick1Button3;
-                menuKey = KeyCode.Joystick1Button7;
-                owner = "p1";
-                break;
+            case InputMethod.joystick:
+                switch (pn)
+                {
+                    case PlayerNumber.player1:
+                        xAxis = "horizontal1";
+                        yAxis = "vertical1";
+                        hold = "hold1";
+                        brake = "hold1";
+                        shootKey = KeyCode.Joystick1Button0;
+                        throwKey = KeyCode.Joystick1Button1;
+                        swingKey = KeyCode.Joystick1Button2;
+                        dashKey = KeyCode.Joystick1Button3;
+                        menuKey = KeyCode.Joystick1Button7;
+                        owner = "p1";
+                        break;
 
-            case PlayerNumber.player2:
-                xAxis = "horizontal2";
-                yAxis = "vertical2";
-                hold = "hold2";
-                brake = "hold2";
-                shootKey = KeyCode.Joystick2Button0;
-                throwKey = KeyCode.Joystick2Button1;
-                swingKey = KeyCode.Joystick2Button2;
-                dashKey = KeyCode.Joystick2Button3;
-                menuKey = KeyCode.Joystick2Button7;
-                owner = "p2";
-                //swingKey = KeyCode.Space;
-                break;
+                    case PlayerNumber.player2:
+                        xAxis = "horizontal2";
+                        yAxis = "vertical2";
+                        hold = "hold2";
+                        brake = "hold2";
+                        shootKey = KeyCode.Joystick2Button0;
+                        throwKey = KeyCode.Joystick2Button1;
+                        swingKey = KeyCode.Joystick2Button2;
+                        dashKey = KeyCode.Joystick2Button3;
+                        menuKey = KeyCode.Joystick2Button7;
+                        owner = "p2";
+                        //swingKey = KeyCode.Space;
+                        break;
 
-            case PlayerNumber.player3:
-                xAxis = "horizontal3";
-                yAxis = "vertical3";
-                hold = "hold3";
-                brake = "brake3";
-                shootKey = KeyCode.Joystick3Button0;
-                throwKey = KeyCode.Joystick3Button1;
-                swingKey = KeyCode.Joystick3Button2;
-                dashKey = KeyCode.Joystick3Button3;
-                menuKey = KeyCode.Joystick3Button7;
-                owner = "p3";
-                break;
+                    case PlayerNumber.player3:
+                        xAxis = "horizontal3";
+                        yAxis = "vertical3";
+                        hold = "hold3";
+                        brake = "brake3";
+                        shootKey = KeyCode.Joystick3Button0;
+                        throwKey = KeyCode.Joystick3Button1;
+                        swingKey = KeyCode.Joystick3Button2;
+                        dashKey = KeyCode.Joystick3Button3;
+                        menuKey = KeyCode.Joystick3Button7;
+                        owner = "p3";
+                        break;
 
-            case PlayerNumber.player4:
-                xAxis = "horizontal4";
-                yAxis = "vertical4";
-                hold = "hold4";
-                brake = "brake4";
-                shootKey = KeyCode.Joystick4Button0;
-                throwKey = KeyCode.Joystick4Button1;
-                swingKey = KeyCode.Joystick4Button2;
-                dashKey = KeyCode.Joystick4Button3;
-                menuKey = KeyCode.Joystick4Button7;
-                owner = "p4";
+                    case PlayerNumber.player4:
+                        xAxis = "horizontal4";
+                        yAxis = "vertical4";
+                        hold = "hold4";
+                        brake = "brake4";
+                        shootKey = KeyCode.Joystick4Button0;
+                        throwKey = KeyCode.Joystick4Button1;
+                        swingKey = KeyCode.Joystick4Button2;
+                        dashKey = KeyCode.Joystick4Button3;
+                        menuKey = KeyCode.Joystick4Button7;
+                        owner = "p4";
+                        break;
+                }
+                break;
+            case InputMethod.keyboard:
+                switch (pn)
+                {
+                    case PlayerNumber.player1:
+                        xAxis = "horizontal5";
+                        yAxis = "vertical5";
+                        hold = "hold5";
+                        brake = "hold5";
+                        shootKey = KeyCode.Slash;
+                        throwKey = KeyCode.L;
+                        swingKey = KeyCode.Period;
+                        dashKey = KeyCode.Comma;
+                        menuKey = KeyCode.Escape;
+                        owner = "p1";
+                        break;
+
+                    case PlayerNumber.player2:
+                        xAxis = "horizontal6";
+                        yAxis = "vertical6";
+                        hold = "hold1";
+                        brake = "hold1";
+                        shootKey = KeyCode.Joystick1Button0;
+                        throwKey = KeyCode.Joystick1Button1;
+                        swingKey = KeyCode.Joystick1Button2;
+                        dashKey = KeyCode.Joystick1Button3;
+                        menuKey = KeyCode.Escape;
+                        owner = "p2";
+                        break;
+                }
                 break;
         }
+
     }
 
 }

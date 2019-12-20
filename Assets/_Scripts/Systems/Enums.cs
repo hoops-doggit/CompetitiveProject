@@ -16,6 +16,12 @@ public enum PlayerNumber
     player4
 }
 
+public enum InputMethod
+{
+    joystick, 
+    keyboard
+}
+
 public enum BallStates
 {
     sitting,
