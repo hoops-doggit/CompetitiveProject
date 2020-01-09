@@ -13,10 +13,10 @@ public class Menu_Button : Menu_Asset
     [SerializeField] private List<Color> colours = new List<Color>(2);
     public UnityEvent buttonEvent;
 
-    private void Start()
+    private void Awake()
     {
         tmp = GetComponent<TextMeshProUGUI>();
-        tmp.text = startText;
+        startText = tmp.text;
     }
 
     public override void Selected()

@@ -31,13 +31,21 @@ public class Gun_Bullet : MonoBehaviour {
 
     private int SetupMaterial()
     {
-        if(owner == "p1" || owner == "p3")
+        if(owner == "p1")
         {
             return 0;
         }
-        else
+        else if(owner == "p2")
         {
             return 1;
+        }
+        else if(owner == "p3")
+        {
+            return 2;
+        }
+        else
+        {
+            return 3;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RoboRyanTron.SearchableEnum;
 
+[RequireComponent(typeof(Menu_Input))]
 public class Menu_Manager : MonoBehaviour
 {
     public string MenuName;
@@ -12,10 +13,11 @@ public class Menu_Manager : MonoBehaviour
     public List<Menu_Asset> menuOptions;
     public List<Menu_Asset> horizontalScrolling;
     [SearchableEnum] public KeyCode confirmButton, backButton, forwardButton, leftButton, rightButton;
+    public bool menuEnabled;
 
 
     // Update is called once per frame
- 
+
 
     public void NextOption()
     {
@@ -60,7 +62,10 @@ public class Menu_Manager : MonoBehaviour
 
     void Update()
     {
-        menuOptions[currentPosition].Selected();
+        if (menuEnabled)
+        {
+            menuOptions[currentPosition].Selected();
+        }
         //switch (menuStyles)
         //{
         //    case MenuStyles.Vertical:

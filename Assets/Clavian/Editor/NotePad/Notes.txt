@@ -1,0 +1,9 @@
+Project: 1. Getting game up on itch, 2. Polishing Game
+
+Next Action Steps
+
+Player moves through the ball
+Have another look at rotation code
+If keyboard input, on punch, no input == forward
+Not a fan of flashing UI. Change it to lerp maybe.
+check whats causing four player crazyiness

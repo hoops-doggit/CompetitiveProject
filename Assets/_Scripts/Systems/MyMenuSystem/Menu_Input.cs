@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MenuStates { openForInput, runningExecution, transitioningScreen}
-
+public enum MenuStates { waitingForMenu, interactingWithMenu, notListeningForInput, runningExecution, transitioningScreen}
+//[RequireComponent(typeof(Menu_Manager))]
 public class Menu_Input : MonoBehaviour
 {
+    [SerializeField] private string menuName;
     public MenuStates mStates;
 
     //this script should catch all input
@@ -17,8 +18,8 @@ public class Menu_Input : MonoBehaviour
 
     public Vector2 menuInput;
 
-    public float menuBuffer;
-    public float inputDelay;
+    public float menuBuffer = 0;
+    public float inputDelay = 0.21f;
     private Menu_Manager mm;
 
     private void Start()
@@ -35,7 +36,7 @@ public class Menu_Input : MonoBehaviour
 
         switch (mStates)
         {
-            case MenuStates.openForInput:
+            case MenuStates.interactingWithMenu:
 
                 #region gamepad vectors
                 joy1In = new Vector2(Input.GetAxis("horizontal1"), Input.GetAxis("vertical1"));
@@ -105,16 +106,14 @@ public class Menu_Input : MonoBehaviour
                     }
                 }
                 break;
+            case MenuStates.notListeningForInput:
+                break;
         }
         
         
 
 
-
-
     }
-
-
 
 
 }

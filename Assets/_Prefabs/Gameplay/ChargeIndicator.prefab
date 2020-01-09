@@ -91,9 +91,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6ef67c23cad1540a46fa1559dfa271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charging: {fileID: 2100000, guid: 333bd713582d7524283167f9014a3823, type: 2}
+  charging:
+  - {fileID: 2100000, guid: 6e6b72fed2e60174791e744d285c320c, type: 2}
+  - {fileID: 2100000, guid: f79f63d32f4a97649a156f377d0d54ae, type: 2}
+  - {fileID: 2100000, guid: 9217894956fae9c49a456fb37beab052, type: 2}
+  - {fileID: 2100000, guid: ba4dafd6d5f73a6419a44f11f00f938a, type: 2}
   charged:
   - {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
+  - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
+  - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
   - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
 --- !u!95 &387154752
 Animator:

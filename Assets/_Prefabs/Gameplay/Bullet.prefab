@@ -134,6 +134,8 @@ MonoBehaviour:
   bulletMats:
   - {fileID: 2100000, guid: 695a612655255d14b9d9dafcee58643d, type: 2}
   - {fileID: 2100000, guid: b56159dbc7aef804abc68734b6206988, type: 2}
+  - {fileID: 2100000, guid: 4832337834d943b44a1a3eea6335f286, type: 2}
+  - {fileID: 2100000, guid: 0d732beb7fa0eaa40bcf7dd4c2b59c9f, type: 2}
 --- !u!114 &6077694375228183497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +218,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4320447698369656683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

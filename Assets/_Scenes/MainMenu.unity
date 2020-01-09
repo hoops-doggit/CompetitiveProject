@@ -217,11 +217,14 @@ MonoBehaviour:
   - {fileID: 1290407512}
   - {fileID: 0}
   ballClones: []
+  bullets: []
   StartPlayerInitialisation:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  gamePaused: 0
+  ui: {fileID: 0}
 --- !u!114 &1382665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5083,7 +5086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &231247471
 Transform:
   m_ObjectHideFlags: 0
@@ -23988,6 +23991,7 @@ MonoBehaviour:
   forwardButton: 274
   leftButton: 276
   rightButton: 275
+  menuEnabled: 1
 --- !u!114 &1158487684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24000,7 +24004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f375be46ece5126419410e360e35a9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mStates: 0
+  menuName: MainMenu
+  mStates: 1
   joy1In: {x: 0, y: 0}
   joy2In: {x: 0, y: 0}
   joy3In: {x: 0, y: 0}

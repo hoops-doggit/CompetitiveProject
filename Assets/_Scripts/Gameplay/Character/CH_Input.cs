@@ -53,6 +53,7 @@ public class CH_Input : MonoBehaviour {
         {
             if(Input.GetKeyDown(menuKey) || Input.GetKeyDown(KeyCode.Escape))
             {
+                Debug.Log("trying to pause");
                 GM_MatchMaster.instance.TogglePause();
             }
         }

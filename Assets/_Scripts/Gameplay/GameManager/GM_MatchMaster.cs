@@ -12,12 +12,15 @@ public class GM_MatchMaster : MonoBehaviour
     [SerializeField] private GameObject ball;
     [SerializeField] private GameObject centreBlocks;
     [SerializeField] private List<Block_Destructable> destructibleBlocks;
+    [SerializeField] private GameObject teamBounds;
     private GameObject blocksClone;
     public List<GameObject> ballClones = new List<GameObject>();
     public List<GameObject> bullets = new List<GameObject>();
     public UnityEvent StartPlayerInitialisation;
     public bool gamePaused;
-
+    private GM_UI ui;
+    [SerializeField] private UI_MatchStartingText uiMatchText;
+    private GM_ScoreKeeper scoreKeeper;
 
     private void Awake()
     {
@@ -38,6 +41,11 @@ public class GM_MatchMaster : MonoBehaviour
             i.SetActive(false);
         }
 
+        scoreKeeper = GetComponent<GM_ScoreKeeper>();
+        ui = GetComponent<GM_UI>();
+
+
+
         StartPlayerInitialisation.Invoke();
     }
 
@@ -49,35 +57,46 @@ public class GM_MatchMaster : MonoBehaviour
 
     public void ResetRound()
     {
+        //play match starting text;
+        if (scoreKeeper.team1score + scoreKeeper.team2score != 0)
+        {
+            uiMatchText.Goal();
+        }
         SetupPlayField();
+        TurnOnTeamBounds();
 
-        if(ballClones.Count !=0)
+        if (ballClones.Count != 0)
         {
             foreach (GameObject i in ballClones)
             {
                 Destroy(i);
             }
             ballClones.Clear();
-        }        
+        }
 
         SpawnBall();
-     
 
-        foreach(GameObject go in players)
+
+        foreach (GameObject go in players)
         {
             go.GetComponent<CH_RoundReset>().ResetPlayer();
         }
 
-        foreach(Block_Destructable b in destructibleBlocks)
+        foreach (Block_Destructable b in destructibleBlocks)
         {
             b.RegenerateBlock();
         }
 
     }
 
+    public void StartRound()
+    {
+        TurnOffTeamBounds();
+    }
+
     public void SpawnBall()
     {
-        for(int i = 0; i < ballStartPos.Count; i++)
+        for (int i = 0; i < ballStartPos.Count; i++)
         {
             ballClones.Add(Instantiate(ball, ballStartPos[i].transform.position, Quaternion.identity));
             ballClones[i].GetComponent<Collider>().enabled = true;
@@ -86,7 +105,7 @@ public class GM_MatchMaster : MonoBehaviour
 
     public void SetupPlayField()
     {
-        if(blocksClone != null)
+        if (blocksClone != null)
         {
             Destroy(blocksClone);
         }
@@ -95,15 +114,18 @@ public class GM_MatchMaster : MonoBehaviour
 
     public void TogglePause()
     {
+
         if (!gamePaused)
         {
             PauseGame();
             gamePaused = true;
+            Debug.Log("game is paused");
         }
         else
         {
             UnPauseGame();
             gamePaused = false;
+            Debug.Log("game has resumed");
         }
     }
 
@@ -115,7 +137,7 @@ public class GM_MatchMaster : MonoBehaviour
             player.GetComponent<GunControl>().ToggleInputPause();
         }
 
-        foreach(GameObject ball in ballClones)
+        foreach (GameObject ball in ballClones)
         {
             ball.GetComponent<RigidbodyPause>().PauseRigidbody();
         }
@@ -124,6 +146,9 @@ public class GM_MatchMaster : MonoBehaviour
         {
             bullet.GetComponent<RigidbodyPause>().PauseRigidbody();
         }
+
+        ui.PauseMenuStuff();
+        //display the pause menu
     }
 
     public void UnPauseGame()
@@ -134,7 +159,7 @@ public class GM_MatchMaster : MonoBehaviour
             player.GetComponent<GunControl>().ToggleInputPause();
         }
 
-        foreach(GameObject ball in ballClones)
+        foreach (GameObject ball in ballClones)
         {
             ball.GetComponent<RigidbodyPause>().UnPauseRigidbody();
         }
@@ -143,17 +168,19 @@ public class GM_MatchMaster : MonoBehaviour
         {
             bullet.GetComponent<RigidbodyPause>().UnPauseRigidbody();
         }
+
+        ui.ResumeMenuStuff();
+
+        //turn off pause menu
     }
 
     public void TurnOnTeamBounds()
     {
-        //turn on visibility of walls
-        //clamp player movement to within wall bounds
+        teamBounds.SetActive(true);
     }
 
     public void TurnOffTeamBounds()
     {
-        //turn off visibility of walls
-        //turn off clamp player movement 
+        teamBounds.SetActive(false);
     }
 }

@@ -45,4 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 2100000, guid: 042454058a1d1c7408881f31f063ae5f, type: 2}
   gun: {fileID: 2100000, guid: dfd0abc0f43fccc4580d79948dfd5beb, type: 2}
-  bat: {fileID: 2100000, guid: 14e0bae1725f7c54696d14540f13f69c, type: 2}
+  bulletCharging: {fileID: 2100000, guid: ba4dafd6d5f73a6419a44f11f00f938a, type: 2}
+  bulletCharged: {fileID: 2100000, guid: 0d732beb7fa0eaa40bcf7dd4c2b59c9f, type: 2}
+  bat: {fileID: 2100000, guid: 042454058a1d1c7408881f31f063ae5f, type: 2}

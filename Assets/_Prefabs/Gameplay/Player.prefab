@@ -1352,6 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90f499bef583b1478e5546f98c01bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputMethod: 0
   playerNumber: 0
   joystick: 0
   xAxis: 
@@ -1363,6 +1364,7 @@ MonoBehaviour:
   throwKey: 0
   swingKey: 0
   dashKey: 0
+  menuKey: 0
   owner: 
   xInput: 0
   yInput: 0
@@ -1509,6 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firegun: 0
+  gamePaused: 0
   bullet: {fileID: 1865312066927414, guid: 0e26f432110c5cd4d80dd3d2122a7f16, type: 3}
   chargeIndicator: {fileID: 1237491444415750, guid: b51fb301b2a36df4fb73838480258646,
     type: 3}
@@ -1583,6 +1586,7 @@ MonoBehaviour:
   body:
   - {fileID: 23356695621879278}
   - {fileID: 23080004528061816}
+  - {fileID: 1688731746}
   gun:
   - {fileID: 23555553907794434}
   - {fileID: 23840083049968674}

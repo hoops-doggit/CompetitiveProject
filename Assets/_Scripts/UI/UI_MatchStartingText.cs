@@ -23,18 +23,27 @@ public class UI_MatchStartingText : MonoBehaviour
 
     private IEnumerator UpdateText()
     {
-        yield return new WaitForSeconds(4);
-        startGameText.text = "3";
-        yield return new WaitForSeconds(1);
-        startGameText.text = "2";
-        yield return new WaitForSeconds(1);
-        startGameText.text = "1";
-        yield return new WaitForSeconds(1);
-        startGameText.text = "GO!";
         mm.ResetRound();
+        yield return new WaitForSeconds(2.5f);
+        startGameText.text = "3";
+        yield return new WaitForSeconds(0.8f);
+        startGameText.text = "2";
+        yield return new WaitForSeconds(0.8f);
+        startGameText.text = "1";
+        yield return new WaitForSeconds(0.8f);
+        startGameText.text = "GO!";
+        mm.StartRound();
         yield return new WaitForSeconds(0.2f);
         startGameText.text = null;
+        
     }
+
+    private IEnumerator NewRound()
+    {
+        yield return new WaitForSeconds(0.4f);
+    }
+
+
 
     public void EndOfMatch(int team)
     {
@@ -58,14 +67,24 @@ public class UI_MatchStartingText : MonoBehaviour
 
     public IEnumerator EraseText()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(2.5f);
+        startGameText.text = "new round in \n 3";
+        yield return new WaitForSeconds(0.8f);
+        startGameText.text = "new round in 2";
+        yield return new WaitForSeconds(0.8f);
+        startGameText.text = "new round in 1";
+        yield return new WaitForSeconds(0.8f);
+        startGameText.text = "!!GO!!";
+        mm.StartRound();
+        yield return new WaitForSeconds(0.2f);        
         startGameText.text = null;
     }
 
     private IEnumerator RestartGame()
     {
-        yield return new WaitForSeconds(6);
-        SceneManager.LoadScene(0);
+        yield return new WaitForSeconds(10);
+
+        SceneManager.LoadScene(1);
     }
 
 
