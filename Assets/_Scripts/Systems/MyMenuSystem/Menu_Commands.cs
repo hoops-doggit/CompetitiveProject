@@ -30,7 +30,7 @@ public class Menu_Commands : ScriptableObject
                 break;
             case Players.Four:
                 Debug.Log("Load 4 player game");
-                SceneManager.LoadScene("GunnerSoccer4P");
+                SceneManager.LoadScene(2);
                 break;
         }        
     }

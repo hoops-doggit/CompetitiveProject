@@ -102,7 +102,6 @@ public class Gun_Bullet : MonoBehaviour {
 
     public void HitBall(GameObject ball)
     {
-        Debug.Log("Running hit ball");
         ball.GetComponent<B_Behaviour>().Bullet(new Vector2(rb.velocity.x, rb.velocity.z));
         DestroyBullet();
     }

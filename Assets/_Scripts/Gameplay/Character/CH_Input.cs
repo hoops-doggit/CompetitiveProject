@@ -17,6 +17,7 @@ public class CH_Input : MonoBehaviour {
     public KeyCode swingKey;
     public KeyCode dashKey;
     public KeyCode menuKey;
+    public KeyCode aimKey;
     public string owner;
     private float deadzone = 0.1f;
     public float xInput, yInput;
@@ -153,6 +154,7 @@ public class CH_Input : MonoBehaviour {
                         swingKey = KeyCode.Period;
                         dashKey = KeyCode.Comma;
                         menuKey = KeyCode.Escape;
+                        aimKey = KeyCode.M;
                         owner = "p1";
                         break;
 
@@ -161,12 +163,41 @@ public class CH_Input : MonoBehaviour {
                         yAxis = "vertical6";
                         hold = "hold1";
                         brake = "hold1";
-                        shootKey = KeyCode.Joystick1Button0;
-                        throwKey = KeyCode.Joystick1Button1;
-                        swingKey = KeyCode.Joystick1Button2;
-                        dashKey = KeyCode.Joystick1Button3;
+                        shootKey = KeyCode.Slash;
+                        throwKey = KeyCode.L;
+                        swingKey = KeyCode.Period;
+                        dashKey = KeyCode.Comma;
                         menuKey = KeyCode.Escape;
+                        aimKey = KeyCode.M;
                         owner = "p2";
+                        break;
+
+                    case PlayerNumber.player3:
+                        xAxis = "horizontal6";
+                        yAxis = "vertical6";
+                        hold = "hold1";
+                        brake = "hold1";
+                        shootKey = KeyCode.Slash;
+                        throwKey = KeyCode.L;
+                        swingKey = KeyCode.Period;
+                        dashKey = KeyCode.Comma;
+                        menuKey = KeyCode.Escape;
+                        aimKey = KeyCode.M;
+                        owner = "p3";
+                        break;
+
+                    case PlayerNumber.player4:
+                        xAxis = "horizontal6";
+                        yAxis = "vertical6";
+                        hold = "hold1";
+                        brake = "hold1";
+                        shootKey = KeyCode.Slash;
+                        throwKey = KeyCode.L;
+                        swingKey = KeyCode.Period;
+                        dashKey = KeyCode.Comma;
+                        menuKey = KeyCode.Escape;
+                        aimKey = KeyCode.M;
+                        owner = "p4";
                         break;
                 }
                 break;

@@ -38,7 +38,7 @@ public class CH_Movement2 : MonoBehaviour {
     [SerializeField] private List<float> clampValues = new List<float>(4);
     [SerializeField] private List<CH_Trails> trails = new List<CH_Trails>(2);
     private string xAxis, yAxis, throwButton, hold, brake;
-    private KeyCode dashKey;
+    private KeyCode dashKey, aimKey;
     [SerializeField] Gun_Lazer gunLazer;
 
 
@@ -53,7 +53,8 @@ public class CH_Movement2 : MonoBehaviour {
         yAxis = chi.yAxis;
         hold = chi.hold;
         brake = chi.brake;
-        dashKey = chi.dashKey;       
+        dashKey = chi.dashKey;
+        aimKey = chi.aimKey;
 	}
 
     void FixedUpdate()
@@ -171,30 +172,62 @@ public class CH_Movement2 : MonoBehaviour {
             }
             #endregion
 
-            #region right trigger stuff
-            if (Input.GetAxisRaw(hold) > 0)
+            switch (chi.inputMethod)
             {
-                if (dashCooldown == 0 && !rightTrigger)
-                {// & !rightTrigger
-                    Dash();
-                }
-                rightTrigger = true;
+                case InputMethod.joystick:
+                    #region right trigger stuff
+                    if (Input.GetAxisRaw(hold) > 0)
+                    {
+                        if (dashCooldown == 0 && !rightTrigger)
+                        {// & !rightTrigger
+                            Dash();
+                        }
+                        rightTrigger = true;
+                    }
+
+                    //Right trigger
+                    if (Input.GetAxisRaw(hold) < 0.1f)
+                    {
+                        rightTrigger = false;
+                    }
+                    #endregion
+
+                    #region left trigger stuff
+                    if (Input.GetAxisRaw(hold) < 0)
+                    {
+                        leftTrigger = true;
+                    }
+                    else { leftTrigger = false; }
+                    #endregion
+                    break;
+                case InputMethod.keyboard:
+                    #region keyboard dash and aim
+                    if (Input.GetKey(dashKey))
+                    {
+                        if (dashCooldown == 0)
+                        {// & !rightTrigger
+                            Dash();
+                        }
+                        rightTrigger = true;
+                    }
+                    else
+                    {
+                        rightTrigger = false;
+                    }
+                    if (Input.GetKey(aimKey))
+                    {
+                        leftTrigger = true;
+                    }
+                    else
+                    {
+                        leftTrigger = false;
+                    }
+                    #endregion
+                    break;
             }
 
-            //Right trigger
-            if (Input.GetAxisRaw(hold) < 0.1f)
-            {
-                rightTrigger = false;
-            }
-            #endregion
 
-            #region left trigger stuff
-            if (Input.GetAxisRaw(hold) < 0)
-            {
-                leftTrigger = true;
-            }
-            else { leftTrigger = false; }
-            #endregion
+            
 
         }
 

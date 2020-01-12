@@ -169,15 +169,15 @@ InputManager:
     m_Name: vertical5
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: up
-    positiveButton: down
+    negativeButton: down
+    positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
     dead: 0.2
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 0
     axis: 1
     joyNum: 4
@@ -193,7 +193,7 @@ InputManager:
     dead: 0.2
     sensitivity: 1
     snap: 1
-    invert: 1
+    invert: 0
     type: 0
     axis: 1
     joyNum: 4

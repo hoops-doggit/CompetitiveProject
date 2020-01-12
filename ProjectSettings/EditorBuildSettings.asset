@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/_Scenes/GunnerSoccer2P.unity
     guid: 7704505f22cdad34299ce09ac73a893f
   - enabled: 1
-    path: Assets/_Scenes/GunnerSoccer4P.unity
-    guid: 651d36e13aed7f645acdba103c8aaa7a
+    path: Assets/_Scenes/GunnerSoccer4p 2.unity
+    guid: 03033aede162f8f4a9f794553d3cf01c
   m_configObjects: {}

@@ -10,6 +10,7 @@ public class GM_UI : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Menu_Manager menuManager;
     [SerializeField] private Menu_Input menuInput;
+    public bool fpsTextBool = false;
     public Text fpsText;
 
     float deltaTime = 0.0f;
@@ -31,7 +32,17 @@ public class GM_UI : MonoBehaviour
     {
         float msec = deltaTime * 1000.0f;
         float fps = 1.0f / deltaTime;
-        fpsText.text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps).ToString();
+        if (fpsTextBool)
+        {
+            if (fpsText.gameObject.activeSelf == true)
+            {
+                fpsText.text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps).ToString();
+            }
+        }
+        if (!fpsTextBool)
+        {
+            fpsText.gameObject.SetActive(false);
+        }
     }
 
     public void PauseMenuStuff()

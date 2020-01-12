@@ -34,6 +34,7 @@ public class GunType_ChargedShotBehaviour : Gun {
         {
             if (cloneBullet == null)
             {
+                
                 cloneBullet = GameObject.Instantiate(chargeIndicatorBullet);
                 cloneBullet.transform.position = bulletSpawnPos.position;
                 cloneBullet.transform.SetParent(bulletSpawnPos);
@@ -56,6 +57,7 @@ public class GunType_ChargedShotBehaviour : Gun {
             Shoot(bullet, bulletSpawnPos, owner, ownerT);
         }
         GameObject.Destroy(cloneBullet);
+        cloneBullet = null;
 
         base.TriggerRelease();
     }

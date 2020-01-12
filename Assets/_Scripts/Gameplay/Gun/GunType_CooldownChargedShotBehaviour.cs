@@ -40,10 +40,12 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
 
             if (cloneBullet == null)
             {
-                cloneBullet = GameObject.Instantiate(chargeIndicatorBullet);
+                cloneBullet = GameObject.Instantiate(chargeIndicatorBullet, bulletSpawnPos, true);
+                cloneBullet.GetComponent<Gun_ChargingBullet>().pn = owner;
                 cloneBullet.transform.position = chargeIndicatorPos.position;
-                cloneBullet.transform.SetParent(bulletSpawnPos);
                 cloneBullet.transform.localScale = Vector3.zero;
+                cloneBullet.transform.SetParent(bulletSpawnPos);
+                
             }
             else if (cloneBullet != null && cloneBullet.transform.localScale.x < bullet.transform.localScale.x)
             {
@@ -73,6 +75,7 @@ public class GunType_CooldownChargedShotBehaviour : Gun {
         {
             Shoot(bullet, bulletSpawnPos, owner, ownerT);
             GameObject.Destroy(cloneBullet);
+            cloneBullet = null;
             currentTime = cooldownTime;
         }
     }
