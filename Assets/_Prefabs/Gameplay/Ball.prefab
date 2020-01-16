@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -4019700343472109532}
   - component: {fileID: 1483030851695152892}
   - component: {fileID: 7444372478252359363}
+  - component: {fileID: 5930040924852971244}
   m_Layer: 13
   m_Name: Ball
   m_TagString: ball
@@ -105,7 +106,7 @@ Rigidbody:
   m_GameObject: {fileID: 1470256393434294}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.1
+  m_Drag: 0.2
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -235,7 +236,7 @@ MonoBehaviour:
   dropForce: 1200
   dropUpForce: 800
   dashDropForce: 5
-  bulletForce: 50
+  bulletForce: 15
   free: 1
   heldBy: {fileID: 0}
   magnitude: 0
@@ -259,3 +260,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
   angularVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &5930040924852971244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470256393434294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ba7b39e483da9488c94d2b40b45fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayDebugMagnitude: 1
+  tmpObject: {fileID: 0}
+  tmpComp: {fileID: 0}
+  textSize: 15

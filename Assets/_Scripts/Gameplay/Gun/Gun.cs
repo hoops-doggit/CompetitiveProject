@@ -56,7 +56,23 @@ public abstract class Gun {
         }
         ownerT.GetComponentInParent<CH_Movement2>().MoveYouJustShot(b.transform.forward);
 
-        b.layer = LayerMask.NameToLayer(owner);
+
+        switch (owner)
+        {
+            case "p1":
+                b.layer = LayerMask.NameToLayer("p1bulletHull");
+                break;
+            case "p2":
+                b.layer = LayerMask.NameToLayer("p2bulletHull");
+                break;
+            case "p3":
+                b.layer = LayerMask.NameToLayer("p3bulletHull");
+                break;
+            case "p4":
+                b.layer = LayerMask.NameToLayer("p4bulletHull");
+                break;
+        }
+        
         //b.transform.LookAt(target);
     }
 

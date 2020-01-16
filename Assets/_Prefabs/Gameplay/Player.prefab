@@ -1458,14 +1458,14 @@ MonoBehaviour:
   midAccSpeed: 1.03
   decSpeed: 0.005
   minRotationSpeed: 20
-  minAimRotSpeed: 30
+  minAimRotSpeed: 40
   minInputVector: 25
   ballCarryAcc: 1.01
   ballCarryMaxSpeed: 0.09
   dashSpeed: 0.55
   dashDecSpeed: 0.02
   swingDashDecSpeed: 0
-  dashCooldownTime: 0.5
+  dashCooldownTime: 1
   dashCooldown: 0
   bulletStunMovement: 0.4
   batStunMovement: 0.5

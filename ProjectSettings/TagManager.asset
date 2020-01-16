@@ -32,13 +32,13 @@ TagManager:
   - pAny
   - p1bulletTrigger
   - teamBounds
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - p1bulletHull
+  - p2bulletHull
+  - p3bulletHull
+  - p4bulletHull
+  - p2bulletTrigger
+  - p3bulletTrigger
+  - p4bulletTrigger
   - 
   - 
   m_SortingLayers:

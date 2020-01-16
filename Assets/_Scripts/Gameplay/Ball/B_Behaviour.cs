@@ -95,15 +95,17 @@ public class B_Behaviour : MonoBehaviour
 
         Vector2 testVector = new AngleMath().Vector2BetweenTwoVectors(ballV2, bulletV2);
 
-        if(testVector.magnitude > 2)
+        if (rb.velocity.magnitude > 1)
         {
             Debug.Log("ball velocity propper");
-            rb.AddForce(new Vector3(testVector.x, 0, testVector.y).normalized * bulletForce, ForceMode.VelocityChange);
+            rb.AddForce(new Vector3(testVector.x, 0, testVector.y).normalized * (bulletForce + (rb.velocity.magnitude / 4)), ForceMode.VelocityChange);
+            rb.velocity = new Vector3(testVector.x, 0, testVector.y).normalized * (bulletForce + (rb.velocity.magnitude / 4));
         }
         else
         {
             Debug.Log("ball velocity else");
-            rb.AddForce(new Vector3(bulletV2.x, 0, bulletV2.y).normalized * bulletForce, ForceMode.VelocityChange);
+            //rb.AddForce(new Vector3(bulletV2.x, 0, bulletV2.y).normalized * bulletForce, ForceMode.VelocityChange);
+            rb.velocity = (new Vector3(bulletV2.x, 0, bulletV2.y).normalized * bulletForce);
         }
         
     }

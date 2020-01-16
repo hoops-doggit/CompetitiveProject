@@ -85,7 +85,11 @@ public class Gun_Bullet : MonoBehaviour {
 
         if(go.tag != "ball")
         {
-            if (deflectNumber <= 1)
+            if(go.tag == "player")
+            {
+                DestroyBullet();
+            }
+            else if (deflectNumber <= 1)
             {
             }
             else

@@ -30,7 +30,7 @@ public class CH_Movement2 : MonoBehaviour {
     private Vector3 currentPos;
     private Vector3 newPos;
 
-    private float xRemainder, yRemainder, magnitude;
+    private float xRemainder, yRemainder, magnitude, previousMagnitude;
     public Vector2 rawInputVector, inputDirection, stunDirection, shotDirection, dashDirection, previousInputVector;
     private CH_Collisions chCol;
     private CH_BallInteractions chball;
@@ -617,8 +617,11 @@ public class CH_Movement2 : MonoBehaviour {
 
     void HeadDirection2(Vector2 rawInput)
     {
+        float inputMag = rawInput.magnitude;
+
         if (rawInput.magnitude > 0.005)
-        {            
+        {   
+
             float x = rawInput.x;
             float y = rawInput.y;
             Vector3 relPos = Quaternion.AngleAxis(Mathf.Atan2(x, -y * -1f) * Mathf.Rad2Deg, transform.up) * Vector3.forward;
@@ -627,13 +630,16 @@ public class CH_Movement2 : MonoBehaviour {
             //Debug.Log(difference);
             if (!gunLazer.fireLazer)
             {
-                Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minRotationSpeed);
+                Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.fixedDeltaTime * minRotationSpeed);
                 head.rotation = tr;
+                previousMagnitude = inputMag;                
+                
             }
             else
             {
-                Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.deltaTime * minAimRotSpeed);
+                Quaternion tr = Quaternion.Slerp(head.rotation, rotation, Time.fixedDeltaTime * minAimRotSpeed);
                 head.rotation = tr;
+                previousMagnitude = 0;
             }
         }
     }
